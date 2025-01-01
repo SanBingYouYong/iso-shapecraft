@@ -1,0 +1,7 @@
+components:
+  - name: chair seat
+    description: A flat, rectangular shape that serves as the main sitting area of the chair. It should be slightly thicker in the middle to provide comfort and have rounded corners for safety and aesthetics.
+  - name: chair legs
+    description: Four cylindrical shapes that extend downward from each corner of the chair seat. Each leg should be of equal length and provide stability; they can be slightly tapered towards the bottom for a modern look.
+  - name: backrest
+    description: An upright, rectangular shape that connects to the rear of the chair seat. It should be taller than the seat and have a slight incline for ergonomic support. The edges can be rounded to match the style of the seat.
