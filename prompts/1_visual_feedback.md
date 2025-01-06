@@ -6,8 +6,8 @@
 3. Suggestions for refining the corresponding code snippet.
 
 **Output Format:** 
-- Consistency: [Yes/No]
 - Issues: [Detailed description of any issues]
+- Consistency: [Yes/No based on issues identified]
 - Suggestions: [Improvement suggestions if any]
 
 # Shape Description
