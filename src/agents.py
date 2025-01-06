@@ -1,4 +1,4 @@
-from chat import llm_request
+from chat import llm_request, vlm_request
 from prompt import read_markdown_prompts
 from constants import TaskType
 
@@ -35,10 +35,21 @@ def component_synth(shape_description: str):
     _save_output(TaskType.COMP_SYNTH, response)
     return prompt, response
 
+# TODO: may need multi-view rendering (e.g. front, side, top) for consistent feedback
+def visual_feedback(shape_description: str, image_path: str):
+    '''
+    Prompt + shape description + image
+    '''
+    ins = prompts[TaskType.VIS_FEEDBACK.value]
+    prompt = ins + shape_description
+    response = vlm_request(prompt, image_path)
+    _save_output(TaskType.VIS_FEEDBACK, response)
+    return prompt, response
+
 
 if __name__ == "__main__":
     shape_description = "An upright, rectangular shape that connects to the rear of the chair seat. It should be taller than the seat and have a slight incline for ergonomic support. The edges can be rounded to match the style of the seat."
-    prompt, response = component_synth(shape_description)
+    prompt, response = visual_feedback(shape_description, "test.png")
     print(prompt)
     print(response)
 

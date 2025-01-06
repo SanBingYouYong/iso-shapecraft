@@ -1,14 +1,13 @@
-## Visual Feedback Prompt
+# Visual Feedback Instruction
 
-**Rendered Output:** [Image or visual data of rendered 3D component]  
-**Sub-task Prompt:** {sub_task_prompt}
-
-**Objective:** Analyze the rendered output against the sub-task prompt and provide feedback on:
+**Objective:** Given a rendered image of a 3D shape, analyze it against the target shape description and provide feedback on:
 1. Consistency between the visual output and the sub-task intent.
 2. Specific discrepancies or areas for improvement.
 3. Suggestions for refining the corresponding code snippet.
 
 **Output Format:** 
 - Consistency: [Yes/No]
-- Issues: [Detailed description of issues]
-- Suggestions: [Improvement suggestions]
+- Issues: [Detailed description of any issues]
+- Suggestions: [Improvement suggestions if any]
+
+# Shape Description
