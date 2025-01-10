@@ -7,6 +7,9 @@ component synthesis -> visual feedback (makes decision too)
     -> component improvement agent
 remove: component judgement agent
 
+Updated pipeline vs old: 
+![alt text](comp_synth_old_vs_new.png)
+
 example visual feedback agent output:
 ```markdown
 # Visual Feedback Instruction
