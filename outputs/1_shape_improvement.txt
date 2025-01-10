@@ -1,0 +1,56 @@
+```python
+import bpy
+import bmesh
+from math import radians
+
+def create_backrest():
+    # Define dimensions
+    width = 0.5
+    depth = 0.1
+    height = 0.8  # Make the backrest taller than the seat
+    incline_angle = 15  # degrees
+
+    # Create a new mesh
+    mesh = bpy.data.meshes.new("Backrest")
+    obj = bpy.data.objects.new("Backrest", mesh)
+
+    # Link the object to the scene
+    bpy.context.collection.objects.link(obj)
+
+    # Create a bmesh for the backrest
+    bm = bmesh.new()
+
+    # Create vertices for the rectangular backrest with incline
+    v1 = bm.verts.new((-width / 2, -depth / 2, 0))
+    v2 = bm.verts.new((width / 2, -depth / 2, 0))
+    v3 = bm.verts.new((width / 2, depth / 2, 0))
+    v4 = bm.verts.new((-width / 2, depth / 2, 0))
+
+    # Calculate incline height adjustment
+    incline_height = height * (1 - (incline_angle / 90.0))
+    v5 = bm.verts.new((-width / 2, -depth / 2, height))
+    v6 = bm.verts.new((width / 2, -depth / 2, height))
+    v7 = bm.verts.new((width / 2, depth / 2, incline_height))
+    v8 = bm.verts.new((-width / 2, depth / 2, incline_height))
+
+    # Create faces
+    bm.faces.new((v1, v2, v6, v5))
+    bm.faces.new((v2, v3, v7, v6))
+    bm.faces.new((v3, v4, v8, v7))
+    bm.faces.new((v4, v1, v5, v8))
+    bm.faces.new((v5, v6, v7, v8))
+
+    # Round edges (bevel)
+    bmesh.ops.bevel(bm, geom=bm.verts[:], offset=0.05)
+
+    # Finish the mesh
+    bm.to_mesh(mesh)
+    bm.free()
+
+    # Set origin to the bottom of the backrest for better alignment with the seat
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.origin_set(type='ORIGIN_BOTTOM', center='MEDIAN')
+
+# Call the function to create the backrest
+create_backrest()
+```
