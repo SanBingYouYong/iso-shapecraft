@@ -1,11 +1,12 @@
-## Code-Level Aggregator Prompt
+# Code-Level Aggregation Instruction
 
-**Initial Aggregated Program:** {initial aggregated program code}
-
-**Objective**: Refine the initial aggregated program by:
-- Ensuring compatibility and logical cohesion between code snippets.
-- Optimizing syntax and functionality for seamless integration.
-- Confirming the program's correctness through testing and validation.
+**Objective**: Based on high level aggregation instructions, integrate the provided code snippets into a complete, functional shape program. The final program should:
+1. Ensure syntactical correctness and compatibility between snippets.
+2. Optimize the logic for seamless integration of components.
+3. Maintain consistency with the high-level instructions and the intended design.
+4. Produce a 3D model that matches the overall shape description when executed.
 
 **Output Format**:
-- Final Shape Program: <final program code>
+[code for the whole shape program (provide code only)]
+
+# Instruction and sub-component code snippets

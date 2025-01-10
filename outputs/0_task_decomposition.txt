@@ -1,7 +1,9 @@
 components:
-  - name: chair seat
-    description: A flat, rectangular shape that serves as the main sitting area of the chair. It should be slightly thicker in the middle to provide comfort and have rounded corners for safety and aesthetics.
-  - name: chair legs
-    description: Four cylindrical shapes that extend downward from each corner of the chair seat. Each leg should be of equal length and provide stability; they can be slightly tapered towards the bottom for a modern look.
-  - name: backrest
-    description: An upright, rectangular shape that connects to the rear of the chair seat. It should be taller than the seat and have a slight incline for ergonomic support. The edges can be rounded to match the style of the seat.
+  - name: Backrest Base
+    description: A tall, rectangular prism that extends vertically from the rear edge of the chair seat. It should have a height greater than that of the seat and a width that matches or slightly exceeds the width of the seat for stability. The edges should be rounded to create a softer aesthetic, and the base should be slightly thicker at the bottom for structural integrity.
+
+  - name: Inclined Backrest Surface
+    description: A slanted surface that forms the main ergonomic area of the backrest. This surface should have an angle of inclination that promotes comfort and support, typically around 10 to 15 degrees from vertical. The top edge should have a smooth curve that transitions into the rounded edges of the backrest base, ensuring a cohesive look that complements the seat.
+
+  - name: Rounded Edge Trims
+    description: These are thin, rounded strips that run along the edges of both the backrest base and the inclined backrest surface. They should be seamlessly integrated into the design to soften the overall appearance. The trims should be uniform in thickness, providing a consistent outline that enhances the ergonomic shape while maintaining a modern aesthetic.

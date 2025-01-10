@@ -1,4 +1,3 @@
-```python
 import bpy
 import bmesh
 
@@ -48,4 +47,3 @@ def create_rounded_edge_trims(thickness=0.05, length=2.0, width=0.1, radius=0.02
 
 # Call the function to create the rounded edge trims
 create_rounded_edge_trims()
-```

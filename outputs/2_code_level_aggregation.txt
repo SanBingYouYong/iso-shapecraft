@@ -1,0 +1,163 @@
+```python
+import bpy
+import bmesh
+from math import radians
+
+def create_backrest_base(seat_width, seat_height):
+    # Define dimensions
+    backrest_width = seat_width * 1.05  # slightly wider for stability
+    backrest_height = seat_height * 1.2  # taller than the seat
+    backrest_thickness = 0.05  # thickness of the backrest
+    rounded_radius = 0.1  # radius for rounded edges
+
+    # Create a new mesh and object
+    mesh = bpy.data.meshes.new("BackrestBaseMesh")
+    obj = bpy.data.objects.new("BackrestBase", mesh)
+
+    # Link object to the scene
+    bpy.context.collection.objects.link(obj)
+
+    # Create a bmesh for geometry manipulation
+    bm = bmesh.new()
+
+    # Create a rectangular prism with rounded edges
+    base_verts = [
+        (-backrest_width / 2, -backrest_thickness / 2, 0),
+        (backrest_width / 2, -backrest_thickness / 2, 0),
+        (backrest_width / 2, backrest_thickness / 2, 0),
+        (-backrest_width / 2, backrest_thickness / 2, 0),
+        (-backrest_width / 2, -backrest_thickness / 2, backrest_height),
+        (backrest_width / 2, -backrest_thickness / 2, backrest_height),
+        (backrest_width / 2, backrest_thickness / 2, backrest_height),
+        (-backrest_width / 2, backrest_thickness / 2, backrest_height),
+    ]
+
+    # Create faces for the rectangular prism
+    base_faces = [
+        (0, 1, 2, 3),  # bottom
+        (4, 5, 6, 7),  # top
+        (0, 1, 5, 4),  # front
+        (1, 2, 6, 5),  # right
+        (2, 3, 7, 6),  # back
+        (3, 0, 4, 7)   # left
+    ]
+
+    for v in base_verts:
+        bm.verts.new(v)
+
+    bm.verts.ensure_lookup_table()
+    
+    for f in base_faces:
+        bm.faces.new([bm.verts[i] for i in f])
+
+    # Create a rounded edge effect
+    bmesh.ops.bevel(bm, geom=bm.verts[:], offset=rounded_radius)
+
+    # Finalize the mesh
+    bm.to_mesh(mesh)
+    bm.free()
+
+    # Set the object's location
+    obj.location = (0, 0, seat_height)
+
+def create_inclined_backrest_surface(seat_width, seat_height):
+    # Create a new mesh and object
+    mesh = bpy.data.meshes.new("InclinedBackrest")
+    obj = bpy.data.objects.new("InclinedBackrest", mesh)
+    
+    # Link the object to the scene
+    bpy.context.collection.objects.link(obj)
+    
+    # Create a bmesh to define the geometry
+    bm = bmesh.new()
+
+    # Define vertices for the backrest surface
+    bottom_width = seat_width * 1.05
+    height = seat_height * 0.8
+    incline_angle = radians(12.5)  # Average of 10 to 15 degrees
+    top_width = bottom_width * 0.8  # Slightly narrower at the top for ergonomic curve
+
+    v1 = bm.verts.new((0, 0, 0))
+    v2 = bm.verts.new((bottom_width, 0, 0))
+    v3 = bm.verts.new((top_width, 0, height * 0.5))
+    v4 = bm.verts.new((0, 0, height))
+    v5 = bm.verts.new((bottom_width, 0, height))
+    
+    # Create the faces of the backrest
+    bm.faces.new((v1, v2, v5, v4))  # Back face
+    bm.faces.new((v4, v5, v3, v2))  # Top face
+    bm.faces.new((v1, v4, v3, v2))  # Side face
+
+    # Smooth the top edge
+    for v in (v3, v4):
+        v.co.z += 0.2 * (1 - (v.co.x / bottom_width))  # Create a smooth curve upwards
+
+    # Finalize the mesh
+    bm.to_mesh(mesh)
+    bm.free()
+    
+    # Set shading to smooth
+    bpy.ops.object.shade_smooth()
+
+    # Position the inclined backrest surface on top of the base
+    obj.location = (0, 0, seat_height + (seat_height * 1.2))
+
+def create_rounded_edge_trims():
+    # Create a new mesh and object for the trim
+    mesh = bpy.data.meshes.new("RoundedEdgeTrim")
+    obj = bpy.data.objects.new("RoundedEdgeTrim", mesh)
+
+    # Link the object to the current collection
+    bpy.context.collection.objects.link(obj)
+
+    # Create a bmesh for the trim geometry
+    bm = bmesh.new()
+
+    # Define the vertices for the rounded edge trim
+    thickness = 0.05
+    length = 2.0
+    width = 0.1
+    radius = 0.02
+    
+    verts = [
+        bm.verts.new((-length / 2, -width / 2, 0)),
+        bm.verts.new((length / 2, -width / 2, 0)),
+        bm.verts.new((length / 2, width / 2, 0)),
+        bm.verts.new((-length / 2, width / 2, 0)),
+    ]
+
+    # Create faces for the base rectangle
+    bm.faces.new(verts)
+
+    # Add the thickness to create the volume
+    for v in verts:
+        v.co.z += thickness
+
+    # Create the top face
+    bm.faces.new(verts)
+
+    # Create rounded edges by using bevel
+    bmesh.ops.bevel(bm, geom=bm.verts[:], offset=radius, segments=10)
+
+    # Finish the mesh and update
+    bm.to_mesh(mesh)
+    bm.free()
+
+    # Set the object's location and rotation if needed
+    obj.location = (0, 0, 0)
+    obj.rotation_euler = (0, 0, 0)
+
+    # Set the shading to smooth
+    for face in mesh.polygons:
+        face.use_smooth = True
+
+# Clear existing mesh objects
+bpy.ops.object.select_all(action='DESELECT')
+bpy.ops.object.select_by_type(type='MESH')
+bpy.ops.object.delete()
+
+# Create the chair backrest components
+create_backrest_base(seat_width=0.5, seat_height=0.4)
+create_inclined_backrest_surface(seat_width=0.5, seat_height=0.4)
+create_rounded_edge_trims()
+```
