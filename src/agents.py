@@ -1,9 +1,11 @@
 from chat import llm_request, vlm_request
 from prompt import read_markdown_prompts
 from constants import TaskType
+from file_utils import _save_output, _read_as_yaml, _parse_as_yaml
 
 import yaml
 import os
+from typing import List, Dict, Tuple, Optional
 from pprint import pprint
 
 prompts = read_markdown_prompts()
@@ -11,22 +13,9 @@ with open(os.path.join(os.path.dirname(__file__), 'config.yaml'), 'r') as file:
     config = yaml.safe_load(file)
 config_str = f"coding language: {config['coding_language']}\nshape engine: {config['shape_engine']}\n"
 
-def _save_output(task_type: TaskType, response: str) -> None:
-    with open(f"outputs/{task_type.value}.txt", "w") as file:
-        file.write(response)
-
-def _read_as_yaml(file_path: str) -> dict:
-    '''
-    Reads a plain text file as a yaml file.
-
-    Error handling: let it crash.
-    '''
-    with open(file_path, 'r') as file:
-        return yaml.safe_load(file)
-
 def _extract_python_code(response: str) -> str:
     '''
-    Extracts the python code from ```python\n<code>\n```.
+    Extracts the python code from ```python\n<code>\n``` as str.
     '''
     lines = response.split('\n')
     if lines[0] == "```python" and lines[-1] == "```":
@@ -43,18 +32,24 @@ def _extract_python_code(response: str) -> str:
     return '\n'.join(code_lines)
     
 
-def _clean_feedback(feedback: str) -> str:
-    '''
-    Removes the decision line on consistency from the feedback.
-    '''
-    lines = feedback.split('\n')
-    end_with_decision = lambda line: line.endswith("Yes") or line.endswith("No") or line.endswith("yes") or line.endswith("no")
-    consistency_line = lambda line: "Consistency" in line and end_with_decision(line)
-    cleaned_lines = [line for line in lines if line.strip() and not consistency_line(line)]
-    return '\n'.join(cleaned_lines)
+# def _clean_feedback(feedback: str) -> str:
+#     '''
+#     Removes the decision line on consistency from the feedback.
+#     '''
+#     lines = feedback.split('\n')
+#     end_with_decision = lambda line: line.endswith("Yes") or line.endswith("No") or line.endswith("yes") or line.endswith("no")
+#     consistency_line = lambda line: "Consistency" in line and end_with_decision(line)
+#     cleaned_lines = [line for line in lines if line.strip() and not consistency_line(line)]
+#     return '\n'.join(cleaned_lines)
 
-def _format_improvement_info(description: str, code: str, feedback: str) -> str:
-    return f"\nSub-component Shape Description: {description}\n\nExisting Code Snippet: \n{code}\n\nVisual Feedback:\n{_clean_feedback(feedback)}\n"
+def _format_issues(issues: List[Dict[str, str]]) -> str:
+    formatted_str = ""
+    for issue in issues:
+        formatted_str += f"  - description: {issue['description']}\n    suggestion: {issue['suggestion']}\n\n"
+    return formatted_str
+
+def _format_improvement_info(description: str, code: str, feedback: List[Dict[str, str]]) -> str:
+    return f"\nSub-component Shape Description: {description}\n\nExisting Code Snippet: \n{code}\n\nVisual Feedback:\n{_format_issues(feedback)}\n"
 
 def _format_components(components: list) -> str:
     '''
@@ -91,20 +86,23 @@ def _format_code_snippets(code_snippets: dict) -> str:
 
 ### AGENTS ###
 
-def task_decomp(user_input: str) -> str:
+def task_decomp(shape_description: str) -> str:
     '''
     Prompt + user-input shape description
     '''
     ins = prompts[TaskType.TASK_DECOMP.value]
-    prompt = ins + user_input
+    prompt = ins + shape_description
     response = llm_request(prompt)  # this output should be in yaml format
-    _save_output(TaskType.TASK_DECOMP, response)
-    return prompt, response
+    _save_output(TaskType.TASK_DECOMP, response)  # TODO: for each experiment run, save all the prompts using and the outputs
+    components = _read_as_yaml("outputs/0_task_decomposition.txt")["components"]
+    return components
 
-# UNTESTED
-def components_wrapper(components: list) -> dict:
+# UNTESTED & Deprecated
+def components_prototype(components: List[Dict[str, str]]) -> Dict[str, str]:
     '''
     tracks each component, call component synthesis and save python codes.
+
+    To be replaced by individual pipelines.
     '''
     # component_responses = {}
     code_snippets = {}
@@ -116,6 +114,7 @@ def components_wrapper(components: list) -> dict:
         with open(f"outputs/_{component['name']}.py", "w") as file:
             file.write(python_code)
     return code_snippets
+# TESTED
     # component_responses = {}
     # for component in components:
     #     prompt, response = component_synth(component['name'], component['description'])
@@ -128,6 +127,55 @@ def components_wrapper(components: list) -> dict:
     #         file.write(python_code)
     # return code_snippets
 
+def synthesize_components(components: List[Dict]) -> Dict[str, str]:
+    '''
+    call pipeline for all components
+    '''
+    comps = {}
+    for component in components:
+        results = individual_component_pipeline(component)
+        if results["success"]:
+            comps[component["name"]] = results["code"]
+        else:
+            print(f"Component synthesis failed for {component['name']}.")
+            print(results["feedback"])
+            comps[component["name"]] = "pass"  # should we abort now directly?
+    return comps
+
+# TODO: automatic rendering pipeline with Blender or OpenSCAD
+def _execute_and_render(code: str, output_path: str):
+    '''
+    Execute the code in Blender and render the output.
+
+    Returns image path or read image?
+
+    Catch any bugs during execution and rendering. 
+    '''
+    pass
+
+def individual_component_pipeline(component: Dict[str, str]) -> Dict[str, bool | str]:
+    '''
+    Pipeline for individual component synthesis: comp synth -> [vis feedback -> shape improvement]
+    
+    Returns dict:
+        - "success": bool
+        - "code": str
+        - "feedback": str or ""
+    '''
+    done = False
+    max_attempt = 3
+    attempt = 0
+    # initial attempt
+    code = component_synth(component["name"], component["description"])
+    while not done and attempt < max_attempt:
+        image = _execute_and_render(code, f"outputs/_{component['name']}.png")
+        feedback = visual_feedback(component["description"], f"outputs/_{component['name']}.png")
+        if feedback["consistent"]:
+            done = True
+        else:
+            code = shape_improvement(component["description"], code, feedback["issues"])
+    return {"success": done, "code": code, "feedback": "max attempt reached"}
+    
 def component_synth(name: str, description: str):
     '''
     Prompt + config (coding language + shape engine) + shape description
@@ -136,28 +184,43 @@ def component_synth(name: str, description: str):
     prompt = ins + config_str + f"\nname: {name}\ndescription: {description}\n"
     response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
     _save_output(TaskType.COMP_SYNTH, response)
-    return prompt, response
+    pycode = _extract_python_code(response)
+    return pycode
 
-# TODO: may need multi-view rendering (e.g. front, side, top) for consistent feedback
-def visual_feedback(shape_description: str, image_path: str):
+def visual_feedback(shape_description: str, image_path: str) -> dict:
     '''
     Prompt + shape description + image
+    TODO: may need multi-view rendering (e.g. front, side, top) for consistent feedback
+
+    Returns dict: issues(list of dict), consistent(bool)
+        issues: 
+        - description: [issue description]
+          suggestion: [suggestion to correct or improve]
+        - ...
+        consistenct: [true/false based on the significance of identified issues]
     '''
     ins = prompts[TaskType.VIS_FEEDBACK.value]
     prompt = ins + shape_description
     response = vlm_request(prompt, image_path)  # this output should be in yaml format
     _save_output(TaskType.VIS_FEEDBACK, response)
-    return prompt, response
+    feedback = _parse_as_yaml(response)["feedback"]
+    return feedback
 
-def shape_improvement(shape_description: str, original_code: str, feedback: str):
+def shape_improvement(shape_description: str, original_code: str, feedback: List[Dict[str, str]]):
     '''
     Prompt + shape description + original code + feedback
+
+    feedback: issues {description:suggestion}
     '''
     ins = prompts[TaskType.SHAPE_IMPROVEMENT.value]
     prompt = ins + _format_improvement_info(shape_description, original_code, feedback)
     response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
     _save_output(TaskType.SHAPE_IMPROVEMENT, response)
-    return prompt, response
+    pycode = _extract_python_code(response)
+    return pycode
+
+
+# TODO0111: format resst
 
 def high_level_aggregation(user_input: str, components: str):
     '''
