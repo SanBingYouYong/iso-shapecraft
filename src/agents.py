@@ -51,7 +51,7 @@ def _format_issues(issues: List[Dict[str, str]]) -> str:
 def _format_improvement_info(description: str, code: str, feedback: List[Dict[str, str]]) -> str:
     return f"\nSub-component Shape Description: {description}\n\nExisting Code Snippet: \n{code}\n\nVisual Feedback:\n{_format_issues(feedback)}\n"
 
-def _format_components(components: list) -> str:
+def _format_components(components: List[Dict[str, str]]) -> str:
     '''
     Formats the components dictionary into a string.
     '''
@@ -59,9 +59,6 @@ def _format_components(components: list) -> str:
     for component in components:
         formatted_str += f"  - component: {component['name']}\n  - description: {component['description']}\n\n"
     return formatted_str
-
-def _format_high_level_aggregation(user_input: str, components: list) -> str:
-    return f"\nUser Prompt: {user_input}\n\nSub-components:\n{_format_components(components)}\n"
 
 def _gather_code_snippets(folder: str="outputs") -> dict:
     '''
@@ -75,7 +72,7 @@ def _gather_code_snippets(folder: str="outputs") -> dict:
                 code_snippets[cleaned_filename] = file.read()
     return code_snippets
 
-def _format_code_snippets(code_snippets: dict) -> str:
+def _format_code_snippets(code_snippets: Dict[str, str]) -> str:
     '''
     Formats the code snippets dictionary into a string.
     '''
@@ -176,6 +173,7 @@ def individual_component_pipeline(component: Dict[str, str]) -> Dict[str, bool |
             code = shape_improvement(component["description"], code, feedback["issues"])
     return {"success": done, "code": code, "feedback": "max attempt reached"}
     
+# TODO: adding a new agent to convert this output to procedural models? 
 def component_synth(name: str, description: str):
     '''
     Prompt + config (coding language + shape engine) + shape description
@@ -219,28 +217,32 @@ def shape_improvement(shape_description: str, original_code: str, feedback: List
     pycode = _extract_python_code(response)
     return pycode
 
-
-# TODO0111: format resst
-
-def high_level_aggregation(user_input: str, components: str):
+# TODO: maybe we can combine this task into decomposition agent? or is it the same thing just longer context
+def high_level_aggregation(user_input: str, components: List[Dict[str, str]]):
     '''
-    Prompt + user-input + components
+    Prompt + user-input + components (name and descriptions)
+    
+    Returns as str, high-level instructions for code aggregation.
     '''
     ins = prompts[TaskType.HIGH_AGGRE.value]
-    prompt = ins + _format_high_level_aggregation(user_input, components)
+    prompt = ins + f"\nUser Prompt: {user_input}\n\nSub-components:\n{_format_components(components)}\n"
     response = llm_request(prompt)  # this output should be in plain text
     _save_output(TaskType.HIGH_AGGRE, response)
-    return prompt, response
+    return response
 
-def code_level_aggregation(high_level_instruct: str, code_snippets: dict):
+# TODO: this can be on putting mesh together directly, like scenecraft with new assets
+def code_level_aggregation(high_level_instruct: str, code_snippets: Dict[str, str]):
     '''
-    Prompt + high-level instructions + code snippets
+    Prompt + high-level instructions + code snippets {component name: code}
+    
+    returns python code in str.
     '''
     ins = prompts[TaskType.CODE_AGGRE.value]
-    prompt = ins + f"\nHigh-level Instructions: {high_level_instruct}\n\nCode Snippets:\n{_format_code_snippets(code_snippets)}\n"
+    prompt = ins + f"\nHigh-level Aggregation Instructions: {high_level_instruct}\n\nCode Snippets:\n{_format_code_snippets(code_snippets)}\n"
     response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
     _save_output(TaskType.CODE_AGGRE, response)
-    return prompt, response
+    pycode = _extract_python_code(response)
+    return pycode
 
 if __name__ == "__main__":
     shape_description = "An upright, rectangular shape that connects to the rear of the chair seat. It should be taller than the seat and have a slight incline for ergonomic support. The edges can be rounded to match the style of the seat."
