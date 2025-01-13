@@ -1,12 +1,13 @@
 from chat import llm_request, vlm_request
 from prompt import read_markdown_prompts
 from constants import TaskType
-from file_utils import _save_output, _read_as_yaml, _parse_as_yaml
+from file_utils import save_output, read_as_yaml, parse_as_yaml, log_output_to_exp
 
 import yaml
 import os
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict
 from pprint import pprint
+import time
 
 prompts = read_markdown_prompts()
 with open(os.path.join(os.path.dirname(__file__), 'config.yaml'), 'r') as file:
@@ -31,17 +32,6 @@ def _extract_python_code(response: str) -> str:
             code_lines.append(line)
     return '\n'.join(code_lines)
     
-
-# def _clean_feedback(feedback: str) -> str:
-#     '''
-#     Removes the decision line on consistency from the feedback.
-#     '''
-#     lines = feedback.split('\n')
-#     end_with_decision = lambda line: line.endswith("Yes") or line.endswith("No") or line.endswith("yes") or line.endswith("no")
-#     consistency_line = lambda line: "Consistency" in line and end_with_decision(line)
-#     cleaned_lines = [line for line in lines if line.strip() and not consistency_line(line)]
-#     return '\n'.join(cleaned_lines)
-
 def _format_issues(issues: List[Dict[str, str]]) -> str:
     formatted_str = ""
     for issue in issues:
@@ -81,18 +71,35 @@ def _format_code_snippets(code_snippets: Dict[str, str]) -> str:
         formatted_str += f"Component: {component}\n```python{code_snippets[component]}```\n\n"
     return formatted_str
 
+def experiment_logger(exp_id: str=None):
+    '''
+    Decorator to log the experiment id and task type.
+    '''
+    exp_id = exp_id if exp_id else time.strftime("%m%d-%H%M%S")
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            log_output_to_exp(agents_rev[func.__name__], result, exp_id)
+            return result
+        return wrapper
+    return decorator
+
 ### AGENTS ###
 
-def task_decomp(shape_description: str) -> str:
+@experiment_logger()
+def task_decomp(shape_description: str) -> List[Dict[str, str]]:
     '''
     Prompt + user-input shape description
     '''
-    ins = prompts[TaskType.TASK_DECOMP.value]
+    ins = prompts[TaskType.TASK_DECOMP.value["name"]]
     prompt = ins + shape_description
     response = llm_request(prompt)  # this output should be in yaml format
-    _save_output(TaskType.TASK_DECOMP, response)  # TODO: for each experiment run, save all the prompts using and the outputs
-    components = _read_as_yaml("outputs/0_task_decomposition.txt")["components"]
-    return components
+    components = parse_as_yaml(response)["components"]
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": components
+    }
 
 # UNTESTED & Deprecated
 def components_prototype(components: List[Dict[str, str]]) -> Dict[str, str]:
@@ -163,8 +170,8 @@ def individual_component_pipeline(component: Dict[str, str]) -> Dict[str, bool |
     max_attempt = 3
     attempt = 0
     # initial attempt
-    code = component_synth(component["name"], component["description"])
-    while not done and attempt < max_attempt:
+    code = component_synth(component["name"], component["description"])["parsed"]
+    while not done and attempt < max_attempt:  # TODO: maybe we use vertical logging for individual tasks and combined log for joint tasks
         image = _execute_and_render(code, f"outputs/_{component['name']}.png")
         feedback = visual_feedback(component["description"], f"outputs/_{component['name']}.png")
         if feedback["consistent"]:
@@ -174,17 +181,22 @@ def individual_component_pipeline(component: Dict[str, str]) -> Dict[str, bool |
     return {"success": done, "code": code, "feedback": "max attempt reached"}
     
 # TODO: adding a new agent to convert this output to procedural models? 
+@experiment_logger()
 def component_synth(name: str, description: str):
     '''
     Prompt + config (coding language + shape engine) + shape description
     '''
-    ins = prompts[TaskType.COMP_SYNTH.value]
+    ins = prompts[TaskType.COMP_SYNTH.value['name']]
     prompt = ins + config_str + f"\nname: {name}\ndescription: {description}\n"
     response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
-    _save_output(TaskType.COMP_SYNTH, response)
     pycode = _extract_python_code(response)
-    return pycode
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": pycode
+    }
 
+@experiment_logger()
 def visual_feedback(shape_description: str, image_path: str) -> dict:
     '''
     Prompt + shape description + image
@@ -200,10 +212,14 @@ def visual_feedback(shape_description: str, image_path: str) -> dict:
     ins = prompts[TaskType.VIS_FEEDBACK.value]
     prompt = ins + shape_description
     response = vlm_request(prompt, image_path)  # this output should be in yaml format
-    _save_output(TaskType.VIS_FEEDBACK, response)
-    feedback = _parse_as_yaml(response)["feedback"]
-    return feedback
+    feedback = parse_as_yaml(response)["feedback"]
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": feedback
+    }
 
+@experiment_logger()
 def shape_improvement(shape_description: str, original_code: str, feedback: List[Dict[str, str]]):
     '''
     Prompt + shape description + original code + feedback
@@ -213,11 +229,15 @@ def shape_improvement(shape_description: str, original_code: str, feedback: List
     ins = prompts[TaskType.SHAPE_IMPROVEMENT.value]
     prompt = ins + _format_improvement_info(shape_description, original_code, feedback)
     response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
-    _save_output(TaskType.SHAPE_IMPROVEMENT, response)
     pycode = _extract_python_code(response)
-    return pycode
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": pycode
+    }
 
 # TODO: maybe we can combine this task into decomposition agent? or is it the same thing just longer context
+@experiment_logger()
 def high_level_aggregation(user_input: str, components: List[Dict[str, str]]):
     '''
     Prompt + user-input + components (name and descriptions)
@@ -227,10 +247,14 @@ def high_level_aggregation(user_input: str, components: List[Dict[str, str]]):
     ins = prompts[TaskType.HIGH_AGGRE.value]
     prompt = ins + f"\nUser Prompt: {user_input}\n\nSub-components:\n{_format_components(components)}\n"
     response = llm_request(prompt)  # this output should be in plain text
-    _save_output(TaskType.HIGH_AGGRE, response)
-    return response
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": response
+    }
 
 # TODO: this can be on putting mesh together directly, like scenecraft with new assets
+@experiment_logger()
 def code_level_aggregation(high_level_instruct: str, code_snippets: Dict[str, str]):
     '''
     Prompt + high-level instructions + code snippets {component name: code}
@@ -240,21 +264,44 @@ def code_level_aggregation(high_level_instruct: str, code_snippets: Dict[str, st
     ins = prompts[TaskType.CODE_AGGRE.value]
     prompt = ins + f"\nHigh-level Aggregation Instructions: {high_level_instruct}\n\nCode Snippets:\n{_format_code_snippets(code_snippets)}\n"
     response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
-    _save_output(TaskType.CODE_AGGRE, response)
     pycode = _extract_python_code(response)
-    return pycode
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": pycode
+    }
+
+agents = {
+    TaskType.TASK_DECOMP: task_decomp,
+    TaskType.COMP_SYNTH: component_synth,
+    TaskType.VIS_FEEDBACK: visual_feedback,
+    TaskType.SHAPE_IMPROVEMENT: shape_improvement,
+    TaskType.HIGH_AGGRE: high_level_aggregation,
+    TaskType.CODE_AGGRE: code_level_aggregation
+}
+agents_rev = {
+    "task_decomp": TaskType.TASK_DECOMP,
+    "component_synth": TaskType.COMP_SYNTH,
+    "visual_feedback": TaskType.VIS_FEEDBACK,
+    "shape_improvement": TaskType.SHAPE_IMPROVEMENT,
+    "high_level_aggregation": TaskType.HIGH_AGGRE,
+    "code_level_aggregation": TaskType.CODE_AGGRE
+}
 
 if __name__ == "__main__":
     shape_description = "An upright, rectangular shape that connects to the rear of the chair seat. It should be taller than the seat and have a slight incline for ergonomic support. The edges can be rounded to match the style of the seat."
+    components = task_decomp(shape_description)["parsed"]
+    test_comp = components[0]
+    pycode = component_synth(test_comp["name"], test_comp["description"])["parsed"]
     # prompt, response = task_decomp(shape_description)
-    components = _read_as_yaml("outputs/0_task_decomposition.txt")["components"]
-    # code_snippets = components_wrapper(components['components'])
-    code_snippets = _gather_code_snippets()
-    high_level_prompt, high_level_response = high_level_aggregation(shape_description, components)
-    code_level_prompt, code_level_response = code_level_aggregation(high_level_response, code_snippets)
-    # to be integrated into wrapper like comps wrapper
-    final_python = _extract_python_code(high_level_response)
-    with open("outputs/_final_python.py", "w") as file:
-        file.write(final_python)
-    print(code_level_response)
+    # components = read_as_yaml("outputs/0_task_decomposition.txt")["components"]
+    # # code_snippets = components_wrapper(components['components'])
+    # code_snippets = _gather_code_snippets()
+    # high_level_prompt, high_level_response = high_level_aggregation(shape_description, components)
+    # code_level_prompt, code_level_response = code_level_aggregation(high_level_response, code_snippets)
+    # # to be integrated into wrapper like comps wrapper
+    # final_python = _extract_python_code(high_level_response)
+    # with open("outputs/_final_python.py", "w") as file:
+    #     file.write(final_python)
+    # print(code_level_response)
 

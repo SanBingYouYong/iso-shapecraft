@@ -1,0 +1,19 @@
+- description: A tall, upright rectangular prism that serves as the backrest of the
+    chair. The dimensions should be larger than the seat, providing support to the
+    user. The backrest should have a slight inclination, angling backward from the
+    top to the bottom, to enhance ergonomic comfort. The edges of the rectangular
+    prism should be smoothly rounded to create a cohesive style with the seat.
+  name: Rectangular Backrest
+- description: A set of rounded fillets applied to all four vertical edges of the
+    rectangular backrest. The rounding should be subtle yet pronounced enough to soften
+    the overall appearance of the backrest. The radius of the roundness should be
+    consistent, matching the curvature style of the chair seat, ensuring a seamless
+    transition between the two components.
+  name: Rounded Edges
+- description: A structural element that connects the backrest to the rear of the
+    chair seat. This bracket should have a flat, rectangular shape with a slight taper
+    toward the top to provide a secure attachment point. The bracket should be designed
+    to fit snugly against the backrest and seat, allowing for a stable and sturdy
+    connection. The edges of the bracket can also be rounded to maintain stylistic
+    consistency with the backrest and seat.
+  name: Connection Bracket

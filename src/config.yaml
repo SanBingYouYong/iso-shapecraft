@@ -1,4 +1,9 @@
-# Python | OpenSCAD
+# Variables
+### Python | OpenSCAD
 coding_language: "Python"
-# Blender | OpenSCAD
+### Blender | OpenSCAD
 shape_engine: "Blender"
+
+# Task-specific definitions
+output_format:
+  - ""

@@ -1,0 +1,15 @@
+- description: A tall, rectangular panel that is slightly inclined backward for ergonomic
+    support. The height of the backrest should be greater than that of the chair seat.
+    The edges of the backrest should be smoothly rounded to create a cohesive design
+    with the seat.
+  name: Backrest
+- description: A narrow, rectangular support structure that connects the bottom of
+    the backrest to the rear of the chair seat. It should have a slight taper towards
+    the base to create a seamless transition between the backrest and the seat, ensuring
+    stability and aesthetic alignment.
+  name: Connecting Bracket
+- description: A horizontal rectangular base that provides stability for the backrest.
+    This component should be slightly wider than the backrest itself and positioned
+    at the level where the backrest meets the seat. The edges can also be rounded
+    to complement the overall design.
+  name: Base Support
