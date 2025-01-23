@@ -1,27 +1,71 @@
 import subprocess
+import time
+from tqdm import tqdm
+import os
+import sys
+import signal
 
 
 '''
 Script to call Blender and execute some python script. 
 '''
 
-# Path to the Blender executable
+# Params
 blender_executable = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\blender.exe"
 
-# Path to the Blender script you want to execute
 blender_script = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\src\\auto_render.py"
-# output_path = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\outputs\\test.png"
-# obj_filepath = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapenetcore_select\\02747177\\1d3a7ed6ff0dfc9e63b2acb037dfbcde\\models\\model_normalized.obj"
-# obj_dataset = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapenetcore_select"
+render_blend_file = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\shapenet_render.blend"
+
 obj_dataset = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapenet_test"
 output_folder = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\outputs"
 
-# Path to the blank blend file
-# blank_blend_file = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\blank42.blend"
-render_blend_file = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\shapenet_render.blend"
-
-# Command to call Blender and execute the script with the blank blend file
+# Command to call Blender and execute the script
 command = [blender_executable, "-b", render_blend_file, "-P", blender_script, "--", obj_dataset, output_folder]
 
-# Execute the command
-subprocess.run(command)
+log_file = f"./logs/renderlog_{time.strftime('%Y%m%d-%H%M%S')}.log"
+
+# Start timer
+start_time = time.time()
+
+# Count the number of images to render
+total_images = 0
+for root, dirs, files in os.walk(obj_dataset):
+    for file in files:
+        if file.endswith(".obj"):
+            total_images += 1
+
+pbar = tqdm(total=total_images, desc="Rendering", unit="image")
+
+# Handler for termination signals
+def signal_handler(sig, frame):
+    print("Terminating process...")
+    process.terminate()
+    sys.exit(0)
+
+# Register signal handler
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
+
+# Execute the command and capture output
+with open(log_file, "w") as f:
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+    for line in process.stdout:
+        # Check if the line matches the saved pattern
+        if line.startswith("Saved:"):
+            # Update progress bar
+            pbar.update(1)
+        if not line.startswith("Fra"):
+            # Write the output to the log file
+            f.write(line)
+        # Check if the process has terminated
+        if process.poll() is not None:
+            break
+
+# Close progress bar
+pbar.close()
+
+# Calculate elapsed time
+elapsed_time = time.time() - start_time
+
+print(f"Elapsed time: {elapsed_time:.2f} seconds")
+print(f"Log file saved as: {log_file}")

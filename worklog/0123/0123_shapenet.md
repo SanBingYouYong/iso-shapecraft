@@ -1,0 +1,1 @@
+trying to render 10*50 images from shapenet core (huggingface manual access) to benchmark decomposition and generation.
