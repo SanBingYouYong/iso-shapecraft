@@ -17,3 +17,9 @@ class TaskType(Enum):
     HIGH_AGGRE = "2_high_level_aggregation"
     CODE_AGGRE = "2_code_level_aggregation"
     FUNC_EXTRA = "3_function_extraction"
+    # Experiments:
+    EXP_FULL_TASK = {
+        "name": "exp_full_task",
+        "in": "txt",
+        "out": "py"
+    }

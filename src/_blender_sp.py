@@ -13,10 +13,11 @@ Script to call Blender and execute some python script.
 # Params
 blender_executable = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\blender.exe"
 
-blender_script = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\src\\auto_render.py"
+blender_script = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\src\\_shapenet_render.py"
 render_blend_file = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\shapenet_render.blend"
 
-obj_dataset = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapenet_test"
+# obj_dataset = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapenet_test"
+obj_dataset = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapenetcore_select"
 output_folder = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\outputs"
 
 # Command to call Blender and execute the script

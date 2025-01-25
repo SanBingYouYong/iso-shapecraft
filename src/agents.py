@@ -87,6 +87,21 @@ def experiment_logger(exp_id: str=None):
 ### AGENTS ###
 
 @experiment_logger()
+def exp_full_task(shape_description: str) -> Dict[str, str]:
+    '''
+    Experiment: zero-shot, one-run, full shape program generation based on text prompt. 
+    '''
+    isn = prompts[TaskType.EXP_FULL_TASK.value["name"]]
+    prompt = isn + config_str + shape_description
+    response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
+    pycode = _extract_python_code(response)
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": pycode
+    }
+
+@experiment_logger()
 def task_decomp(shape_description: str) -> List[Dict[str, str]]:
     '''
     Prompt + user-input shape description
@@ -285,14 +300,19 @@ agents_rev = {
     "visual_feedback": TaskType.VIS_FEEDBACK,
     "shape_improvement": TaskType.SHAPE_IMPROVEMENT,
     "high_level_aggregation": TaskType.HIGH_AGGRE,
-    "code_level_aggregation": TaskType.CODE_AGGRE
+    "code_level_aggregation": TaskType.CODE_AGGRE,
+    "exp_full_task": TaskType.EXP_FULL_TASK
 }
 
 if __name__ == "__main__":
-    shape_description = "An upright, rectangular shape that connects to the rear of the chair seat. It should be taller than the seat and have a slight incline for ergonomic support. The edges can be rounded to match the style of the seat."
-    components = task_decomp(shape_description)["parsed"]
-    test_comp = components[0]
-    pycode = component_synth(test_comp["name"], test_comp["description"])["parsed"]
+    # shape_description = "An upright, rectangular shape that connects to the rear of the chair seat. It should be taller than the seat and have a slight incline for ergonomic support. The edges can be rounded to match the style of the seat."
+    shape_description = "A chair with four legs, a seat, and a backrest. The legs should be sturdy and slightly angled outwards for stability. The seat should be flat and comfortable, and the backrest should be slightly curved to provide ergonomic support."
+    pycode = exp_full_task(shape_description)["parsed"]
+    
+    # components = task_decomp(shape_description)["parsed"]
+    # test_comp = components[0]
+    # pycode = component_synth(test_comp["name"], test_comp["description"])["parsed"]
+    
     # prompt, response = task_decomp(shape_description)
     # components = read_as_yaml("outputs/0_task_decomposition.txt")["components"]
     # # code_snippets = components_wrapper(components['components'])
