@@ -1,0 +1,11 @@
+shapes:
+  - "A tall, hexagonal prism with a base edge length of 5 units and a height of 15 units. Its edges are sharp, and its surfaces are smooth."
+  - "A torus with a minor radius of 3 units and a major radius of 10 units, twisted along its central axis by 45 degrees."
+  - "Three concentric spheres with radii of 2, 4, and 6 units, each having a matte finish and slightly different colors."
+  - "A square-based pyramid with a base length of 8 units, a height of 12 units, and a flat top at 9 units."
+  - "A cube with an edge length of 10 units, featuring beveled edges with a bevel radius of 1 unit."
+  - "A cylinder with an outer radius of 7 units, a wall thickness of 1 unit, and a height of 20 units."
+  - "A cone with a base radius of 5 units and a height of 12 units, featuring a spiraling groove along its surface."
+  - "Two identical cubes with edge lengths of 6 units intersecting each other at a 45-degree angle."
+  - "A rectangular plane measuring 20x15 units, undulating with a sine wave of amplitude 2 units and a wavelength of 5 units."
+  - "A prism with a star-shaped base of 8 points, a radius of 6 units, and a height of 10 units."

@@ -71,16 +71,20 @@ def _format_code_snippets(code_snippets: Dict[str, str]) -> str:
         formatted_str += f"Component: {component}\n```python{code_snippets[component]}```\n\n"
     return formatted_str
 
-def experiment_logger(exp_id: str=None):
+def experiment_logger():
     '''
     Decorator to log the experiment id and task type.
     '''
-    exp_id = exp_id if exp_id else time.strftime("%m%d-%H%M%S")
     def decorator(func):
         def wrapper(*args, **kwargs):
+            exp_id = time.strftime("%m%d-%H%M%S")
             result = func(*args, **kwargs)
             log_output_to_exp(agents_rev[func.__name__], result, exp_id)
-            return result
+            return {
+                "exp_id": exp_id,
+                "task_type": agents_rev[func.__name__],
+                "result": result
+            }
         return wrapper
     return decorator
 

@@ -1,0 +1,34 @@
+{
+    "messages": [
+        {
+            "role": "user",
+            "content": "# Shape Program Generation Instruction\n\n**Objective:** Given the user prompt describing a 3D shape, enerate a code snippet in the target programming language to produce the shape described. The generated code should:\n1. Align with the component description.\n2. Be syntactically correct, functional, can be executed stand-alone or be called as a method. \n3. Produce a 3D representation consistent with the intended design.\n\n**Output Format:** \n[code snippet (provide code only)]\n\nUse the following code structure:\n```python\nimport bpy\n\ndef your_function(<any parameters>):\n    <your code>\n\nyour_function(<parameters>)\n\n```\n\n# Shape Description\ncoding language: Python\nshape engine: Blender\nA tall, hexagonal prism with a base edge length of 5 units and a height of 15 units. Its edges are sharp, and its surfaces are smooth."
+        },
+        {
+            "role": "assistant",
+            "content": "```python\nimport bpy\nimport bmesh\nfrom math import radians\n\ndef create_hexagonal_prism(edge_length=5, height=15):\n    # Create a new mesh\n    mesh = bpy.data.meshes.new(\"HexagonalPrism\")\n    obj = bpy.data.objects.new(\"HexagonalPrism\", mesh)\n    \n    # Link the object to the scene\n    bpy.context.collection.objects.link(obj)\n    \n    # Create a bmesh for the hexagonal prism\n    bm = bmesh.new()\n    \n    # Calculate the vertices of the hexagon\n    vertices = []\n    for i in range(6):\n        angle = radians(60 * i)\n        x = edge_length * cos(angle)\n        y = edge_length * sin(angle)\n        vertices.append((x, y, 0))  # Base vertices\n        vertices.append((x, y, height))  # Top vertices\n\n    # Create the vertices in the bmesh\n    verts = [bm.verts.new(v) for v in vertices]\n    bm.verts.ensure_lookup_table()\n    \n    # Create faces for the base and top\n    bm.faces.new(verts[:6])  # Base face\n    bm.faces.new(verts[6:])  # Top face\n    \n    # Create side faces\n    for i in range(6):\n        bm.faces.new((verts[i], verts[(i + 1) % 6], verts[(i + 1) % 6 + 6], verts[i + 6]))\n    \n    # Finish the bmesh and update the mesh\n    bm.to_mesh(mesh)\n    bm.free()\n    \n    # Set shading to smooth\n    bpy.ops.object.shade_smooth()\n    \ncreate_hexagonal_prism()\n```"
+        }
+    ]
+}{
+    "messages": [
+        {
+            "role": "user",
+            "content": "# Shape Program Generation Instruction\n\n**Objective:** Given the user prompt describing a 3D shape, enerate a code snippet in the target programming language to produce the shape described. The generated code should:\n1. Align with the component description.\n2. Be syntactically correct, functional, can be executed stand-alone or be called as a method. \n3. Produce a 3D representation consistent with the intended design.\n\n**Output Format:** \n[code snippet (provide code only)]\n\nUse the following code structure:\n```python\nimport bpy\n\ndef your_function(<any parameters>):\n    <your code>\n\nyour_function(<parameters>)\n\n```\n\n# Shape Description\ncoding language: Python\nshape engine: Blender\nA torus with a minor radius of 3 units and a major radius of 10 units, twisted along its central axis by 45 degrees."
+        },
+        {
+            "role": "assistant",
+            "content": "```python\nimport bpy\nimport math\n\ndef create_twisted_torus(major_radius, minor_radius, twist_angle):\n    # Create a torus\n    bpy.ops.mesh.primitive_torus_add(major_radius=major_radius, minor_radius=minor_radius, location=(0, 0, 0))\n    torus = bpy.context.object\n\n    # Apply the twist\n    bpy.ops.object.select_all(action='DESELECT')\n    torus.select_set(True)\n    bpy.context.view_layer.objects.active = torus\n    bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)\n    \n    # Rotate the torus around the Z axis to create the twist\n    torus.rotation_euler[2] += math.radians(twist_angle)\n\n# Create a torus with specified parameters\ncreate_twisted_torus(major_radius=10, minor_radius=3, twist_angle=45)\n```"
+        }
+    ]
+}{
+    "messages": [
+        {
+            "role": "user",
+            "content": "# Shape Program Generation Instruction\n\n**Objective:** Given the user prompt describing a 3D shape, enerate a code snippet in the target programming language to produce the shape described. The generated code should:\n1. Align with the component description.\n2. Be syntactically correct, functional, can be executed stand-alone or be called as a method. \n3. Produce a 3D representation consistent with the intended design.\n\n**Output Format:** \n[code snippet (provide code only)]\n\nUse the following code structure:\n```python\nimport bpy\n\ndef your_function(<any parameters>):\n    <your code>\n\nyour_function(<parameters>)\n\n```\n\n# Shape Description\ncoding language: Python\nshape engine: Blender\nThree concentric spheres with radii of 2, 4, and 6 units, each having a matte finish and slightly different colors."
+        },
+        {
+            "role": "assistant",
+            "content": "```python\nimport bpy\n\ndef create_concentric_spheres():\n    radii = [2, 4, 6]\n    colors = [(1, 0, 0, 1), (0, 1, 0, 1), (0, 0, 1, 1)]  # Red, Green, Blue\n\n    for i, radius in enumerate(radii):\n        # Create a new sphere\n        bpy.ops.mesh.primitive_uv_sphere_add(radius=radius, location=(0, 0, 0))\n        sphere = bpy.context.object\n        \n        # Create a new material\n        material = bpy.data.materials.new(name=f\"Material_{i}\")\n        material.use_nodes = True\n        bsdf = material.node_tree.nodes.get(\"Principled BSDF\")\n        bsdf.inputs['Base Color'].default_value = colors[i]  # Set color\n        bsdf.inputs['Roughness'].default_value = 0.8  # Matte finish\n        \n        # Assign the material to the sphere\n        if sphere.data.materials:\n            sphere.data.materials[0] = material\n        else:\n            sphere.data.materials.append(material)\n\ncreate_concentric_spheres()\n```"
+        }
+    ]
+}
