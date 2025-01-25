@@ -6,5 +6,3 @@ shape net deviates.
 zero shot one run gpt40mini
 ![alt text](image.png)
 
-25: messy execute-and-export then render
-![alt text](image-1.png)
