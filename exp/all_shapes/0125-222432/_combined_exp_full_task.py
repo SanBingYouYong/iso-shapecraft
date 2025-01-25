@@ -1,47 +1,21 @@
 import bpy
+import math
 
-def create_chair():
-    # Clear existing mesh objects
-    bpy.ops.object.select_all(action='DESELECT')
-    bpy.ops.object.select_by_type(type='MESH')
-    bpy.ops.object.delete()
-
-    # Create chair legs
-    leg_height = 1.0
-    leg_radius = 0.05
-    leg_offset = 0.4
+def create_twisted_torus(major_radius, minor_radius, twist_angle):
+    # Create a torus
+    bpy.ops.mesh.primitive_torus_add(major_radius=major_radius, minor_radius=minor_radius, 
+                                      location=(0, 0, 0), rotation=(0, 0, 0))
+    torus = bpy.context.object
     
-    for x in [-leg_offset, leg_offset]:
-        for y in [-leg_offset, leg_offset]:
-            bpy.ops.mesh.primitive_cylinder_add(radius=leg_radius, depth=leg_height, location=(x, y, leg_height / 2))
-    
-    # Create seat
-    seat_width = 0.8
-    seat_depth = 0.8
-    seat_height = 0.1
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, leg_height + seat_height / 2))
-    seat = bpy.context.object
-    seat.scale = (seat_width / 2, seat_depth / 2, seat_height / 2)
+    # Apply a twist along the Z axis
+    for vertex in torus.data.vertices:
+        angle = twist_angle * (vertex.co.z / (2 * math.pi * major_radius))
+        x = vertex.co.x * math.cos(angle) - vertex.co.y * math.sin(angle)
+        y = vertex.co.x * math.sin(angle) + vertex.co.y * math.cos(angle)
+        vertex.co.x = x
+        vertex.co.y = y
 
-    # Create backrest
-    backrest_width = seat_width
-    backrest_height = 0.5
-    backrest_thickness = 0.1
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -seat_depth / 2 - backrest_thickness / 2, leg_height + seat_height + backrest_height / 2))
-    backrest = bpy.context.object
-    backrest.scale = (backrest_width / 2, backrest_thickness / 2, backrest_height / 2)
-    
-    # Adjust backrest position for curvature
-    bpy.ops.object.mode_set(mode='EDIT')
-    bpy.ops.mesh.select_all(action='DESELECT')
-    bpy.ops.object.mode_set(mode='OBJECT')
-    backrest.data.vertices[0].co.z += 0.1  # Slightly raise the top vertex for curvature
-    backrest.data.vertices[1].co.z += 0.1
-    backrest.data.vertices[2].co.z -= 0.1
-    backrest.data.vertices[3].co.z -= 0.1
-    bpy.ops.object.mode_set(mode='OBJECT')
-
-create_chair()
+create_twisted_torus(10, 3, math.radians(45))
 import json
 import os
 # bpy would have been imported in previous code
@@ -56,8 +30,6 @@ render_out = os.path.join(output_path, f"render\\{obj_name}.png")  # TODO: multi
 obj_out = os.path.join(output_path, f"obj\\{obj_name}.obj")  # this will only be one obj
 print(f"Rendering to {render_out}")
 print(f"Exporting to {obj_out}")
-
-raise NotImplementedError("On purpose")
 
 
 def select_objects_join_normalize_size(collection: str="Collection"):

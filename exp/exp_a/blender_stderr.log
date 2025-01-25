@@ -1,0 +1,5 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\exp_a\_combined_sample_output.py", line 60, in <module>
+    raise NotImplementedError("On purpose")
+NotImplementedError: On purpose

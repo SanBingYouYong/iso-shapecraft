@@ -1,0 +1,8 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\0125-222027\_combined_exp_full_task.py", line 54, in <module>
+    create_hexagonal_prism(base_edge_length=5, height=15)
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\0125-222027\_combined_exp_full_task.py", line 25, in create_hexagonal_prism
+    angle = math.radians(i * angle_offset)
+            ^^^^
+NameError: name 'math' is not defined

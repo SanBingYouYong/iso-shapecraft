@@ -1,47 +1,54 @@
 import bpy
+import bmesh
 
-def create_chair():
-    # Clear existing mesh objects
-    bpy.ops.object.select_all(action='DESELECT')
-    bpy.ops.object.select_by_type(type='MESH')
-    bpy.ops.object.delete()
-
-    # Create chair legs
-    leg_height = 1.0
-    leg_radius = 0.05
-    leg_offset = 0.4
+def create_square_based_pyramid(base_length, height, top_height):
+    # Create a new mesh and a new object
+    mesh = bpy.data.meshes.new("SquareBasedPyramid")
+    obj = bpy.data.objects.new("SquareBasedPyramid", mesh)
     
-    for x in [-leg_offset, leg_offset]:
-        for y in [-leg_offset, leg_offset]:
-            bpy.ops.mesh.primitive_cylinder_add(radius=leg_radius, depth=leg_height, location=(x, y, leg_height / 2))
-    
-    # Create seat
-    seat_width = 0.8
-    seat_depth = 0.8
-    seat_height = 0.1
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, leg_height + seat_height / 2))
-    seat = bpy.context.object
-    seat.scale = (seat_width / 2, seat_depth / 2, seat_height / 2)
+    # Link the object to the scene
+    bpy.context.collection.objects.link(obj)
 
-    # Create backrest
-    backrest_width = seat_width
-    backrest_height = 0.5
-    backrest_thickness = 0.1
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -seat_depth / 2 - backrest_thickness / 2, leg_height + seat_height + backrest_height / 2))
-    backrest = bpy.context.object
-    backrest.scale = (backrest_width / 2, backrest_thickness / 2, backrest_height / 2)
-    
-    # Adjust backrest position for curvature
-    bpy.ops.object.mode_set(mode='EDIT')
-    bpy.ops.mesh.select_all(action='DESELECT')
-    bpy.ops.object.mode_set(mode='OBJECT')
-    backrest.data.vertices[0].co.z += 0.1  # Slightly raise the top vertex for curvature
-    backrest.data.vertices[1].co.z += 0.1
-    backrest.data.vertices[2].co.z -= 0.1
-    backrest.data.vertices[3].co.z -= 0.1
-    bpy.ops.object.mode_set(mode='OBJECT')
+    # Create a bmesh object
+    bm = bmesh.new()
 
-create_chair()
+    # Define the vertices
+    half_base = base_length / 2
+    vertices = [
+        (-half_base, -half_base, 0),  # Vertex 0
+        (half_base, -half_base, 0),   # Vertex 1
+        (half_base, half_base, 0),    # Vertex 2
+        (-half_base, half_base, 0),   # Vertex 3
+        (0, 0, top_height)             # Vertex 4 (top vertex)
+    ]
+
+    # Add vertices to bmesh
+    for v in vertices:
+        bm.verts.new(v)
+
+    # Ensure the bmesh updates
+    bm.verts.ensure_lookup_table()
+
+    # Create faces (base and four triangular sides)
+    bm.faces.new((bm.verts[0], bm.verts[1], bm.verts[2], bm.verts[3]))  # Base face
+    bm.faces.new((bm.verts[0], bm.verts[1], bm.verts[4]))  # Side face 1
+    bm.faces.new((bm.verts[1], bm.verts[2], bm.verts[4]))  # Side face 2
+    bm.faces.new((bm.verts[2], bm.verts[3], bm.verts[4]))  # Side face 3
+    bm.faces.new((bm.verts[3], bm.verts[0], bm.verts[4]))  # Side face 4
+
+    # Finalize the mesh
+    bm.to_mesh(mesh)
+    bm.free()
+
+    # Set object properties
+    obj.location = (0, 0, height / 2)
+
+# Parameters for the pyramid
+base_length = 8
+height = 12
+top_height = 9
+
+create_square_based_pyramid(base_length, height, top_height)
 import json
 import os
 # bpy would have been imported in previous code
@@ -56,8 +63,6 @@ render_out = os.path.join(output_path, f"render\\{obj_name}.png")  # TODO: multi
 obj_out = os.path.join(output_path, f"obj\\{obj_name}.obj")  # this will only be one obj
 print(f"Rendering to {render_out}")
 print(f"Exporting to {obj_out}")
-
-raise NotImplementedError("On purpose")
 
 
 def select_objects_join_normalize_size(collection: str="Collection"):

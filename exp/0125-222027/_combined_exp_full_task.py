@@ -1,47 +1,57 @@
 import bpy
+import bmesh
+from mathutils import Vector
 
-def create_chair():
-    # Clear existing mesh objects
+def create_hexagonal_prism(base_edge_length, height):
+    # Clear existing objects
     bpy.ops.object.select_all(action='DESELECT')
     bpy.ops.object.select_by_type(type='MESH')
     bpy.ops.object.delete()
 
-    # Create chair legs
-    leg_height = 1.0
-    leg_radius = 0.05
-    leg_offset = 0.4
-    
-    for x in [-leg_offset, leg_offset]:
-        for y in [-leg_offset, leg_offset]:
-            bpy.ops.mesh.primitive_cylinder_add(radius=leg_radius, depth=leg_height, location=(x, y, leg_height / 2))
-    
-    # Create seat
-    seat_width = 0.8
-    seat_depth = 0.8
-    seat_height = 0.1
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, leg_height + seat_height / 2))
-    seat = bpy.context.object
-    seat.scale = (seat_width / 2, seat_depth / 2, seat_height / 2)
+    # Create a new mesh and object
+    mesh = bpy.data.meshes.new("HexagonalPrism")
+    obj = bpy.data.objects.new("HexagonalPrism", mesh)
 
-    # Create backrest
-    backrest_width = seat_width
-    backrest_height = 0.5
-    backrest_thickness = 0.1
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -seat_depth / 2 - backrest_thickness / 2, leg_height + seat_height + backrest_height / 2))
-    backrest = bpy.context.object
-    backrest.scale = (backrest_width / 2, backrest_thickness / 2, backrest_height / 2)
-    
-    # Adjust backrest position for curvature
-    bpy.ops.object.mode_set(mode='EDIT')
-    bpy.ops.mesh.select_all(action='DESELECT')
-    bpy.ops.object.mode_set(mode='OBJECT')
-    backrest.data.vertices[0].co.z += 0.1  # Slightly raise the top vertex for curvature
-    backrest.data.vertices[1].co.z += 0.1
-    backrest.data.vertices[2].co.z -= 0.1
-    backrest.data.vertices[3].co.z -= 0.1
-    bpy.ops.object.mode_set(mode='OBJECT')
+    # Link the object to the scene
+    bpy.context.collection.objects.link(obj)
 
-create_chair()
+    # Create bmesh
+    bm = bmesh.new()
+
+    # Define the vertices for a hexagonal prism
+    angle_offset = 360 / 6
+    vertices = []
+    for i in range(6):
+        angle = math.radians(i * angle_offset)
+        x = base_edge_length * math.cos(angle)
+        y = base_edge_length * math.sin(angle)
+        vertices.append(Vector((x, y, 0)))
+        vertices.append(Vector((x, y, height)))
+
+    # Create vertices in bmesh
+    for v in vertices:
+        bm.verts.new(v)
+    
+    bm.verts.ensure_lookup_table()
+
+    # Create faces for the sides of the prism
+    for i in range(6):
+        v1 = bm.verts[i]
+        v2 = bm.verts[(i + 1) % 6]
+        v3 = bm.verts[(i + 1) % 6 + 6]
+        v4 = bm.verts[i + 6]
+        bm.faces.new((v1, v2, v3, v4))
+    
+    # Create top and bottom faces
+    bm.faces.new((bm.verts[0], bm.verts[1], bm.verts[3], bm.verts[2]))  # Bottom face
+    bm.faces.new((bm.verts[6], bm.verts[7], bm.verts[5], bm.verts[4]))  # Top face
+
+    # Finalize the bmesh
+    bm.to_mesh(mesh)
+    bm.free()
+
+# Call the function with specified dimensions
+create_hexagonal_prism(base_edge_length=5, height=15)
 import json
 import os
 # bpy would have been imported in previous code
@@ -56,8 +66,6 @@ render_out = os.path.join(output_path, f"render\\{obj_name}.png")  # TODO: multi
 obj_out = os.path.join(output_path, f"obj\\{obj_name}.obj")  # this will only be one obj
 print(f"Rendering to {render_out}")
 print(f"Exporting to {obj_out}")
-
-raise NotImplementedError("On purpose")
 
 
 def select_objects_join_normalize_size(collection: str="Collection"):

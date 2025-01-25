@@ -1,0 +1,8 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\all_shapes\0125-222623\_combined_exp_full_task.py", line 34, in <module>
+    create_cylinder_with_wall_thickness(outer_radius, wall_thickness, height)
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\all_shapes\0125-222623\_combined_exp_full_task.py", line 16, in create_cylinder_with_wall_thickness
+    bmesh.ops.create_cylinder(bm, cap_tris=True, radius=outer_radius, depth=height, segments=32)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: BMeshOpsModule: operator "create_cylinder" doesn't exist

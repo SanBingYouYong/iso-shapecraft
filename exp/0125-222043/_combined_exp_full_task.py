@@ -1,47 +1,31 @@
 import bpy
 
-def create_chair():
-    # Clear existing mesh objects
-    bpy.ops.object.select_all(action='DESELECT')
-    bpy.ops.object.select_by_type(type='MESH')
-    bpy.ops.object.delete()
-
-    # Create chair legs
-    leg_height = 1.0
-    leg_radius = 0.05
-    leg_offset = 0.4
+def create_concentric_spheres():
+    # Define the radii and colors for the spheres
+    radii = [2, 4, 6]
+    colors = [(0.8, 0.1, 0.1, 1), (0.1, 0.8, 0.1, 1), (0.1, 0.1, 0.8, 1)]  # Red, Green, Blue
     
-    for x in [-leg_offset, leg_offset]:
-        for y in [-leg_offset, leg_offset]:
-            bpy.ops.mesh.primitive_cylinder_add(radius=leg_radius, depth=leg_height, location=(x, y, leg_height / 2))
-    
-    # Create seat
-    seat_width = 0.8
-    seat_depth = 0.8
-    seat_height = 0.1
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, leg_height + seat_height / 2))
-    seat = bpy.context.object
-    seat.scale = (seat_width / 2, seat_depth / 2, seat_height / 2)
+    for i, radius in enumerate(radii):
+        # Create a new sphere
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=radius, location=(0, 0, 0))
+        sphere = bpy.context.active_object
+        
+        # Create a new material
+        material = bpy.data.materials.new(name=f"Material_{i}")
+        material.use_nodes = True
+        bsdf = material.node_tree.nodes.get('Principled BSDF')
+        
+        # Set the base color for the material
+        bsdf.inputs['Base Color'].default_value = colors[i]
+        bsdf.inputs['Roughness'].default_value = 0.8  # Matte finish
+        
+        # Assign the material to the sphere
+        if sphere.data.materials:
+            sphere.data.materials[0] = material
+        else:
+            sphere.data.materials.append(material)
 
-    # Create backrest
-    backrest_width = seat_width
-    backrest_height = 0.5
-    backrest_thickness = 0.1
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -seat_depth / 2 - backrest_thickness / 2, leg_height + seat_height + backrest_height / 2))
-    backrest = bpy.context.object
-    backrest.scale = (backrest_width / 2, backrest_thickness / 2, backrest_height / 2)
-    
-    # Adjust backrest position for curvature
-    bpy.ops.object.mode_set(mode='EDIT')
-    bpy.ops.mesh.select_all(action='DESELECT')
-    bpy.ops.object.mode_set(mode='OBJECT')
-    backrest.data.vertices[0].co.z += 0.1  # Slightly raise the top vertex for curvature
-    backrest.data.vertices[1].co.z += 0.1
-    backrest.data.vertices[2].co.z -= 0.1
-    backrest.data.vertices[3].co.z -= 0.1
-    bpy.ops.object.mode_set(mode='OBJECT')
-
-create_chair()
+create_concentric_spheres()
 import json
 import os
 # bpy would have been imported in previous code
@@ -56,8 +40,6 @@ render_out = os.path.join(output_path, f"render\\{obj_name}.png")  # TODO: multi
 obj_out = os.path.join(output_path, f"obj\\{obj_name}.obj")  # this will only be one obj
 print(f"Rendering to {render_out}")
 print(f"Exporting to {obj_out}")
-
-raise NotImplementedError("On purpose")
 
 
 def select_objects_join_normalize_size(collection: str="Collection"):
