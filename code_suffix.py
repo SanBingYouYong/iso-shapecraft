@@ -24,6 +24,7 @@ def select_objects_join_normalize_size(collection: str="Collection"):
         if obj.name in ["Camera", "Light", "Empty"]:
             continue
         obj.select_set(True)
+        bpy.context.view_layer.objects.active = obj
     bpy.ops.object.join()
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
     bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
