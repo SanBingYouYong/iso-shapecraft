@@ -11,6 +11,7 @@ from time import sleep
 from tqdm import tqdm
 
 SHAPE_DESCRIPTIONS_YAML = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\src\\shapes.yaml"
+# SHAPE_DESCRIPTIONS_YAML = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapes_simple_4omini.yaml"
 
 def read_shapes(shapes_yaml: str) -> dict:
     with open(shapes_yaml, 'r') as stream:

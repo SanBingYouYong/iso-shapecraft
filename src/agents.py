@@ -105,6 +105,22 @@ def exp_full_task(shape_description: str) -> Dict[str, str]:
         "parsed": pycode
     }
 
+def exp_full_task_batch_out(shape_description: str) -> Dict[str, str]:
+    '''
+    Experiment: zero-shot, one-run, full shape program generation based on text prompt. 
+
+    For batched output folders. 
+    '''
+    isn = prompts[TaskType.EXP_FULL_TASK.value["name"]]
+    prompt = isn + config_str + shape_description
+    response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
+    pycode = _extract_python_code(response)
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": pycode
+    }
+
 @experiment_logger()
 def task_decomp(shape_description: str) -> List[Dict[str, str]]:
     '''

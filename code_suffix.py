@@ -1,5 +1,7 @@
 import json
 import os
+import random
+random.seed(0)  # for reproducibility, remove before production
 # bpy would have been imported in previous code
 CONFIG_FILEPATH = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\config.json"
 with open(CONFIG_FILEPATH, 'r') as f:
@@ -57,7 +59,43 @@ def export_obj(path):
 
 select_objects_join_normalize_size()
 
-bpy.context.scene.render.filepath = render_out
-bpy.ops.render.render(write_still=True)
+# bpy.context.scene.render.filepath = render_out
+# bpy.ops.render.render(write_still=True)
+
+def set_camera(camera, x, y, z=1.5):
+    """
+    Camera is tracked to [0, 0, 0] by default, so only change its x y z coordinates
+    """
+    camera.location.x = x
+    camera.location.y = y
+    camera.location.z = z
+
+base_cam_pos = [
+        [2.8, -2.8, 1.5],
+        [2.8, 2.8, 1.5],
+        [-2.8, 2.8, 1.5],
+        [-2.8, -2.8, 1.5]
+    ]
+
+def multi_view_render(filepath: str, views=base_cam_pos, rand_offset=0.3):
+    """
+    Render the current scene from multiple views. 
+
+    filepath: the path to save the rendered images. with or without .png suffix
+    views: list of camera positions, e.g. [[2.8, -2.8, 1.5], [2.8, 2.8, 1.5], [-2.8, 2.8, 1.5], [-2.8, -2.8, 1.5]] to be sampled from.
+        by default we also apply random offset to each coord based on rand_offset
+    """
+    # camera already locks onto 000
+    filepath = filepath if not filepath.endswith(".png") else filepath[:-4]
+
+    for i, view in enumerate(views):
+        randoms = [random.uniform(-rand_offset, rand_offset) for _ in range(3)]
+        cam_coord = [view[i] + randoms[i] for i in range(3)]
+        camera = bpy.data.objects['Camera']
+        set_camera(camera, *cam_coord)
+        bpy.context.scene.render.filepath = filepath + f"_{i}.png"
+        bpy.ops.render.render(write_still=True)
+
+multi_view_render(render_out)
 
 export_obj(obj_out)

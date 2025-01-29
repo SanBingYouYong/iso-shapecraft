@@ -11,13 +11,7 @@ Important: Backup your blender file before running this script: it applies all t
 Modified upon https://github.com/SanBingYouYong/Blender-Auto-Renderer
 """
 
-def set_camera(camera, x, y, z=1.5):
-    """
-    Camera is tracked to [0, 0, 0] by default, so only change its x y z coordinates
-    """
-    camera.location.x = x
-    camera.location.y = y
-    camera.location.z = z
+
 
 def calculate_bounding_box_for_collection(collection: str):
     """
@@ -170,6 +164,41 @@ def select_objects_join_normalize_size(collection: str):
 
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
     bpy.ops.object.location_clear()
+
+def set_camera(camera, x, y, z=1.5):
+    """
+    Camera is tracked to [0, 0, 0] by default, so only change its x y z coordinates
+    """
+    camera.location.x = x
+    camera.location.y = y
+    camera.location.z = z
+
+import random
+def multi_view_render(filepath: str, views=[], rand_offset=0.3):
+    """
+    Render the current scene from multiple views. 
+
+    filepath: the path to save the rendered images. with or without .png suffix
+    views: list of camera positions, e.g. [[2.8, -2.8, 1.5], [2.8, 2.8, 1.5], [-2.8, 2.8, 1.5], [-2.8, -2.8, 1.5]] to be sampled from.
+        by default we also apply random offset to each coord based on rand_offset
+    """
+    # camera already locks onto 000
+    base_cam_pos = [
+        [2.8, -2.8, 1.5],
+        [2.8, 2.8, 1.5],
+        [-2.8, 2.8, 1.5],
+        [-2.8, -2.8, 1.5]
+    ]
+    views = views if views else base_cam_pos
+    filepath = filepath if not filepath.endswith(".png") else filepath[:-4]
+
+    for i, view in enumerate(views):
+        randoms = [random.uniform(-rand_offset, rand_offset) for _ in range(3)]
+        cam_coord = [view[i] + randoms[i] for i in range(3)]
+        camera = bpy.data.objects['Camera']
+        set_camera(camera, *cam_coord)
+        bpy.context.scene.render.filepath = filepath + f"_{i}.png"
+        bpy.ops.render.render(write_still=True)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,58 @@
+Blender 4.2.6 LTS (hash 6dc30a3be3cf built 2025-01-21 03:28:02)
+Read blend: "C:\ZSY\imperial\courses\ISO\iso-shapecraft\auto_render.blend"
+Fra:2 Mem:10.98M (Peak 10.98M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Cylinder
+Fra:2 Mem:10.99M (Peak 10.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:2 Mem:10.84M (Peak 10.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:2 Mem:10.84M (Peak 10.99M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:2 Mem:10.84M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:2 Mem:10.84M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:2 Mem:10.92M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:2 Mem:10.93M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:2 Mem:10.93M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:2 Mem:10.93M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:2 Mem:10.93M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:2 Mem:10.94M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene BVH | Packing BVH triangles and strands
+Fra:2 Mem:10.94M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene BVH | Packing BVH nodes
+Fra:2 Mem:10.94M (Peak 39.25M) | Time:00:00.13 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:2 Mem:10.94M (Peak 39.25M) | Time:00:00.13 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Objects Flags
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Images
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Camera Volume
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Lookup Tables
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.10M, Peak:0.10M | Scene, ViewLayer | Updating Lights
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.10M, Peak:0.10M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.10M, Peak:0.10M | Scene, ViewLayer | Updating Integrator
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.10M, Peak:0.10M | Scene, ViewLayer | Updating Film
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.02M, Peak:0.10M | Scene, ViewLayer | Updating Lookup Tables
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.10M, Peak:0.10M | Scene, ViewLayer | Updating Baking
+Fra:2 Mem:10.95M (Peak 39.25M) | Time:00:00.13 | Mem:0.10M, Peak:0.10M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:2 Mem:10.96M (Peak 39.25M) | Time:00:00.13 | Mem:0.10M, Peak:0.10M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:2 Mem:14.96M (Peak 39.25M) | Time:00:00.15 | Mem:344.10M, Peak:344.10M | Scene, ViewLayer | Sample 0/128
+Fra:2 Mem:33.96M (Peak 39.25M) | Time:00:00.15 | Remaining:00:00.59 | Mem:363.10M, Peak:363.10M | Scene, ViewLayer | Sample 1/128
+Fra:2 Mem:33.96M (Peak 39.25M) | Time:00:00.26 | Remaining:00:00.06 | Mem:363.11M, Peak:363.11M | Scene, ViewLayer | Sample 80/128
+Fra:2 Mem:33.96M (Peak 39.25M) | Time:00:00.27 | Remaining:00:00.04 | Mem:363.11M, Peak:363.11M | Scene, ViewLayer | Sample 96/128
+Fra:2 Mem:33.96M (Peak 39.25M) | Time:00:00.27 | Remaining:00:00.01 | Mem:363.11M, Peak:363.11M | Scene, ViewLayer | Sample 112/128
+Fra:2 Mem:41.97M (Peak 53.97M) | Time:00:00.73 | Mem:363.11M, Peak:363.11M | Scene, ViewLayer | Sample 128/128
+Fra:2 Mem:41.97M (Peak 53.97M) | Time:00:00.73 | Mem:363.11M, Peak:363.11M | Scene, ViewLayer | Finished
+Saved: 'C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\all_shapes\0129-155608\render\exp_full_task.png'
+Time: 00:00.90 (Saving: 00:00.13)
+
+Output path: C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\all_shapes\0129-155608
+Object name: exp_full_task
+Rendering to C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\all_shapes\0129-155608\render\exp_full_task.png
+Exporting to C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\all_shapes\0129-155608\obj\exp_full_task.obj
+Warning: No mesh data to join
+OBJ export of 'exp_full_task.obj' took 0.67 ms
+
+Blender quit
