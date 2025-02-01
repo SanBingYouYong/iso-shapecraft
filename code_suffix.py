@@ -1,3 +1,6 @@
+if not success:
+    print("An error occurred during shape script execution, see error log for details; skipping rendering and exporting.")
+    sys.exit(1)
 import json
 import os
 import random
@@ -10,8 +13,10 @@ output_path = config["output_path"]  # e.g. absolute path to exp/...
 obj_name = config["obj_name"]  # e.g. an id
 print(f"Output path: {output_path}")
 print(f"Object name: {obj_name}")
-render_out = os.path.join(output_path, f"render\\{obj_name}.png")  # TODO: multi-view renders?
+# render_out = os.path.join(output_path, f"render\\{obj_name}.png")
+render_out = os.path.join(output_path, f"{obj_name}.png")  # multi-view renders handle this properly already
 obj_out = os.path.join(output_path, f"obj\\{obj_name}.obj")  # this will only be one obj
+obj_out = os.path.join(output_path, f"{obj_name}.obj")  # this will only be one obj
 print(f"Rendering to {render_out}")
 print(f"Exporting to {obj_out}")
 
@@ -39,9 +44,9 @@ def select_objects_join_normalize_size(collection: str="Collection"):
     min_z = min([coord[2] for coord in bbox])
     max_z = max([coord[2] for coord in bbox])
 
-    scale_x = 2 / (max_x - min_x)
-    scale_y = 2 / (max_y - min_y)
-    scale_z = 2 / (max_z - min_z)
+    scale_x = 2 / (max_x - min_x) if max_x != min_x else 1
+    scale_y = 2 / (max_y - min_y) if max_y != min_y else 1
+    scale_z = 2 / (max_z - min_z) if max_z != min_z else 1
     scale = min(scale_x, scale_y, scale_z)
 
     bpy.ops.transform.resize(value=(scale, scale, scale))
@@ -94,8 +99,14 @@ def multi_view_render(filepath: str, views=base_cam_pos, rand_offset=0.3):
         camera = bpy.data.objects['Camera']
         set_camera(camera, *cam_coord)
         bpy.context.scene.render.filepath = filepath + f"_{i}.png"
-        bpy.ops.render.render(write_still=True)
+        # bpy.ops.render.render(write_still=True)
+        bpy.ops.render.opengl(write_still=True)  # to render objects with no volume/thickness...
 
 multi_view_render(render_out)
 
 export_obj(obj_out)
+
+# quit blender if not in background mode
+# if bpy.context.space_data is not None:
+if not bpy.app.background:
+    bpy.ops.wm.quit_blender()
