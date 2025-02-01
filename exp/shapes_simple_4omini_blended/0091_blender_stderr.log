@@ -1,0 +1,8 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0091_combined.py", line 36, in <module>
+    create_pebble_shape(location=(0, 0, 0), scale=(1.5, 1.0, 0.5))
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0091_combined.py", line 21, in create_pebble_shape
+    bmesh.ops.create_icosphere(bm, subdivisions=0, radius=1, cap_tris=True)
+TypeError: create_icosphere: keyword "cap_tris" is invalid for this operator

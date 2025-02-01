@@ -1,0 +1,12 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0050_combined.py", line 30, in <module>
+    create_spiral(radius=1, turns=5, height=2, segments=100)
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0050_combined.py", line 27, in create_spiral
+    mesh.from_pydata(vertices, edges, faces)  # Create mesh from vertices and edges
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files (x86)\Steam\steamapps\common\Blender\4.2\scripts\modules\bpy_types.py", line 639, in from_pydata
+    self.vertices.add(vertices_len)
+RuntimeError: Error: Cannot add vertices in edit mode
+

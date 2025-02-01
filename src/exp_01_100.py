@@ -36,12 +36,15 @@ def get_all_pycode(shapes: list, out_folder: str=OUT_FOLDER):
         with open(json_path, "w") as f:
             json.dump({"messages": [{"role": "user", "content": out["prompt"]}, {"role": "assistant", "content": out["response"]}]}, f)
 
-def run_code_and_render(all_codes_path: str=OUT_FOLDER, out_folder: str=RUN_OUT_FOLDER):
-    py_files = [f for f in os.listdir(all_codes_path) if f.endswith('.py')]
+def run_code_and_render(all_codes_path: str=OUT_FOLDER, out_folder: str=RUN_OUT_FOLDER, manual_skip_index: int=0):
+    py_files = [f for f in os.listdir(all_codes_path) if f.endswith('.py')][manual_skip_index:]
     for i in tqdm(range(len(py_files))):
         py_file = py_files[i]
         abs_py = os.path.join(all_codes_path, py_file)
-        combine_and_run_batched(abs_py, out_folder)
+        try:
+            combine_and_run_batched(abs_py, out_folder)
+        except Exception as e:
+            print(f"Error in {abs_py}: {e}")
 
 if __name__ == "__main__":
     # get all code
@@ -50,4 +53,4 @@ if __name__ == "__main__":
     # get_all_pycode(shapes)
 
     # run all code
-    run_code_and_render()
+    run_code_and_render(manual_skip_index=60)

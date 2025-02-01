@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0070_combined.py", line 40, in <module>
+    create_trapezoid(top_width=2, bottom_width=1, height=1)
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0070_combined.py", line 32, in create_trapezoid
+    bm.faces.new((v1, v2, v2))      # Side faces
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: faces.new(...): found the same (BMVert) used multiple times

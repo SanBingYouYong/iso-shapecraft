@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0081_combined.py", line 37, in <module>
+    create_squiggly_line()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0081_combined.py", line 31, in create_squiggly_line
+    bmesh.ops.create_edge(bm, v1=verts[i], v2=verts[i + 1])
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: BMeshOpsModule: operator "create_edge" doesn't exist

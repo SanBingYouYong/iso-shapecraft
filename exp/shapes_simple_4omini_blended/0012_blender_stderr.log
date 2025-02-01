@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0012_combined.py", line 46, in <module>
+    create_heart_shape()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0012_combined.py", line 40, in create_heart_shape
+    bmesh.ops.create_face(bm, verts=[v1, v2, v3])
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: BMeshOpsModule: operator "create_face" doesn't exist

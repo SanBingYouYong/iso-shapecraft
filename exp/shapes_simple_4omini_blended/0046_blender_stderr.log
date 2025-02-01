@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0046_combined.py", line 44, in <module>
+    create_cutout_square()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0046_combined.py", line 28, in create_cutout_square
+    outer_square.data.polygons[0].select = True
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: bpy_prop_collection[index]: index 0 out of range, size 0

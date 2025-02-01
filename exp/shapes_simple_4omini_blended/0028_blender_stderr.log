@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0028_combined.py", line 48, in <module>
+    create_prism(hexagon_vertices, 2)
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0028_combined.py", line 22, in create_prism
+    for i, (x, y) in enumerate(base_vertices):
+           ^^^^^^
+ValueError: too many values to unpack (expected 2)

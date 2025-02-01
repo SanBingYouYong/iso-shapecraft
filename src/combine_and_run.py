@@ -99,12 +99,20 @@ def combine_and_run_batched(abs_path_py: str, abs_path_out_folder: str,
     traceback_line = "    traceback.print_exc(file=sys.stderr)\n"
     flush_line = "    sys.stderr.flush()  # Ensure that the error output is flushed\n"
     flag1_line = "    success = False\n"
+    blender_quit_line = "    bpy.ops.wm.quit_blender()\n"  # somehow either of blender quit or python quit can't solve the problem
     everyline_tab = "    "
-    content1 = import_line + flag0_line + try_line + everyline_tab + content1.replace('\n', '\n' + everyline_tab) + '\n' + except_line + print_line + traceback_line + flush_line + flag1_line
+    content1 = import_line + flag0_line + try_line + everyline_tab + content1.replace('\n', '\n' + everyline_tab) + '\n' + except_line + print_line + traceback_line + flush_line + flag1_line + blender_quit_line
     combined_content = content1 + "\n" + content2
     abs_path_combined_py = os.path.join(abs_path_out_folder, f"{base}_combined.py")
     with open(abs_path_combined_py, 'w', encoding='utf-8') as f:
         f.write(combined_content)
+    # try to compile the combined content to check for syntax errors
+    try:
+        compile(combined_content, f"{base}_combined.py", 'exec')
+    except SyntaxError as e:
+        with open(os.path.join(abs_path_out_folder, f"{base}_syntax_error.txt"), 'w', encoding='utf-8') as f:
+            f.write(str(e))
+        return  # skip the rest if syntax error
     # set config.json
     config = {
         "output_path": abs_path_out_folder,

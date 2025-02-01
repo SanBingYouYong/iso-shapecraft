@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0069_combined.py", line 57, in <module>
+    create_crown_shape()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0069_combined.py", line 30, in create_crown_shape
+    x = base_radius * bpy.mathutils.cos(angle)
+                      ^^^^^^^^^^^^^
+AttributeError: module 'bpy' has no attribute 'mathutils'

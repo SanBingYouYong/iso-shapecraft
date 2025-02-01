@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0077_combined.py", line 27, in <module>
+    create_rectangle_with_circular_hole(4, 2, 1)
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0077_combined.py", line 22, in create_rectangle_with_circular_hole
+    bpy.context.view_layer.objects.active = bpy.context.selected_objects[0]
+                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range

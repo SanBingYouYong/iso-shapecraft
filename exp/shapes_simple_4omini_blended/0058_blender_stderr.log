@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0058_combined.py", line 47, in <module>
+    create_rounded_pentagon()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0058_combined.py", line 35, in create_rounded_pentagon
+    v3 = bmesh_verts[(i + 1) % 5] + bmesh.Vector((roundness * cos((i + 1) * angle), roundness * sin((i + 1) * angle), 0))
+                                    ^^^^^^^^^^^^
+AttributeError: module 'bmesh' has no attribute 'Vector'

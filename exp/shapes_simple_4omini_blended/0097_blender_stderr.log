@@ -1,0 +1,8 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0097_combined.py", line 53, in <module>
+    create_rounded_diamond_shape()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\shapes_simple_4omini_blended\0097_combined.py", line 32, in create_rounded_diamond_shape
+    bmesh.ops.create_circle(bm, cap_tris=True, radius=radius, location=(x, y, height / 2), segments=segments)
+TypeError: create_circle: keyword "location" is invalid for this operator
