@@ -134,6 +134,65 @@ def combine_and_run_batched(abs_path_py: str, abs_path_out_folder: str,
         with open(stderr_log, 'w', encoding='utf-8') as f:
             f.write(result.stderr)
 
+def combine_and_run_looped(abs_path_py: str, abs_path_out_folder: str, 
+                            suffix_py: str=SUFFIX_PY, config_json: str=CONFIG_JSON):
+    '''
+    abs_path_py: absolute path to the py file to be combined
+    abs_path_out_folder: absolute path to the output folder
+
+    To support visual feedback loops: prefix every file write with iteration number
+    if iteration is 0, then it's the first run; otherwise, get previous results accordingly
+    '''
+    base = os.path.basename(abs_path_py).split('.')[0]  # base is iteration already
+    os.makedirs(abs_path_out_folder, exist_ok=True)
+    # Read and combine files
+    with open(abs_path_py, 'r', encoding='utf-8') as f1, open(suffix_py, 'r', encoding='utf-8') as f2:
+        content1 = f1.read()
+        content2 = f2.read()
+    # add a try except block to content1 (src llm shape script)
+    import_line = "import sys\nimport traceback\n"
+    flag0_line = "success = True\n"
+    try_line = "try:\n"
+    except_line = "except Exception as e:\n"
+    print_line = "    print('An error occurred:', file=sys.stderr)\n"
+    traceback_line = "    traceback.print_exc(file=sys.stderr)\n"
+    flush_line = "    sys.stderr.flush()  # Ensure that the error output is flushed\n"
+    flag1_line = "    success = False\n"
+    blender_quit_line = "    bpy.ops.wm.quit_blender()\n"  # somehow either of blender quit or python quit can't solve the problem
+    everyline_tab = "    "
+    content1 = import_line + flag0_line + try_line + everyline_tab + content1.replace('\n', '\n' + everyline_tab) + '\n' + except_line + print_line + traceback_line + flush_line + flag1_line + blender_quit_line
+    combined_content = content1 + "\n" + content2
+    abs_path_combined_py = os.path.join(abs_path_out_folder, f"{base}_combined.py")  # e.g. 0_combined.py
+    with open(abs_path_combined_py, 'w', encoding='utf-8') as f:
+        f.write(combined_content)
+    # try to compile the combined content to check for syntax errors
+    try:
+        compile(combined_content, f"{base}_combined.py", 'exec')
+    except SyntaxError as e:
+        with open(os.path.join(abs_path_out_folder, f"{base}_syntax_error.txt"), 'w', encoding='utf-8') as f:
+            f.write(str(e))
+        return  # skip the rest if syntax error
+    # set config.json
+    config = {
+        "output_path": abs_path_out_folder,
+        "obj_name": base  # now obj_name is iteration num too
+    }
+    with open(config_json, 'w', encoding='utf-8') as f:
+        json.dump(config, f)
+    # call blender
+    command = [BLENDER_EXE, BLEND_FILE, "-P", abs_path_combined_py]  # opengl needs non-background mode
+    result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8')
+    # log stdout and stderr to separate files if they are not None
+    if result.stdout:
+        stdout_log = os.path.join(abs_path_out_folder, f"{base}_blender_stdout.log")
+        with open(stdout_log, 'w', encoding='utf-8') as f:
+            f.write(result.stdout)
+    
+    if result.stderr:
+        stderr_log = os.path.join(abs_path_out_folder, f"{base}_blender_stderr.log")
+        with open(stderr_log, 'w', encoding='utf-8') as f:
+            f.write(result.stderr)
+
 if __name__ == "__main__":
     combine_and_run(
         exp_id="exp_a",

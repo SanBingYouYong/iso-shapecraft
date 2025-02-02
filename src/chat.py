@@ -3,6 +3,8 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import base64
 
+from typing import Tuple
+
 load_dotenv()
 client = OpenAI(api_key=os.getenv('GPT'))
 
@@ -21,6 +23,20 @@ def llm_request(prompt: str, model: str="gpt-4o-mini") -> str:
     output = response.choices[0].message.content
     return output
 
+def llm_with_history(prompt: str, history: list, model: str="gpt-4o-mini") -> Tuple[str, list]:
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            *history,
+            {"role": "user", "content": prompt},
+        ],
+        temperature=0.7,
+    )
+    history.append({"role": "user", "content": prompt})
+    output = response.choices[0].message.content
+    history.append({"role": "assistant", "content": output})
+    return output, history
+
 def vlm_request(prompt: str, image_path, model: str="gpt-4o-mini", img_format: str="png") -> str:
     response = client.chat.completions.create(
         model=model,
@@ -36,6 +52,30 @@ def vlm_request(prompt: str, image_path, model: str="gpt-4o-mini", img_format: s
                         "type": "image_url",
                         "image_url": {"url": f"data:image/{img_format};base64,{encode_image(image_path)}"},
                     },
+                ],
+            }
+        ],
+    )
+    return response.choices[0].message.content
+
+def vlm_multi_img(prompt: str, image_paths: list, model: str="gpt-4o-mini", img_format: str="png") -> str:
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": prompt,
+                    },
+                    *[
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:image/{img_format};base64,{encode_image(image_path)}"},
+                        }
+                        for image_path in image_paths
+                    ],
                 ],
             }
         ],

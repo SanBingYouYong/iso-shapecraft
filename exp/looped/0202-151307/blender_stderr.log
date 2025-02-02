@@ -1,0 +1,6 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\looped\0202-151307\_combined_exp_full_task.py", line 21, in <module>
+    if not success:
+           ^^^^^^^
+NameError: name 'success' is not defined

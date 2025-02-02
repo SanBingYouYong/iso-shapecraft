@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\looped\0202-170404\0_combined.py", line 41, in <module>
+    create_wedge()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\looped\0202-170404\0_combined.py", line 11, in create_wedge
+    obj = bpy.data.objects.new(name='Wedge', type='MESH')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BlendDataObjects.new(): required parameter "object_data" not specified

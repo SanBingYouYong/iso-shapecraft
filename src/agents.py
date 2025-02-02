@@ -1,4 +1,4 @@
-from chat import llm_request, vlm_request
+from chat import llm_request, vlm_request, llm_with_history
 from prompt import read_markdown_prompts
 from constants import TaskType
 from file_utils import save_output, read_as_yaml, parse_as_yaml, log_output_to_exp
@@ -25,6 +25,24 @@ def _extract_python_code(response: str) -> str:
     code_lines = []
     for line in lines:
         if line.startswith("```python"):
+            code_block = True
+        elif code_block:
+            if line.startswith("```"):
+                break
+            code_lines.append(line)
+    return '\n'.join(code_lines)
+
+def _extract_yml_code(response: str) -> str:
+    '''
+    Extracts the yaml code from ```yaml\n<code>\n``` as str.
+    '''
+    lines = response.split('\n')
+    if lines[0] == "```yml" and lines[-1] == "```":
+        return '\n'.join(lines[1:-1])
+    code_block = False
+    code_lines = []
+    for line in lines:
+        if line.startswith("```yaml"):
             code_block = True
         elif code_block:
             if line.startswith("```"):
@@ -95,8 +113,8 @@ def exp_full_task(shape_description: str) -> Dict[str, str]:
     '''
     Experiment: zero-shot, one-run, full shape program generation based on text prompt. 
     '''
-    isn = prompts[TaskType.EXP_FULL_TASK.value["name"]]
-    prompt = isn + config_str + shape_description
+    ins = prompts[TaskType.EXP_FULL_TASK.value["name"]]
+    prompt = ins + config_str + shape_description
     response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
     pycode = _extract_python_code(response)
     return {
@@ -105,14 +123,21 @@ def exp_full_task(shape_description: str) -> Dict[str, str]:
         "parsed": pycode
     }
 
+def exp_single_get_prompt(shape_description: str) -> str:
+    '''
+    Experiment: zero-shot, one-run, full shape program generation based on text prompt. 
+    '''
+    ins = prompts[TaskType.EXP_FULL_TASK.value["name"]]
+    return ins + config_str + shape_description
+
 def exp_full_task_batch_out(shape_description: str) -> Dict[str, str]:
     '''
     Experiment: zero-shot, one-run, full shape program generation based on text prompt. 
 
     For batched output folders. 
     '''
-    isn = prompts[TaskType.EXP_FULL_TASK.value["name"]]
-    prompt = isn + config_str + shape_description
+    ins = prompts[TaskType.EXP_FULL_TASK.value["name"]]
+    prompt = ins + config_str + shape_description
     response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
     pycode = _extract_python_code(response)
     return {
@@ -254,6 +279,13 @@ def visual_feedback(shape_description: str, image_path: str) -> dict:
         "parsed": feedback
     }
 
+def visual_feedback_get_prompts(shape_description: str) -> str:
+    '''
+    Prompt + shape description
+    '''
+    ins = prompts[TaskType.VIS_FEEDBACK.value]
+    return ins + shape_description
+
 @experiment_logger()
 def shape_improvement(shape_description: str, original_code: str, feedback: List[Dict[str, str]]):
     '''
@@ -326,8 +358,10 @@ agents_rev = {
 
 if __name__ == "__main__":
     # shape_description = "An upright, rectangular shape that connects to the rear of the chair seat. It should be taller than the seat and have a slight incline for ergonomic support. The edges can be rounded to match the style of the seat."
-    shape_description = "A chair with four legs, a seat, and a backrest. The legs should be sturdy and slightly angled outwards for stability. The seat should be flat and comfortable, and the backrest should be slightly curved to provide ergonomic support."
-    pycode = exp_full_task(shape_description)["parsed"]
+    # shape_description = "A chair with four legs, a seat, and a backrest. The legs should be sturdy and slightly angled outwards for stability. The seat should be flat and comfortable, and the backrest should be slightly curved to provide ergonomic support."
+    # pycode = exp_full_task(shape_description)["parsed"]
+
+    print(_extract_python_code("") == "")
     
     # components = task_decomp(shape_description)["parsed"]
     # test_comp = components[0]

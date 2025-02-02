@@ -15,6 +15,7 @@ print(f"Output path: {output_path}")
 print(f"Object name: {obj_name}")
 # render_out = os.path.join(output_path, f"render\\{obj_name}.png")
 render_out = os.path.join(output_path, f"{obj_name}.png")  # multi-view renders handle this properly already
+
 obj_out = os.path.join(output_path, f"obj\\{obj_name}.obj")  # this will only be one obj
 obj_out = os.path.join(output_path, f"{obj_name}.obj")  # this will only be one obj
 print(f"Rendering to {render_out}")
