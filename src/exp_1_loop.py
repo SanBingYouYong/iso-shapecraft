@@ -25,6 +25,17 @@ def one_shape_looped(shape_description: str, exp_folder: str):
     Expects a shape description and an experiment folder (absolute path!) to output to.
     '''
     os.makedirs(exp_folder, exist_ok=True)
+    # Check if the folder contains any content
+    if os.listdir(exp_folder) == []:
+        # Create a new subfolder with a timestamp
+        timestamp = time.strftime("%Y%m%d-%H%M%S")
+        new_subfolder = os.path.join(exp_folder, f"old_{timestamp}")
+        os.makedirs(new_subfolder, exist_ok=True)
+        # Move existing content to the new subfolder
+        for item in os.listdir(exp_folder):
+            item_path = os.path.join(exp_folder, item)
+            new_item_path = os.path.join(new_subfolder, item)
+            os.rename(item_path, new_item_path)
     done = False
     max_ite = 5
     ite = 0
@@ -32,7 +43,7 @@ def one_shape_looped(shape_description: str, exp_folder: str):
     prompt = exp_single_get_prompt(shape_description)
     visual_feedbacks = []
     while not done and ite < max_ite:
-        print(f"Iteration {ite}...")
+        # print(f"Iteration {ite}...")
         response, history = llm_with_history(prompt, history)
         pycode = _extract_python_code(response)
         if pycode == "":
@@ -42,19 +53,20 @@ def one_shape_looped(shape_description: str, exp_folder: str):
             f.write(pycode)
         combine_and_run_looped(pycode_path, exp_folder)
         # check for successful execution by: stderr log's "An error occurred:" line, or {ite}_syntax_error.txt, or images exists
+        syntax_error = os.path.join(exp_folder, f"{str(ite)}_syntax_error.txt")
+        if os.path.exists(syntax_error):
+            with open(syntax_error, "r") as f:
+                error = f.read()
+            prompt = f"Error encountered: {error}"
+            ite += 1
+            continue
+        # if no syntax error, check stderr log
         error_log = os.path.join(exp_folder, f"{str(ite)}_blender_stderr.log")
         with open(error_log, "r") as f:
             error = f.read()
         if "An error occurred:" in error:
             error_lines = error.split("\n")  # skips the universal TBmalloc warning and the flag line itself
             error = error_lines[error_lines.index("An error occurred:") + 1]
-            prompt = f"Error encountered: {error}"
-            ite += 1
-            continue
-        syntax_error = os.path.join(exp_folder, f"{str(ite)}_syntax_error.txt")
-        if os.path.exists(syntax_error):
-            with open(syntax_error, "r") as f:
-                error = f.read()
             prompt = f"Error encountered: {error}"
             ite += 1
             continue
@@ -81,7 +93,7 @@ def one_shape_looped(shape_description: str, exp_folder: str):
         assert "issues" in parsed_feedback and "consistency" in parsed_feedback
         if parsed_feedback['consistency']:  # yaml handles parsing multiple ways of saying True already
             done = True
-            print(f"Task completed in {ite} iterations.")
+            # print(f"Task completed in {ite} iterations.")
         else:
             prompt = format_feedback(feedback)
             ite += 1
@@ -122,12 +134,18 @@ def loop_10_daily_objects():
     with open(os.path.join(exp_out_root, "iterations.csv"), "w") as f:
         f.write("\n".join([str(i) for i in iterations]))
 
-def all_shapes_looped():
+def all_shapes_looped(manual_skip_idx: int=0, manual_exp_out_root: str=None):
     shapes = read_shapes(SHAPE_DESCRIPTIONS_YAML)
+    iterations = []
+    timestamp = time.strftime("%m%d-%H%M%S")
+    exp_out_root = os.path.abspath(f"exp\\single_daily_shapes_looped_all_{timestamp}") if manual_exp_out_root is None else manual_exp_out_root
     for i, shape in enumerate(tqdm(shapes)):
-        timestamp = time.strftime("%m%d-%H%M%S")
-        exp_out_root = f"exp\\single_daily_shapes_looped_all_{timestamp}\\{i}"
-        one_shape_looped(shape, os.path.abspath(exp_out_root))
+        if i < manual_skip_idx:  # avoid overwriting when resuming
+            continue
+        ite, hist = one_shape_looped(shape, os.path.join(exp_out_root, f"{str(i).zfill(4)}"))
+        iterations.append(ite)
+    with open(os.path.join(exp_out_root, "iterations.csv"), "w") as f:
+        f.write("\n".join([str(i) for i in iterations]))
 
 if __name__ == "__main__":
     # shape = "A chair with four legs, a backrest, no armrests, and a cushioned seat."
@@ -137,4 +155,5 @@ if __name__ == "__main__":
 
     # loop_10_daily_objects()
 
-    all_shapes_looped()
+    # all_shapes_looped(67, os.path.abspath("exp\\single_daily_shapes_looped_all_0202-181517"))  # manual skip index for resuming
+    all_shapes_looped()  # manual skip index for resuming

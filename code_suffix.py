@@ -63,7 +63,14 @@ def export_obj(path):
     # obj.select_set(True)
     bpy.ops.wm.obj_export(filepath=path)
 
-select_objects_join_normalize_size()
+try:
+    select_objects_join_normalize_size()
+except Exception as e:
+    print('An error occurred:', file=sys.stderr)
+    traceback.print_exc(file=sys.stderr)
+    sys.stderr.flush()  # Ensure that the error output is flushed
+    success = False
+    bpy.ops.wm.quit_blender()
 
 # bpy.context.scene.render.filepath = render_out
 # bpy.ops.render.render(write_still=True)
