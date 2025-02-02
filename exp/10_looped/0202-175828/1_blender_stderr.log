@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-175828\1_combined.py", line 62, in <module>
+    create_mouse_pad()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-175828\1_combined.py", line 32, in create_mouse_pad
+    bmesh.ops.face_create(bm, verts=[v for v in geom['verts']])  # Bottom face
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: BMeshOpsModule: operator "face_create" doesn't exist

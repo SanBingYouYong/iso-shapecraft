@@ -3,7 +3,9 @@
 **Objective:** Given a rendered image of a 3D shape, analyze it against the target shape description and provide feedback on:
 1. Specific discrepancies or areas for improvement.
 2. Suggestions for refining the corresponding code snippet.
-3. Consistency between the visual output and the sub-task intent - note that a high-level match would be sufficient.
+3. Consistency between the visual output and the sub-task intent.
+
+Note that the images contain only raw mesh from Blender viewport, so do not comment textures, lighting or any other aspects that are hardly achievable in a raw mesh rendering. Consider it consistent as long as the shape matches the intention. 
 
 **Output Format:** (uses yml format only)
 issues: 

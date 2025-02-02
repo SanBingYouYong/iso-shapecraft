@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-173509\1_combined.py", line 59, in <module>
+    create_pizza_slice()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-173509\1_combined.py", line 30, in create_pizza_slice
+    x = radius * Vector((1, 0, 0)).rotate(Vector((0, 0, rad)))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Vector.rotate(value): expected a Euler, Quaternion or Matrix type, found Vector

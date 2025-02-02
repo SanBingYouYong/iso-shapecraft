@@ -1,0 +1,4 @@
+Read blend: "C:\ZSY\imperial\courses\ISO\iso-shapecraft\auto_render.blend"
+Info: Object has non-uniform scale, unwrap will operate on a non-scaled version of the mesh
+Warning: Unwrap failed to solve 1 of 1 island(s), edge seams may need to be added
+An error occurred during shape script execution, see error log for details; skipping rendering and exporting.

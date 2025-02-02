@@ -1,0 +1,9 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+An error occurred:
+Traceback (most recent call last):
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-175828\3_combined.py", line 82, in <module>
+    create_mouse_pad()
+  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-175828\3_combined.py", line 27, in create_mouse_pad
+    verts.append(Vector((corner_radius * (1 - bpy.mathutils.cos(angle)),
+                                              ^^^^^^^^^^^^^
+AttributeError: module 'bpy' has no attribute 'mathutils'
