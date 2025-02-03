@@ -26,16 +26,10 @@ def one_shape_looped(shape_description: str, exp_folder: str):
     '''
     os.makedirs(exp_folder, exist_ok=True)
     # Check if the folder contains any content
-    if os.listdir(exp_folder) == []:
-        # Create a new subfolder with a timestamp
-        timestamp = time.strftime("%Y%m%d-%H%M%S")
-        new_subfolder = os.path.join(exp_folder, f"old_{timestamp}")
-        os.makedirs(new_subfolder, exist_ok=True)
-        # Move existing content to the new subfolder
-        for item in os.listdir(exp_folder):
-            item_path = os.path.join(exp_folder, item)
-            new_item_path = os.path.join(new_subfolder, item)
-            os.rename(item_path, new_item_path)
+    if os.listdir(exp_folder) != []:
+        # delete everything
+        for f in os.listdir(exp_folder):
+            os.remove(os.path.join(exp_folder, f))
     done = False
     max_ite = 5
     ite = 0
@@ -156,4 +150,4 @@ if __name__ == "__main__":
     # loop_10_daily_objects()
 
     # all_shapes_looped(67, os.path.abspath("exp\\single_daily_shapes_looped_all_0202-181517"))  # manual skip index for resuming
-    all_shapes_looped()  # manual skip index for resuming
+    all_shapes_looped(39, os.path.abspath("exp\\single_daily_shapes_looped_all_0202-221821"))  # manual skip index for resuming
