@@ -1,4 +1,2 @@
-```yaml
-score: 4
-explanation: The shape somewhat resembles a chair but has several issues. The backrest is abnormally tall and lacks a traditional chair contour. Additionally, the legs appear detached or misaligned, and the overall proportions are off. The presence of floating elements detracts from the structural coherence and physical plausibility of the chair design.
-```
+score: 10
+explanation: The shape is a perfect cube, which matches all key characteristics described in the prompt: it has six equal square faces, twelve straight edges, and eight vertices. The proportions and distinct features are accurate, and there are no inconsistencies or structural issues. The geometric and topological structure is sound, demonstrating high logical and structural integrity.

@@ -367,8 +367,12 @@ def shape_evaluation(shape_description: str, image_paths: List[str]) -> dict:
     prompt = ins + shape_description
     response = vlm_multi_img(prompt, image_paths)  # this output should be in yaml format
     feedback = _extract_yml_code(response)
-    feedback = parse_as_yaml(feedback)
-    assert 'score' in feedback and 'explanation' in feedback, f"Feedback not in expected format: {feedback}"
+    try:
+        feedback = parse_as_yaml(feedback)
+        assert 'score' in feedback and 'explanation' in feedback, f"Feedback not in expected format: {feedback}"
+    except Exception as e:
+        print(f"Error in parsing feedback: {e}")
+        feedback = {"score": 0, "explanation": "Feedback parsing error. Here's the original feedback:\n" + feedback}
     return {
         "prompt": prompt,
         "response": response,

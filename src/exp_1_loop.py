@@ -124,6 +124,8 @@ def one_shape_multi_path(shape_description: str, exp_folder_abs: str):
     evaluation_history = []
     evaluations = []
     for path in range(paths):
+        if done:
+            break
         print(f"Processing path {path}...")
         ite = 0
         history = []
@@ -212,8 +214,8 @@ def one_shape_multi_path(shape_description: str, exp_folder_abs: str):
         with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluations.json"), "w") as f:
             json.dump(evaluations, f)
         # save evaluation prompt used
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.json"), "w") as f:
-            json.dump(evaluation_prompt_record, f)
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.md"), "w") as f:
+            f.write(evaluation_prompt_record)
         # save visual feedbacks
         with open(os.path.join(exp_folder_abs, f"{str(path)}_feedback.json"), "w") as f:
             json.dump(visual_feedbacks, f)
@@ -245,13 +247,14 @@ def one_shape_multi_path_evaluation_as_feedback(shape_description: str, exp_fold
     path_max_iter = 3
     evaluation_prompt_record = None
     evaluation_history = []
+    done = False
     evaluations = []
     for path in range(paths):
+        if done:
+            break
         # print(f"Processing path {path}...")
         ite = 0
         history = []
-        done = False
-        visual_feedbacks = []
         prompt = exp_single_get_prompt(shape_description)
         while not done and ite < path_max_iter:
             # print(f" - Iteration {ite}...")
@@ -307,6 +310,8 @@ def one_shape_multi_path_evaluation_as_feedback(shape_description: str, exp_fold
             feedback = eval_result['parsed']['explanation']
             prompt = format_feedback(feedback)
             ite += 1
+            if int(score) >= 9:
+                done = True
         # save final history
         with open(os.path.join(exp_folder_abs, f"{str(path)}_history.json"), "w") as f:
             json.dump(history, f)
@@ -317,8 +322,8 @@ def one_shape_multi_path_evaluation_as_feedback(shape_description: str, exp_fold
         with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluations.json"), "w") as f:
             json.dump(evaluations, f)
         # save evaluation prompt used
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.json"), "w") as f:
-            json.dump(evaluation_prompt_record, f)
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.md"), "w") as f:
+            f.write(evaluation_prompt_record)
         # add a short indicator to record the shape description
         with open(os.path.join(exp_folder_abs, f"{str(path)}_shape_description.txt"), "w") as f:
             f.write(shape_description)

@@ -1,5 +1,5 @@
 from exp_1_loop import one_shape_single_loop, one_shape_multi_path_evaluation_as_feedback
-from agents import task_decomp_get_prompt, parse_as_yaml, _extract_python_code, _extract_yml_code, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt, visual_feedback_get_prompts
+from agents import task_decomp_get_prompt, parse_as_yaml, _extract_python_code, _extract_yml_code, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt, visual_feedback_get_prompts, shape_evaluation
 from chat import llm_with_history, vlm_multi_img
 from combine_and_run import combine_and_run_looped
 
@@ -93,6 +93,112 @@ def full_aggregation_single_loop(aggregator_prompt, sub_task_codes, shape_descri
     
     return ite, history
 
+def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs):
+    '''
+    Expects a shape description and an experiment folder (absolute path!) to output to.
+    
+    foreach path foreach iteration, if execution successful then run evaluation and store results
+
+    now uses evaluation directly as feedback
+    '''
+    os.makedirs(exp_folder_abs, exist_ok=True)
+    # Check if the folder contains any content
+    if os.listdir(exp_folder_abs) != []:
+        # delete everything
+        for f in os.listdir(exp_folder_abs):
+            os.remove(os.path.join(exp_folder_abs, f))
+    paths = 3
+    path_max_iter = 3
+    evaluation_prompt_record = None
+    evaluation_history = []
+    done = False
+    evaluations = []
+    # add a short indicator to record the shape description
+    with open(os.path.join(exp_folder_abs, f"shape_description.txt"), "w") as f:
+        f.write(shape_description)
+    for path in range(paths):
+        if done:
+            break
+        # print(f"Processing path {path}...")
+        ite = 0
+        history = []
+        prompt = code_level_aggregation_get_prompt(aggregator_prompt, sub_task_codes)
+        while not done and ite < path_max_iter:
+            # print(f" - Iteration {ite}...")
+            response, history = llm_with_history(prompt, history)
+            pycode = _extract_python_code(response)
+            if pycode == "":
+                raise ValueError("No python code extracted from LLM response.")
+            pycode_path = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}.py")
+            with open(pycode_path, "w") as f:
+                f.write(pycode)
+            combine_and_run_looped(pycode_path, exp_folder_abs)
+            # check for successful execution
+            syntax_error = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}_syntax_error.txt")
+            if os.path.exists(syntax_error):
+                with open(syntax_error, "r") as f:
+                    error = f.read()
+                prompt = f"Error encountered: {error}"
+                ite += 1
+                continue
+            # if no syntax error, check stderr log
+            error_log = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}_blender_stderr.log")
+            with open(error_log, "r") as f:
+                error = f.read()
+            if "An error occurred:" in error:
+                error_lines = error.split("\n")
+                error = error_lines[error_lines.index("An error occurred:") + 1]
+                prompt = f"Error encountered: {error}"
+                ite += 1
+                continue
+            # if no errors from above two checks, images should definitely be in place
+            images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}_") and f.endswith('.png')]
+            image_paths = [os.path.join(exp_folder_abs, img) for img in images]
+            if len(images) == 0:
+                raise ValueError(f"No images found for iteration {ite}.")
+            for img in images:
+                assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
+            # evaluation
+            eval_result = shape_evaluation(shape_description, image_paths)
+            # print(f"Evaluation result: {eval_result['parsed']}")
+            if evaluation_prompt_record is None:
+                evaluation_prompt_record = eval_result['prompt']
+            evaluation_history.append(
+                {
+                    "path": path,
+                    "iteration": ite,
+                    "evaluation_response": eval_result['response'],
+                }
+            )
+            score = eval_result['parsed']['score']
+            evaluations.append(
+                (score, pycode_path)
+            )
+            feedback = eval_result['parsed']['explanation']
+            prompt = format_feedback(feedback)
+            ite += 1
+            if int(score) >= 9:
+                done = True
+        # save final history
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_history.json"), "w") as f:
+            json.dump(history, f)
+        # save evaluation history
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_history.json"), "w") as f:
+            json.dump(evaluation_history, f)
+        # save evaluations
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluations.json"), "w") as f:
+            json.dump(evaluations, f)
+        # save evaluation prompt used
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.md"), "w") as f:
+            f.write(evaluation_prompt_record)
+        
+    # choose best
+    best_score, best_py_path = max(evaluations, key=lambda x: x[0])
+    return {
+        "best_score": best_score,
+        "best_py_path": best_py_path,
+    }
+
 
 def test_full_shape_looped():
     code_1_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0000"))
@@ -109,6 +215,23 @@ def test_full_shape_looped():
         },
         "A mug on a plate",
         os.path.abspath("exp/full_shape_looped_test")
+    )
+
+def test_full_shape_multi_path_eaf():
+    code_1_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0000"))
+    with open(code_1_path, "r") as f:
+        code_1 = f.read()
+    code_2_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0001"))
+    with open(code_2_path, "r") as f:
+        code_2 = f.read()
+    full_aggregation_multi_path_eaf(
+        "Place the mug on top of the plate while keeping the mug centered on the plate.",
+        {
+            "mug": code_1,
+            "plate": code_2
+        },
+        "A mug on a plate",
+        os.path.abspath("exp/full_shape_looped_eaf_test")
     )
 
 def get_latest_working_pycode(sub_task_folder):
@@ -199,7 +322,8 @@ def full_pipeline(shape_description, exp_root_folder_abs):
     # (code-level) aggregator prompt + sub-task code (text) -> full_shape_looped (pycode) [root/aggregator_folder]
     aggre_folder = os.path.join(exp_root_folder_abs, "aggregator")
     try:
-        full_aggregation_single_loop(code_aggregator_prompt, sub_task_codes, shape_description, aggre_folder)
+        # full_aggregation_single_loop(code_aggregator_prompt, sub_task_codes, shape_description, aggre_folder)
+        full_aggregation_multi_path_eaf(code_aggregator_prompt, sub_task_codes, shape_description, aggre_folder)
     except Exception as e:
         print(f"Error in full_shape_looped: {e}")
     return aggre_folder
@@ -208,6 +332,8 @@ def full_pipeline(shape_description, exp_root_folder_abs):
 if __name__ == "__main__":
     # test full_shape_looped with pre-defined inputs
     # test_full_shape_looped()
+    # test full_shape_multi_path_eaf with pre-defined inputs
+    # test_full_shape_multi_path_eaf()
     # full test
-    full_pipeline("A simple chair", os.path.abspath("exp/full_compMP/chair"))
+    full_pipeline("A sphere on top of a cube", os.path.abspath("exp/full_mp_eaf/sphere_cube"))
 

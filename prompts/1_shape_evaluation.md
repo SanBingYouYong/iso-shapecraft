@@ -23,7 +23,9 @@ Rate the shape on a scale from **0 to 10**, where:
 Provide a **brief explanation** of the score, highlighting key issues or strengths.
 
 **Format**: (use yml format only)
-score: your score here as an integer
+```yml
 explanation: brief explanation here
+score: your score here as an integer
+```
 
 # Shape Description
