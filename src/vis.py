@@ -50,61 +50,94 @@ def load_experiment_data(exp_dir):
 
 def main():
     st.set_page_config(layout="wide")
-    
-    # 实验根目录设置（根据实际路径修改）
     EXP_ROOT = "./exp/single_daily_shapes_looped_all_0202-221821"
     
     st.title("LLM 3D Zero-shot One-run Single-shape Synthesis Experiment")
     
-    # 选择实验目录
-    experiments = [d for d in os.listdir(EXP_ROOT) 
-                  if os.path.isdir(os.path.join(EXP_ROOT, d))]
-    selected_exp = st.selectbox("Choose exp folder", experiments)
-    exp_dir = os.path.join(EXP_ROOT, selected_exp)
+    # 实验选择与基础信息双列布局
+    col_meta = st.columns([2, 3])
+    with col_meta[0]:
+        experiments = [d for d in os.listdir(EXP_ROOT) 
+                      if os.path.isdir(os.path.join(EXP_ROOT, d))]
+        selected_exp = st.selectbox("Choose exp folder", experiments)
     
-    # 加载数据
+    exp_dir = os.path.join(EXP_ROOT, selected_exp)
     data = load_experiment_data(exp_dir)
     
-    # 显示基础信息
-    st.subheader("Shape Description")
-    st.text_area("", data["description"], height=100, disabled=True)
-    
-    # 并列显示历史记录
+    with col_meta[1]:
+        st.subheader("Description Summary")
+        st.markdown(f'```\n{data["description"]}\n```')
+
+    # 历史记录与反馈的三列布局
     if data["history"] or data["feedback"]:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.subheader("History")
+        cols = st.columns([4, 3])
+        with cols[0]:
+            st.subheader("Raw History")
             st.json(data["history"], expanded=False)
-        with col2:
-            st.subheader("Feedbacks") 
+        with cols[1]:
+            st.subheader("Raw Feedbacks")
             st.json(data["feedback"], expanded=False)
-    
-    # 显示每个迭代的视觉结果
-    st.divider()
+        # with cols[2]:
+        #     st.subheader("Metrics Summary")
+        #     st.warning("Metrics visualization area")  # 可扩展指标图表
+
+    # 迭代展示优化
     for iter_num in sorted(data["iterations"].keys()):
-        st.subheader(f"Iteration {iter_num}")
+        st.divider()
         
-        # 图片展示
-        cols = st.columns(4)  # 4张图片并排
-        for idx, img_file in enumerate(data["iterations"][iter_num]):
-            img_path = os.path.join(exp_dir, img_file)
-            try:
-                img = Image.open(img_path)
-                cols[idx].image(img, caption=img_file, use_container_width=True)
-            except Exception as e:
-                cols[idx].error(f"cannot load image: {img_file}")
+        # 主内容区布局
+        main_col, side_col = st.columns([3, 2])
         
-        history_iter = 2 * iter_num
-        
-        # 显示对应聊天记录
-        if data["history"] and len(data["history"]) > iter_num:
-            with st.expander(f"Check Iteration {iter_num} Chat History"):
-                with st.chat_message('user'):
-                    st.markdown(data["history"][history_iter]['content'])
-                with st.chat_message('assistant'):
-                    st.markdown(data["history"][history_iter+1]['content'])
-                # st.markdown(data["history"][iter_num])
-                # st.markdown(data["history"][iter_num+1])
+        with main_col:
+            st.subheader(f"Iteration {iter_num} Visualizations")
+            img_cols = st.columns(4)
+            for idx, img_file in enumerate(data["iterations"][iter_num]):
+                try:
+                    img = Image.open(os.path.join(exp_dir, img_file))
+                    img_cols[idx].image(img, caption=f"Step {idx+1}", use_container_width=True)
+                except Exception as e:
+                    img_cols[idx].error(f"Image load error: {img_file}")
+            
+            with st.expander("Raw JSON Data"):
+                    st.json({
+                        "user_prompt": data["history"][iter_num * 2],
+                        "assistant_response": data["history"][iter_num * 2 + 1]
+                    })
+
+        with side_col:
+            st.subheader("Interaction Context")
+            if data["history"] and len(data["history"]) > iter_num*2:
+                history_iter = iter_num * 2
+                
+                with st.chat_message("user"):
+                    st.caption("User Instruction")
+                    with st.expander("Instruction Details"):
+                        st.markdown(data["history"][iter_num]['content'])
+                
+                with st.chat_message("assistant"):
+                    st.caption("VLM Feedback")
+                    st.markdown(data["feedback"][iter_num]['feedback'])
+
+                # chat_cols = st.columns(2)
+                
+                # with chat_cols[0]:
+                #     with st.chat_message("user"):
+                #         st.caption("User Instruction")
+                #         with st.expander("Instruction Details"):
+                #             st.markdown(data["history"][history_iter]['content'])
+                
+                # with chat_cols[1]:
+                #     with st.chat_message("assistant"):
+                #         st.caption("VLM Feedback")
+                #         st.markdown(data["feedback"][history_iter]['feedback'])
+                
+                # with st.expander("Raw JSON Data"):
+                #     st.json({
+                #         "user_prompt": data["history"][history_iter],
+                #         "assistant_response": data["history"][history_iter+1]
+                #     })
+            else:
+                st.info("No conversation record for this iteration")
 
 if __name__ == "__main__":
     main()
