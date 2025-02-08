@@ -85,7 +85,7 @@ def _format_code_snippets(code_snippets: Dict[str, str]) -> str:
     Formats the code snippets dictionary into a string.
     '''
     formatted_str = ""
-    for component in code_snippets:
+    for component in code_snippets:  # TODO: if testing other languages, update accordingly
         formatted_str += f"Component: {component}\n```python{code_snippets[component]}```\n\n"
     return formatted_str
 
@@ -160,6 +160,13 @@ def task_decomp(shape_description: str) -> List[Dict[str, str]]:
         "response": response,
         "parsed": components
     }
+
+def task_decomp_get_prompt(shape_description: str) -> str:
+    '''
+    Prompt + user-input shape description
+    '''
+    ins = prompts[TaskType.TASK_DECOMP.value["name"]]
+    return ins + shape_description
 
 # UNTESTED & Deprecated
 def components_prototype(components: List[Dict[str, str]]) -> Dict[str, str]:
@@ -320,6 +327,13 @@ def high_level_aggregation(user_input: str, components: List[Dict[str, str]]):
         "parsed": response
     }
 
+def high_level_aggregation_get_prompt(user_input: str, components: List[Dict[str, str]]) -> str:
+    '''
+    Prompt + user-input + components (name and descriptions)
+    '''
+    ins = prompts[TaskType.HIGH_AGGRE.value]
+    return ins + f"\nUser Prompt: {user_input}\n\nSub-components:\n{_format_components(components)}\n"
+
 # TODO: this can be on putting mesh together directly, like scenecraft with new assets
 @experiment_logger()
 def code_level_aggregation(high_level_instruct: str, code_snippets: Dict[str, str]):
@@ -337,6 +351,13 @@ def code_level_aggregation(high_level_instruct: str, code_snippets: Dict[str, st
         "response": response,
         "parsed": pycode
     }
+
+def code_level_aggregation_get_prompt(high_level_instruct: str, code_snippets: Dict[str, str]) -> str:
+    '''
+    Prompt + high-level instructions + code snippets {component name: code}
+    '''
+    ins = prompts[TaskType.CODE_AGGRE.value]
+    return ins + f"\nHigh-level Aggregation Instructions: {high_level_instruct}\n\nCode Snippets:\n{_format_code_snippets(code_snippets)}\n"
 
 agents = {
     TaskType.TASK_DECOMP: task_decomp,

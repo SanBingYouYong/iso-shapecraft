@@ -20,16 +20,16 @@ def format_feedback(feedback: str) -> str:
     return f"Please update the code based on the feedback: \n{feedback}"
 
 
-def one_shape_looped(shape_description: str, exp_folder: str):
+def one_shape_looped(shape_description: str, exp_folder_abs: str):
     '''
     Expects a shape description and an experiment folder (absolute path!) to output to.
     '''
-    os.makedirs(exp_folder, exist_ok=True)
+    os.makedirs(exp_folder_abs, exist_ok=True)
     # Check if the folder contains any content
-    if os.listdir(exp_folder) != []:
+    if os.listdir(exp_folder_abs) != []:
         # delete everything
-        for f in os.listdir(exp_folder):
-            os.remove(os.path.join(exp_folder, f))
+        for f in os.listdir(exp_folder_abs):
+            os.remove(os.path.join(exp_folder_abs, f))
     done = False
     max_ite = 5
     ite = 0
@@ -42,12 +42,12 @@ def one_shape_looped(shape_description: str, exp_folder: str):
         pycode = _extract_python_code(response)
         if pycode == "":
             raise ValueError("No python code extracted from LLM response.")
-        pycode_path = os.path.join(exp_folder, f"{str(ite)}.py")  # use ite as basename
+        pycode_path = os.path.join(exp_folder_abs, f"{str(ite)}.py")  # use ite as basename
         with open(pycode_path, "w") as f:
             f.write(pycode)
-        combine_and_run_looped(pycode_path, exp_folder)
+        combine_and_run_looped(pycode_path, exp_folder_abs)
         # check for successful execution by: stderr log's "An error occurred:" line, or {ite}_syntax_error.txt, or images exists
-        syntax_error = os.path.join(exp_folder, f"{str(ite)}_syntax_error.txt")
+        syntax_error = os.path.join(exp_folder_abs, f"{str(ite)}_syntax_error.txt")
         if os.path.exists(syntax_error):
             with open(syntax_error, "r") as f:
                 error = f.read()
@@ -55,7 +55,7 @@ def one_shape_looped(shape_description: str, exp_folder: str):
             ite += 1
             continue
         # if no syntax error, check stderr log
-        error_log = os.path.join(exp_folder, f"{str(ite)}_blender_stderr.log")
+        error_log = os.path.join(exp_folder_abs, f"{str(ite)}_blender_stderr.log")
         with open(error_log, "r") as f:
             error = f.read()
         if "An error occurred:" in error:
@@ -66,12 +66,12 @@ def one_shape_looped(shape_description: str, exp_folder: str):
             continue
         # if no errors from above two checks, images should definitely be in place
         # find current iteration prefxied images
-        images = [f for f in os.listdir(exp_folder) if f.startswith(f"{str(ite)}_") and f.endswith('.png')]
-        image_paths = [os.path.join(exp_folder, img) for img in images]
+        images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(ite)}_") and f.endswith('.png')]
+        image_paths = [os.path.join(exp_folder_abs, img) for img in images]
         if len(images) == 0:
             raise ValueError(f"No images found for iteration {ite}.")
         for img in images:
-            assert os.path.exists(os.path.join(exp_folder, img)), f"Image {img} not found."
+            assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
         # visual feedback
         vis_prompt = visual_feedback_get_prompts(shape_description)
         feedback = vlm_multi_img(vis_prompt, image_paths)
@@ -92,13 +92,13 @@ def one_shape_looped(shape_description: str, exp_folder: str):
             prompt = format_feedback(feedback)
             ite += 1
     # save final history
-    with open(os.path.join(exp_folder, "history.json"), "w") as f:
+    with open(os.path.join(exp_folder_abs, "history.json"), "w") as f:
         json.dump(history, f)
     # save visual feedbacks
-    with open(os.path.join(exp_folder, "feedback.json"), "w") as f:
+    with open(os.path.join(exp_folder_abs, "feedback.json"), "w") as f:
         json.dump(visual_feedbacks, f)
     # add a short indicator to record the shape description
-    with open(os.path.join(exp_folder, "shape_description.txt"), "w") as f:
+    with open(os.path.join(exp_folder_abs, "shape_description.txt"), "w") as f:
         f.write(shape_description)
     return ite, history
 
