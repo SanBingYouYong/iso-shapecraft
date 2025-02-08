@@ -1,4 +1,4 @@
-from chat import llm_request, vlm_request, llm_with_history
+from chat import llm_request, vlm_request, llm_with_history, vlm_multi_img
 from prompt import read_markdown_prompts
 from constants import TaskType
 from file_utils import save_output, read_as_yaml, parse_as_yaml, log_output_to_exp
@@ -359,19 +359,37 @@ def code_level_aggregation_get_prompt(high_level_instruct: str, code_snippets: D
     ins = prompts[TaskType.CODE_AGGRE.value]
     return ins + f"\nHigh-level Aggregation Instructions: {high_level_instruct}\n\nCode Snippets:\n{_format_code_snippets(code_snippets)}\n"
 
+def shape_evaluation(shape_description: str, image_paths: List[str]) -> dict:
+    '''
+    Prompt + shape description + images
+    '''
+    ins = prompts[TaskType.SHAPE_EVALUATION.value]
+    prompt = ins + shape_description
+    response = vlm_multi_img(prompt, image_paths)  # this output should be in yaml format
+    feedback = _extract_yml_code(response)
+    feedback = parse_as_yaml(feedback)
+    assert 'score' in feedback and 'explanation' in feedback, f"Feedback not in expected format: {feedback}"
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": feedback
+    }
+
 agents = {
     TaskType.TASK_DECOMP: task_decomp,
     TaskType.COMP_SYNTH: component_synth,
     TaskType.VIS_FEEDBACK: visual_feedback,
     TaskType.SHAPE_IMPROVEMENT: shape_improvement,
     TaskType.HIGH_AGGRE: high_level_aggregation,
-    TaskType.CODE_AGGRE: code_level_aggregation
+    TaskType.CODE_AGGRE: code_level_aggregation,
+    TaskType.SHAPE_EVALUATION: shape_evaluation
 }
 agents_rev = {
     "task_decomp": TaskType.TASK_DECOMP,
     "component_synth": TaskType.COMP_SYNTH,
     "visual_feedback": TaskType.VIS_FEEDBACK,
     "shape_improvement": TaskType.SHAPE_IMPROVEMENT,
+    "shape_evaluation": TaskType.SHAPE_EVALUATION,
     "high_level_aggregation": TaskType.HIGH_AGGRE,
     "code_level_aggregation": TaskType.CODE_AGGRE,
     "exp_full_task": TaskType.EXP_FULL_TASK
@@ -382,7 +400,13 @@ if __name__ == "__main__":
     # shape_description = "A chair with four legs, a seat, and a backrest. The legs should be sturdy and slightly angled outwards for stability. The seat should be flat and comfortable, and the backrest should be slightly curved to provide ergonomic support."
     # pycode = exp_full_task(shape_description)["parsed"]
 
-    print(_extract_python_code("") == "")
+    # print(_extract_python_code("") == "")
+
+    image_paths = "0_0.png", "0_1.png", "0_2.png", "0_3.png"
+    image_paths = [os.path.join("C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\\full\\chair\\aggregator", img) for img in image_paths]
+    shape_description = "a chair"
+    feedback = shape_evaluation(shape_description, image_paths)["parsed"]
+    print(feedback)
     
     # components = task_decomp(shape_description)["parsed"]
     # test_comp = components[0]
