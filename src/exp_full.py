@@ -1,4 +1,4 @@
-from exp_1_loop import one_shape_looped
+from exp_1_loop import one_shape_single_loop
 from agents import task_decomp_get_prompt, parse_as_yaml, _extract_python_code, _extract_yml_code, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt, visual_feedback_get_prompts
 from chat import llm_with_history, vlm_multi_img
 from combine_and_run import combine_and_run_looped
@@ -10,7 +10,7 @@ import json
 def format_feedback(feedback: str) -> str:
     return f"Please update the code based on the feedback: \n{feedback}"
 
-def full_shape_looped(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs):
+def full_aggregation_single_loop(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs):
     '''
     aggregator prompt + sub-task code (text) -> full_shape_looped (pycode) [root/aggregator_folder]
     '''
@@ -145,7 +145,7 @@ def full_pipeline(shape_description, exp_root_folder_abs):
         sub_task_desc = sub_task['description']
         sub_task_folder = os.path.join(exp_root_folder_abs, f"sub_task_{i}_{sub_task_name}")
         # sub-task description (text) -> one_shape_looped (pycode) [root/sub-task_folder]
-        one_shape_looped(sub_task_desc, sub_task_folder)
+        one_shape_single_loop(sub_task_desc, sub_task_folder)
         # find latest pycode file
         latest_working_pycode_file = get_latest_working_pycode(sub_task_folder)
         if latest_working_pycode_file is None:
@@ -162,7 +162,7 @@ def full_pipeline(shape_description, exp_root_folder_abs):
     # (code-level) aggregator prompt + sub-task code (text) -> full_shape_looped (pycode) [root/aggregator_folder]
     aggre_folder = os.path.join(exp_root_folder_abs, "aggregator")
     try:
-        full_shape_looped(code_aggregator_prompt, sub_task_codes, shape_description, aggre_folder)
+        full_aggregation_single_loop(code_aggregator_prompt, sub_task_codes, shape_description, aggre_folder)
     except Exception as e:
         print(f"Error in full_shape_looped: {e}")
     return aggre_folder
@@ -174,7 +174,7 @@ def test_full_shape_looped():
     code_2_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0001"))
     with open(code_2_path, "r") as f:
         code_2 = f.read()
-    full_shape_looped(
+    full_aggregation_single_loop(
         "Place the mug on top of the plate while keeping the mug centered on the plate.",
         {
             "mug": code_1,
