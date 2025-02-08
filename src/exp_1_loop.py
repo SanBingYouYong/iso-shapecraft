@@ -227,6 +227,108 @@ def one_shape_multi_path(shape_description: str, exp_folder_abs: str):
         "best_py_path": best_py_path,
     }
 
+def one_shape_multi_path_evaluation_as_feedback(shape_description: str, exp_folder_abs: str):
+    '''
+    Expects a shape description and an experiment folder (absolute path!) to output to.
+    
+    foreach path foreach iteration, if execution successful then run evaluation and store results
+
+    now uses evaluation directly as feedback
+    '''
+    os.makedirs(exp_folder_abs, exist_ok=True)
+    # Check if the folder contains any content
+    if os.listdir(exp_folder_abs) != []:
+        # delete everything
+        for f in os.listdir(exp_folder_abs):
+            os.remove(os.path.join(exp_folder_abs, f))
+    paths = 3
+    path_max_iter = 3
+    evaluation_prompt_record = None
+    evaluation_history = []
+    evaluations = []
+    for path in range(paths):
+        print(f"Processing path {path}...")
+        ite = 0
+        history = []
+        done = False
+        visual_feedbacks = []
+        prompt = exp_single_get_prompt(shape_description)
+        while not done and ite < path_max_iter:
+            print(f" - Iteration {ite}...")
+            response, history = llm_with_history(prompt, history)
+            pycode = _extract_python_code(response)
+            if pycode == "":
+                raise ValueError("No python code extracted from LLM response.")
+            pycode_path = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}.py")
+            with open(pycode_path, "w") as f:
+                f.write(pycode)
+            combine_and_run_looped(pycode_path, exp_folder_abs)
+            # check for successful execution
+            syntax_error = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}_syntax_error.txt")
+            if os.path.exists(syntax_error):
+                with open(syntax_error, "r") as f:
+                    error = f.read()
+                prompt = f"Error encountered: {error}"
+                ite += 1
+                continue
+            # if no syntax error, check stderr log
+            error_log = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}_blender_stderr.log")
+            with open(error_log, "r") as f:
+                error = f.read()
+            if "An error occurred:" in error:
+                error_lines = error.split("\n")
+                error = error_lines[error_lines.index("An error occurred:") + 1]
+                prompt = f"Error encountered: {error}"
+                ite += 1
+                continue
+            # if no errors from above two checks, images should definitely be in place
+            images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}_") and f.endswith('.png')]
+            image_paths = [os.path.join(exp_folder_abs, img) for img in images]
+            if len(images) == 0:
+                raise ValueError(f"No images found for iteration {ite}.")
+            for img in images:
+                assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
+            # evaluation
+            eval_result = shape_evaluation(shape_description, image_paths)
+            print(f"Evaluation result: {eval_result['parsed']}")
+            if evaluation_prompt_record is None:
+                evaluation_prompt_record = eval_result['prompt']
+            evaluation_history.append(
+                {
+                    "path": path,
+                    "iteration": ite,
+                    "evaluation_response": eval_result['response'],
+                }
+            )
+            score = eval_result['parsed']['score']
+            evaluations.append(
+                (score, pycode_path)
+            )
+            feedback = eval_result['parsed']['explanation']
+            prompt = format_feedback(feedback)
+            ite += 1
+        # save final history
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_history.json"), "w") as f:
+            json.dump(history, f)
+        # save evaluation history
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_history.json"), "w") as f:
+            json.dump(evaluation_history, f)
+        # save evaluations
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluations.json"), "w") as f:
+            json.dump(evaluations, f)
+        # save evaluation prompt used
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.json"), "w") as f:
+            json.dump(evaluation_prompt_record, f)
+        # add a short indicator to record the shape description
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_shape_description.txt"), "w") as f:
+            f.write(shape_description)
+    # choose best
+    best_score, best_py_path = max(evaluations, key=lambda x: x[0])
+    return {
+        "best_score": best_score,
+        "best_py_path": best_py_path,
+    }
+
 SHAPE_DESCRIPTIONS_YAML = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapes_daily_4omini.yaml"
 
 def read_shapes(shapes_yaml: str) -> dict:
@@ -277,7 +379,11 @@ if __name__ == "__main__":
     # all_shapes_looped(67, os.path.abspath("exp\\single_daily_shapes_looped_all_0202-181517"))  # manual skip index for resuming
     # all_shapes_looped(39, os.path.abspath("exp\\single_daily_shapes_looped_all_0202-221821"))  # manual skip index for resuming
 
-    bests = one_shape_multi_path("A chair", os.path.abspath("exp\\multi_path_test\\chair"))
+    # bests = one_shape_multi_path("A chair", os.path.abspath("exp\\multi_path_test\\chair"))
+    # print(bests)
+    # combine_and_run_looped(bests['best_py_path'], os.path.abspath("exp\\multi_path_test\\chair_best"))
+    
+    bests = one_shape_multi_path_evaluation_as_feedback("A chair", os.path.abspath("exp\\multi_path_test_eaf\\chair"))
     print(bests)
-    combine_and_run_looped(bests['best_py_path'], os.path.abspath("exp\\multi_path_test\\chair_best"))
+    combine_and_run_looped(bests['best_py_path'], os.path.abspath("exp\\multi_path_test_eaf\\chair_best"))
 
