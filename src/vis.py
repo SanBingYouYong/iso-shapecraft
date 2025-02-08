@@ -54,35 +54,35 @@ def main():
     # 实验根目录设置（根据实际路径修改）
     EXP_ROOT = "./exp/single_daily_shapes_looped_all_0202-221821"
     
-    st.title("LLM 3D生成实验分析")
+    st.title("LLM 3D Zero-shot One-run Single-shape Synthesis Experiment")
     
     # 选择实验目录
     experiments = [d for d in os.listdir(EXP_ROOT) 
                   if os.path.isdir(os.path.join(EXP_ROOT, d))]
-    selected_exp = st.selectbox("选择实验文件夹", experiments)
+    selected_exp = st.selectbox("Choose exp folder", experiments)
     exp_dir = os.path.join(EXP_ROOT, selected_exp)
     
     # 加载数据
     data = load_experiment_data(exp_dir)
     
     # 显示基础信息
-    st.subheader("形状描述")
+    st.subheader("Shape Description")
     st.text_area("", data["description"], height=100, disabled=True)
     
     # 并列显示历史记录
     if data["history"] or data["feedback"]:
         col1, col2 = st.columns(2)
         with col1:
-            st.subheader("生成历史")
+            st.subheader("History")
             st.json(data["history"], expanded=False)
         with col2:
-            st.subheader("反馈记录") 
+            st.subheader("Feedbacks") 
             st.json(data["feedback"], expanded=False)
     
     # 显示每个迭代的视觉结果
     st.divider()
     for iter_num in sorted(data["iterations"].keys()):
-        st.subheader(f"迭代 {iter_num}")
+        st.subheader(f"Iteration {iter_num}")
         
         # 图片展示
         cols = st.columns(4)  # 4张图片并排
@@ -92,13 +92,13 @@ def main():
                 img = Image.open(img_path)
                 cols[idx].image(img, caption=img_file, use_container_width=True)
             except Exception as e:
-                cols[idx].error(f"无法加载图片: {img_file}")
+                cols[idx].error(f"cannot load image: {img_file}")
         
         history_iter = 2 * iter_num
         
         # 显示对应聊天记录
         if data["history"] and len(data["history"]) > iter_num:
-            with st.expander(f"查看迭代 {iter_num} 的对话记录"):
+            with st.expander(f"Check Iteration {iter_num} Chat History"):
                 with st.chat_message('user'):
                     st.markdown(data["history"][history_iter]['content'])
                 with st.chat_message('assistant'):
