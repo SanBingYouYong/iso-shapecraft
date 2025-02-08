@@ -1,4 +1,4 @@
-from exp_1_loop import one_shape_single_loop
+from exp_1_loop import one_shape_single_loop, one_shape_multi_path_evaluation_as_feedback
 from agents import task_decomp_get_prompt, parse_as_yaml, _extract_python_code, _extract_yml_code, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt, visual_feedback_get_prompts
 from chat import llm_with_history, vlm_multi_img
 from combine_and_run import combine_and_run_looped
@@ -93,6 +93,24 @@ def full_aggregation_single_loop(aggregator_prompt, sub_task_codes, shape_descri
     
     return ite, history
 
+
+def test_full_shape_looped():
+    code_1_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0000"))
+    with open(code_1_path, "r") as f:
+        code_1 = f.read()
+    code_2_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0001"))
+    with open(code_2_path, "r") as f:
+        code_2 = f.read()
+    full_aggregation_single_loop(
+        "Place the mug on top of the plate while keeping the mug centered on the plate.",
+        {
+            "mug": code_1,
+            "plate": code_2
+        },
+        "A mug on a plate",
+        os.path.abspath("exp/full_shape_looped_test")
+    )
+
 def get_latest_working_pycode(sub_task_folder):
     '''
     Latest: based on file suffix index (only 0.py not 0_combined.py)
@@ -110,6 +128,37 @@ def get_latest_working_pycode(sub_task_folder):
             return os.path.join(sub_task_folder, pycode_file)
     return None
     
+def components_one_looped(sub_tasks, exp_root_folder_abs):
+    sub_task_codes = {}
+    # for each sub-task:
+    for i, sub_task in enumerate(sub_tasks):
+        sub_task_name = sub_task['name']
+        sub_task_desc = sub_task['description']
+        sub_task_folder = os.path.join(exp_root_folder_abs, f"sub_task_{i}_{sub_task_name}")
+        # sub-task description (text) -> one_shape_looped (pycode) [root/sub-task_folder]
+        one_shape_single_loop(sub_task_desc, sub_task_folder)
+        # find latest pycode file
+        latest_working_pycode_file = get_latest_working_pycode(sub_task_folder)
+        if latest_working_pycode_file is None:
+            raise ValueError(f"No working pycode file found for sub-task {sub_task_name}.")
+        with open(latest_working_pycode_file, "r") as f:
+            sub_task_codes[sub_task_name] = f.read()
+    return sub_task_codes
+
+def components_multi_pathed(sub_tasks, exp_root_folder_abs):
+    sub_task_codes = {}
+    # for each sub-task:
+    for i, sub_task in enumerate(sub_tasks):
+        sub_task_name = sub_task['name']
+        sub_task_desc = sub_task['description']
+        sub_task_folder = os.path.join(exp_root_folder_abs, f"sub_task_{i}_{sub_task_name}")
+        # sub-task description (text) -> one_shape_looped (pycode) [root/sub-task_folder]
+        bests = one_shape_multi_path_evaluation_as_feedback(sub_task_desc, sub_task_folder)
+        best_py_path = bests['best_py_path']
+        with open(best_py_path, "r") as f:
+            sub_task_codes[sub_task_name] = f.read()
+    return sub_task_codes
+        
 
 def full_pipeline(shape_description, exp_root_folder_abs):
     '''
@@ -138,20 +187,8 @@ def full_pipeline(shape_description, exp_root_folder_abs):
         yaml.dump(sub_tasks, f)
     sub_tasks = sub_tasks['components']
     
-    sub_task_codes = {}
-    # for each sub-task:
-    for i, sub_task in enumerate(sub_tasks):
-        sub_task_name = sub_task['name']
-        sub_task_desc = sub_task['description']
-        sub_task_folder = os.path.join(exp_root_folder_abs, f"sub_task_{i}_{sub_task_name}")
-        # sub-task description (text) -> one_shape_looped (pycode) [root/sub-task_folder]
-        one_shape_single_loop(sub_task_desc, sub_task_folder)
-        # find latest pycode file
-        latest_working_pycode_file = get_latest_working_pycode(sub_task_folder)
-        if latest_working_pycode_file is None:
-            raise ValueError(f"No working pycode file found for sub-task {sub_task_name}.")
-        with open(latest_working_pycode_file, "r") as f:
-            sub_task_codes[sub_task_name] = f.read()
+    # sub_task_codes = components_one_looped(sub_tasks, exp_root_folder_abs)
+    sub_task_codes = components_multi_pathed(sub_tasks, exp_root_folder_abs)
     
     # (high-level) shape description + sub-tasks (text) -llm> aggregator prompt (text) [root/aggregator_folder]
     high_aggregator_prompt = high_level_aggregation_get_prompt(shape_description, sub_tasks)
@@ -167,26 +204,10 @@ def full_pipeline(shape_description, exp_root_folder_abs):
         print(f"Error in full_shape_looped: {e}")
     return aggre_folder
 
-def test_full_shape_looped():
-    code_1_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0000"))
-    with open(code_1_path, "r") as f:
-        code_1 = f.read()
-    code_2_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0001"))
-    with open(code_2_path, "r") as f:
-        code_2 = f.read()
-    full_aggregation_single_loop(
-        "Place the mug on top of the plate while keeping the mug centered on the plate.",
-        {
-            "mug": code_1,
-            "plate": code_2
-        },
-        "A mug on a plate",
-        os.path.abspath("exp/full_shape_looped_test")
-    )
 
 if __name__ == "__main__":
     # test full_shape_looped with pre-defined inputs
     # test_full_shape_looped()
     # full test
-    full_pipeline("A simple chair", os.path.abspath("exp/full/chair"))
+    full_pipeline("A simple chair", os.path.abspath("exp/full_compMP/chair"))
 

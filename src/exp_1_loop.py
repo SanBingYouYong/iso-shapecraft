@@ -247,14 +247,14 @@ def one_shape_multi_path_evaluation_as_feedback(shape_description: str, exp_fold
     evaluation_history = []
     evaluations = []
     for path in range(paths):
-        print(f"Processing path {path}...")
+        # print(f"Processing path {path}...")
         ite = 0
         history = []
         done = False
         visual_feedbacks = []
         prompt = exp_single_get_prompt(shape_description)
         while not done and ite < path_max_iter:
-            print(f" - Iteration {ite}...")
+            # print(f" - Iteration {ite}...")
             response, history = llm_with_history(prompt, history)
             pycode = _extract_python_code(response)
             if pycode == "":
@@ -290,7 +290,7 @@ def one_shape_multi_path_evaluation_as_feedback(shape_description: str, exp_fold
                 assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
             # evaluation
             eval_result = shape_evaluation(shape_description, image_paths)
-            print(f"Evaluation result: {eval_result['parsed']}")
+            # print(f"Evaluation result: {eval_result['parsed']}")
             if evaluation_prompt_record is None:
                 evaluation_prompt_record = eval_result['prompt']
             evaluation_history.append(
