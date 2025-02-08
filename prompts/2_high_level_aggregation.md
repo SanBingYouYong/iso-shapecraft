@@ -4,6 +4,7 @@
 1. Respect the overall shape description provided by the user.  
 2. Maintain logical cohesion between the sub-components.  
 3. Define relationships between components, such as placement, orientation, scaling, or structural connections.  
+4. Be concise.
 
 **Output Format:** 
 [high level instruction on how sub-components should be combined]

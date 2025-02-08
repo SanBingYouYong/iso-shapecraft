@@ -82,9 +82,13 @@ def one_shape_looped(shape_description: str, exp_folder_abs: str):
                 "feedback": feedback
             }
         )
-        feedback_yml = _extract_yml_code(feedback)
-        parsed_feedback = parse_as_yaml(feedback_yml)
-        assert "issues" in parsed_feedback and "consistency" in parsed_feedback
+        try:
+            feedback_yml = _extract_yml_code(feedback)
+            parsed_feedback = parse_as_yaml(feedback_yml)
+            assert "issues" in parsed_feedback and "consistency" in parsed_feedback, f"Feedback parsing failed: {parsed_feedback}"
+        except:
+            print(f"Feedback parsing failed: {feedback}")
+            parsed_feedback = feedback
         if parsed_feedback['consistency']:  # yaml handles parsing multiple ways of saying True already
             done = True
             # print(f"Task completed in {ite} iterations.")

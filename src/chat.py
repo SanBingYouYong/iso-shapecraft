@@ -8,11 +8,13 @@ from typing import Tuple
 load_dotenv()
 client = OpenAI(api_key=os.getenv('GPT'))
 
+MODEL = "gpt-4o-mini"
+
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
 
-def llm_request(prompt: str, model: str="gpt-4o-mini") -> str:
+def llm_request(prompt: str, model: str=MODEL) -> str:
     response = client.chat.completions.create(
         model=model,
         messages=[
@@ -23,7 +25,7 @@ def llm_request(prompt: str, model: str="gpt-4o-mini") -> str:
     output = response.choices[0].message.content
     return output
 
-def llm_with_history(prompt: str, history: list, model: str="gpt-4o-mini") -> Tuple[str, list]:
+def llm_with_history(prompt: str, history: list, model: str=MODEL) -> Tuple[str, list]:
     response = client.chat.completions.create(
         model=model,
         messages=[
@@ -37,7 +39,7 @@ def llm_with_history(prompt: str, history: list, model: str="gpt-4o-mini") -> Tu
     history.append({"role": "assistant", "content": output})
     return output, history
 
-def vlm_request(prompt: str, image_path, model: str="gpt-4o-mini", img_format: str="png") -> str:
+def vlm_request(prompt: str, image_path, model: str=MODEL, img_format: str="png") -> str:
     response = client.chat.completions.create(
         model=model,
         messages=[
@@ -58,7 +60,7 @@ def vlm_request(prompt: str, image_path, model: str="gpt-4o-mini", img_format: s
     )
     return response.choices[0].message.content
 
-def vlm_multi_img(prompt: str, image_paths: list, model: str="gpt-4o-mini", img_format: str="png") -> str:
+def vlm_multi_img(prompt: str, image_paths: list, model: str=MODEL, img_format: str="png") -> str:
     response = client.chat.completions.create(
         model=model,
         messages=[

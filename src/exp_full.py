@@ -20,6 +20,9 @@ def full_shape_looped(aggregator_prompt, sub_task_codes, shape_description, exp_
         # delete everything
         for f in os.listdir(exp_folder_abs):
             os.remove(os.path.join(exp_folder_abs, f))
+    # add a short indicator to record the shape description
+    with open(os.path.join(exp_folder_abs, "shape_description.txt"), "w") as f:
+        f.write(shape_description)
     done = False
     max_ite = 5
     ite = 0
@@ -31,7 +34,7 @@ def full_shape_looped(aggregator_prompt, sub_task_codes, shape_description, exp_
         response, history = llm_with_history(prompt, history)
         pycode = _extract_python_code(response)
         if pycode == "":
-            raise ValueError("No python code extracted from LLM response.")
+            raise ValueError(f"No python code extracted from LLM response at iteration {ite}, response: {response}.")
         pycode_path = os.path.join(exp_folder_abs, f"{str(ite)}.py")  # use ite as basename
         with open(pycode_path, "w") as f:
             f.write(pycode)
@@ -87,9 +90,7 @@ def full_shape_looped(aggregator_prompt, sub_task_codes, shape_description, exp_
     # save visual feedbacks
     with open(os.path.join(exp_folder_abs, "feedback.json"), "w") as f:
         json.dump(visual_feedbacks, f)
-    # add a short indicator to record the shape description
-    with open(os.path.join(exp_folder_abs, "shape_description.txt"), "w") as f:
-        f.write(shape_description)
+    
     return ite, history
 
 def get_latest_working_pycode(sub_task_folder):
@@ -160,7 +161,11 @@ def full_pipeline(shape_description, exp_root_folder_abs):
     
     # (code-level) aggregator prompt + sub-task code (text) -> full_shape_looped (pycode) [root/aggregator_folder]
     aggre_folder = os.path.join(exp_root_folder_abs, "aggregator")
-    full_shape_looped(code_aggregator_prompt, sub_task_codes, shape_description, aggre_folder)
+    try:
+        full_shape_looped(code_aggregator_prompt, sub_task_codes, shape_description, aggre_folder)
+    except Exception as e:
+        print(f"Error in full_shape_looped: {e}")
+    return aggre_folder
 
 def test_full_shape_looped():
     code_1_path = get_latest_working_pycode(os.path.abspath("exp/single_daily_shapes_looped_all_0202-221821/0000"))
@@ -183,5 +188,5 @@ if __name__ == "__main__":
     # test full_shape_looped with pre-defined inputs
     # test_full_shape_looped()
     # full test
-    full_pipeline("A coffee mug", os.path.abspath("exp/full/coffe_mug"))
+    full_pipeline("A simple chair", os.path.abspath("exp/full/chair"))
 

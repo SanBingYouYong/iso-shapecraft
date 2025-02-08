@@ -86,7 +86,7 @@ def _format_code_snippets(code_snippets: Dict[str, str]) -> str:
     '''
     formatted_str = ""
     for component in code_snippets:  # TODO: if testing other languages, update accordingly
-        formatted_str += f"Component: {component}\n```python{code_snippets[component]}```\n\n"
+        formatted_str += f"Component: {component}\n```python\n{code_snippets[component]}```\n\n"
     return formatted_str
 
 def experiment_logger():

@@ -50,7 +50,7 @@ def load_experiment_data(exp_dir):
 
 def main():
     st.set_page_config(layout="wide")
-    EXP_ROOT = "./exp/single_daily_shapes_looped_all_0202-221821"
+    EXP_ROOT = "./exp/full/chair/"
     
     st.title("LLM 3D Zero-shot One-run Single-shape Synthesis Experiment")
     
