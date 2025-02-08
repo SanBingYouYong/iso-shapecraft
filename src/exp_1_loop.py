@@ -60,8 +60,9 @@ def one_shape_single_loop(shape_description: str, exp_folder_abs: str):
             error = f.read()
         if "An error occurred:" in error:
             error_lines = error.split("\n")  # skips the universal TBmalloc warning and the flag line itself
-            error = error_lines[error_lines.index("An error occurred:") + 1]
-            prompt = f"Error encountered: {error}"
+            error = error_lines[error_lines.index("An error occurred:"):]
+            error_str = "\n".join(error)
+            prompt = f"Error encountered: {error_str}"
             ite += 1
             continue
         # if no errors from above two checks, images should definitely be in place
@@ -156,8 +157,9 @@ def one_shape_multi_path(shape_description: str, exp_folder_abs: str):
                 error = f.read()
             if "An error occurred:" in error:
                 error_lines = error.split("\n")
-                error = error_lines[error_lines.index("An error occurred:") + 1]
-                prompt = f"Error encountered: {error}"
+                error = error_lines[error_lines.index("An error occurred:"):]
+                error_str = "\n".join(error)
+                prompt = f"Error encountered: {error_str}"
                 ite += 1
                 continue
             # if no errors from above two checks, images should definitely be in place
@@ -280,8 +282,9 @@ def one_shape_multi_path_evaluation_as_feedback(shape_description: str, exp_fold
                 error = f.read()
             if "An error occurred:" in error:
                 error_lines = error.split("\n")
-                error = error_lines[error_lines.index("An error occurred:") + 1]
-                prompt = f"Error encountered: {error}"
+                error = error_lines[error_lines.index("An error occurred:"):]
+                error_str = "\n".join(error)
+                prompt = f"Error encountered: {error_str}"
                 ite += 1
                 continue
             # if no errors from above two checks, images should definitely be in place

@@ -53,8 +53,9 @@ def full_aggregation_single_loop(aggregator_prompt, sub_task_codes, shape_descri
             error = f.read()
         if "An error occurred:" in error:
             error_lines = error.split("\n")  # skips the universal TBmalloc warning and the flag line itself
-            error = error_lines[error_lines.index("An error occurred:") + 1]
-            prompt = f"Error encountered: {error}"
+            error = error_lines[error_lines.index("An error occurred:"):]
+            error_str = "\n".join(error)
+            prompt = f"Error encountered: {error_str}"
             ite += 1
             continue
         # if no errors from above two checks, images should definitely be in place
@@ -147,8 +148,9 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
                 error = f.read()
             if "An error occurred:" in error:
                 error_lines = error.split("\n")
-                error = error_lines[error_lines.index("An error occurred:") + 1]
-                prompt = f"Error encountered: {error}"
+                error = error_lines[error_lines.index("An error occurred:"):]
+                error_str = "\n".join(error)
+                prompt = f"Error encountered: {error_str}"
                 ite += 1
                 continue
             # if no errors from above two checks, images should definitely be in place
@@ -190,7 +192,8 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
             json.dump(evaluations, f)
         # save evaluation prompt used
         with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.md"), "w") as f:
-            f.write(evaluation_prompt_record)
+            if evaluation_prompt_record is not None:
+                f.write(evaluation_prompt_record)
         
     # choose best
     best_score, best_py_path = max(evaluations, key=lambda x: x[0])
@@ -274,9 +277,10 @@ def components_multi_pathed(sub_tasks, exp_root_folder_abs):
     for i, sub_task in enumerate(sub_tasks):
         sub_task_name = sub_task['name']
         sub_task_desc = sub_task['description']
+        description_str = f"shape to be modeled: {sub_task_name}\nshape description: {sub_task_desc}"
         sub_task_folder = os.path.join(exp_root_folder_abs, f"sub_task_{i}_{sub_task_name}")
         # sub-task description (text) -> one_shape_looped (pycode) [root/sub-task_folder]
-        bests = one_shape_multi_path_evaluation_as_feedback(sub_task_desc, sub_task_folder)
+        bests = one_shape_multi_path_evaluation_as_feedback(description_str, sub_task_folder)
         best_py_path = bests['best_py_path']
         with open(best_py_path, "r") as f:
             sub_task_codes[sub_task_name] = f.read()
@@ -335,5 +339,5 @@ if __name__ == "__main__":
     # test full_shape_multi_path_eaf with pre-defined inputs
     # test_full_shape_multi_path_eaf()
     # full test
-    full_pipeline("A sphere on top of a cube", os.path.abspath("exp/full_mp_eaf/sphere_cube"))
+    full_pipeline("A simple chair", os.path.abspath("exp/full_mp_eaf/test"))
 
