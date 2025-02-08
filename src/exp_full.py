@@ -183,5 +183,5 @@ if __name__ == "__main__":
     # test full_shape_looped with pre-defined inputs
     # test_full_shape_looped()
     # full test
-    full_pipeline("A coffee mug on a table", os.path.abspath("exp/full_pipeline_test"))
+    full_pipeline("A coffee mug", os.path.abspath("exp/full/coffe_mug"))
 
