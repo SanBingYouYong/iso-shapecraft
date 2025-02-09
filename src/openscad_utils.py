@@ -25,6 +25,10 @@ def run_openscad(scad_abs_path: str, output_folder_abs_path: str):
         openscad_executable=OPENSCAD_EXE
     )
 
+def _log_error(error_log_path: str, errors: list):
+    with open(error_log_path, "w") as f:
+        f.write("\n\n".join(errors))
+
 def _run_openscad(scad_file, output_folder,
                  model_filename="output.stl", image_filename="output.png",
                  error_log_filename="error_log.txt",
@@ -77,12 +81,18 @@ def _run_openscad(scad_file, output_folder,
         result_model = subprocess.run(cmd_model, capture_output=True, text=True, check=False)
         if result_model.returncode != 0:
             errors.append("Error exporting 3D model:\n" + result_model.stderr)
+            _log_error(error_log_path, errors)
+            return
     except Exception as e:
         errors.append("Exception during 3D model export: " + str(e))
+        _log_error(error_log_path, errors)
+        return
     
     # Check if the model file was created
     if not os.path.exists(model_output_path):
         errors.append(f"3D model output file not found: {model_output_path}")
+        _log_error(error_log_path, errors)
+        return
     
     # Run the command for exporting the rendered image
     try:
@@ -90,12 +100,18 @@ def _run_openscad(scad_file, output_folder,
         result_image = subprocess.run(cmd_image, capture_output=True, text=True, check=False)
         if result_image.returncode != 0:
             errors.append("Error exporting rendered image:\n" + result_image.stderr)
+            _log_error(error_log_path, errors)
+            return
     except Exception as e:
         errors.append("Exception during image export: " + str(e))
+        _log_error(error_log_path, errors)
+        return
     
     # Check if the image file was created
     if not os.path.exists(image_output_path):
         errors.append(f"Rendered image file not found: {image_output_path}")
+        _log_error(error_log_path, errors)
+        return
     
     # If any errors occurred, write them to the error log file
     if errors:

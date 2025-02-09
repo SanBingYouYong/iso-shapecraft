@@ -184,16 +184,16 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
         # save final history
         with open(os.path.join(exp_folder_abs, f"{str(path)}_history.json"), "w") as f:
             json.dump(history, f)
-        # save evaluation history
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_history.json"), "w") as f:
-            json.dump(evaluation_history, f)
-        # save evaluations
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluations.json"), "w") as f:
-            json.dump(evaluations, f)
-        # save evaluation prompt used
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.md"), "w") as f:
-            if evaluation_prompt_record is not None:
-                f.write(evaluation_prompt_record)
+    # save evaluation history
+    with open(os.path.join(exp_folder_abs, f"evaluation_history.json"), "w") as f:
+        json.dump(evaluation_history, f)
+    # save evaluations
+    with open(os.path.join(exp_folder_abs, f"evaluations.json"), "w") as f:
+        json.dump(evaluations, f)
+    # save evaluation prompt used
+    with open(os.path.join(exp_folder_abs, f"evaluation_prompt.md"), "w") as f:
+        if evaluation_prompt_record is not None:
+            f.write(evaluation_prompt_record)
         
     # choose best
     best_score, best_py_path = max(evaluations, key=lambda x: x[0])

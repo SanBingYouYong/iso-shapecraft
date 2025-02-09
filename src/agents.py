@@ -101,13 +101,13 @@ def _gather_code_snippets(folder: str="outputs") -> dict:
                 code_snippets[cleaned_filename] = file.read()
     return code_snippets
 
-def _format_code_snippets(code_snippets: Dict[str, str]) -> str:
+def _format_code_snippets(code_snippets: Dict[str, str], lang: str='python') -> str:
     '''
     Formats the code snippets dictionary into a string.
     '''
     formatted_str = ""
     for component in code_snippets:  # TODO: if testing other languages, update accordingly
-        formatted_str += f"Component: {component}\n```python\n{code_snippets[component]}```\n\n"
+        formatted_str += f"Component: {component}\n```{lang}\n{code_snippets[component]}\n```\n\n"
     return formatted_str
 
 def experiment_logger():
@@ -408,12 +408,12 @@ def code_level_aggregation(high_level_instruct: str, code_snippets: Dict[str, st
         "parsed": pycode
     }
 
-def code_level_aggregation_get_prompt(high_level_instruct: str, code_snippets: Dict[str, str]) -> str:
+def code_level_aggregation_get_prompt(high_level_instruct: str, code_snippets: Dict[str, str], lang: str='python') -> str:
     '''
     Prompt + high-level instructions + code snippets {component name: code}
     '''
     ins = prompts[TaskType.CODE_AGGRE.value]
-    return ins + f"\nHigh-level Aggregation Instructions: {high_level_instruct}\n\nCode Snippets:\n{_format_code_snippets(code_snippets)}\n"
+    return ins + f"\nHigh-level Aggregation Instructions: {high_level_instruct}\n\nCode Snippets:\n{_format_code_snippets(code_snippets, lang)}\n"
 
 def shape_evaluation(shape_description: str, image_paths: List[str]) -> dict:
     '''

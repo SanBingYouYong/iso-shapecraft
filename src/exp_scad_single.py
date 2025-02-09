@@ -25,6 +25,9 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
     evaluation_history = []
     done = False
     evaluations = []
+    # add a short indicator to record the shape description
+    with open(os.path.join(exp_folder_abs, f"shape_description.txt"), "w") as f:
+        f.write(shape_description)
     for path in range(paths):
         if done:
             break
@@ -43,7 +46,7 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
                 f.write(scad_code)
             run_openscad(scad_code_path, exp_folder_abs)
             # check for successful execution
-            error_log_path = os.path.join(exp_folder_abs, "error_log.txt")
+            error_log_path = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}.log")
             if os.path.exists(error_log_path):
                 with open(error_log_path, "r") as error_log:
                     errors = error_log.read()
@@ -57,7 +60,7 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
             images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}") and f.endswith('.png')]
             image_paths = [os.path.join(exp_folder_abs, img) for img in images]
             if len(images) == 0:
-                raise ValueError(f"No images found for iteration {ite}.")
+                raise ValueError(f"No images found for iteration {ite}, path {path}.")
             for img in images:
                 assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
             # evaluation
@@ -93,9 +96,6 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
         # save evaluation prompt used
         with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.md"), "w") as f:
             f.write(evaluation_prompt_record)
-        # add a short indicator to record the shape description
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_shape_description.txt"), "w") as f:
-            f.write(shape_description)
     # choose best
     best_score, best_code_path = max(evaluations, key=lambda x: x[0])
     return {
