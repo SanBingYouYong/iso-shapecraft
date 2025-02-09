@@ -11,6 +11,7 @@ class TaskType(Enum):
         "in": "yaml",
         "out": "py"
     }
+    PROC_SYNTH = "1_procedural_synthesis"
     VIS_FEEDBACK = "1_visual_feedback"
     # COMP_JUDGE = "1_component_judgement"
     SHAPE_IMPROVEMENT = "1_shape_improvement"

@@ -263,6 +263,27 @@ def component_synth(name: str, description: str):
         "parsed": pycode
     }
 
+def procedural_synth(name: str, description: str):
+    '''
+    Prompt + config (coding language + shape engine) + shape description
+    '''
+    ins = prompts[TaskType.PROC_SYNTH.value]
+    prompt = ins + config_str + f"\nname: {name}\ndescription: {description}\n"
+    response = llm_request(prompt)  # this output should be python code wrapped in markdown code block
+    pycode = _extract_python_code(response)
+    return {
+        "prompt": prompt,
+        "response": response,
+        "parsed": pycode
+    }
+
+def procedural_synth_get_prompt(name: str, description: str) -> str:
+    '''
+    Prompt + config (coding language + shape engine) + shape description
+    '''
+    ins = prompts[TaskType.PROC_SYNTH.value]
+    return ins + config_str + f"\nname: {name}\ndescription: {description}\n"
+
 @experiment_logger()
 def visual_feedback(shape_description: str, image_path: str) -> dict:
     '''
@@ -382,6 +403,7 @@ def shape_evaluation(shape_description: str, image_paths: List[str]) -> dict:
 agents = {
     TaskType.TASK_DECOMP: task_decomp,
     TaskType.COMP_SYNTH: component_synth,
+    TaskType.PROC_SYNTH: procedural_synth,
     TaskType.VIS_FEEDBACK: visual_feedback,
     TaskType.SHAPE_IMPROVEMENT: shape_improvement,
     TaskType.HIGH_AGGRE: high_level_aggregation,
@@ -391,6 +413,7 @@ agents = {
 agents_rev = {
     "task_decomp": TaskType.TASK_DECOMP,
     "component_synth": TaskType.COMP_SYNTH,
+    "procedural_synth": TaskType.PROC_SYNTH,
     "visual_feedback": TaskType.VIS_FEEDBACK,
     "shape_improvement": TaskType.SHAPE_IMPROVEMENT,
     "shape_evaluation": TaskType.SHAPE_EVALUATION,
