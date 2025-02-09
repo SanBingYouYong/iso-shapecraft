@@ -68,6 +68,27 @@ def _format_components(components: List[Dict[str, str]]) -> str:
         formatted_str += f"  - component: {component['name']}\n  - description: {component['description']}\n\n"
     return formatted_str
 
+def format_feedback(feedback: str) -> str:
+    return f"Please update the code based on the feedback: \n{feedback}"
+
+def _extract_openscad_code(response: str) -> str:
+    '''
+    Extracts the openscad code from ```openscad\n<code>\n``` or ```scad\n<code>\n``` as str.
+    '''
+    lines = response.split('\n')
+    if (lines[0] == "```openscad" or lines[0] == "```scad") and lines[-1] == "```":
+        return '\n'.join(lines[1:-1])
+    code_block = False
+    code_lines = []
+    for line in lines:
+        if line.startswith("```openscad") or line.startswith("```scad"):
+            code_block = True
+        elif code_block:
+            if line.startswith("```"):
+                break
+            code_lines.append(line)
+    return '\n'.join(code_lines)
+
 def _gather_code_snippets(folder: str="outputs") -> dict:
     '''
     Gathers all code snippets from the outputs folder.
@@ -128,6 +149,13 @@ def exp_single_get_prompt(shape_description: str) -> str:
     Experiment: zero-shot, one-run, full shape program generation based on text prompt. 
     '''
     ins = prompts[TaskType.EXP_FULL_TASK.value["name"]]
+    return ins + config_str + shape_description
+
+def exp_single_get_prompt_scad(shape_description: str) -> str:
+    '''
+    Experiment: zero-shot, one-run, full shape program generation based on text prompt. For OpenSCAD (temp)
+    '''
+    ins = prompts['exp_full_task_openscad']
     return ins + config_str + shape_description
 
 def exp_full_task_batch_out(shape_description: str) -> Dict[str, str]:
@@ -262,6 +290,13 @@ def component_synth(name: str, description: str):
         "response": response,
         "parsed": pycode
     }
+
+def component_synth_get_prompt(name: str, description: str) -> str:
+    '''
+    Prompt + config (coding language + shape engine) + shape description
+    '''
+    ins = prompts[TaskType.COMP_SYNTH.value['name']]
+    return ins + config_str + f"\nname: {name}\ndescription: {description}\n"
 
 def procedural_synth(name: str, description: str):
     '''
