@@ -1,8 +1,37 @@
 import subprocess
 import os
+import json
 
 
 OPENSCAD_EXE = "C:\Program Files\OpenSCAD\openscad.exe"
+STL_PYFILE = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\render_stl.py"
+STL_JSON = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\stl_config.json"
+
+BLENDER_EXE = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\blender.exe"
+BLEND_FILE = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\auto_render.blend"
+
+
+def _run_stl_render(stl_py_file=STL_PYFILE):
+    command = [BLENDER_EXE, BLEND_FILE, "-P", stl_py_file]
+    result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8')
+    if result.stderr:
+        stderr_log = os.path.join(os.path.dirname(stl_py_file), "blender_stderr.log")
+        with open(stderr_log, 'a', encoding='utf-8') as f:
+            filtered_stderr = "\n".join(line for line in result.stderr.splitlines() if not (line.startswith("TBBmalloc") or line.startswith("Writing to")))
+            f.write(filtered_stderr)
+
+def run_render_export(scad_abs_path: str, output_folder_abs_path: str):
+    run_openscad(scad_abs_path, output_folder_abs_path)
+    stl_abs_path = os.path.join(output_folder_abs_path, os.path.basename(scad_abs_path).split(".")[0] + ".stl")
+    config = {
+        "stl_abspath": stl_abs_path,
+        "obj_name": os.path.basename(scad_abs_path).split(".")[0],
+        "out_abspath": output_folder_abs_path
+    }
+    with open(STL_JSON, "w") as f:
+        json.dump(config, f)
+    _run_stl_render()
+
 
 def run_openscad(scad_abs_path: str, output_folder_abs_path: str):
     '''
@@ -57,7 +86,7 @@ def _run_openscad(scad_file, output_folder,
 
     # Construct full paths for the output files
     model_output_path = os.path.join(output_folder, model_filename)
-    image_output_path = os.path.join(output_folder, image_filename)
+    # image_output_path = os.path.join(output_folder, image_filename)
     
     # Command to export the 3D model (e.g., STL file)
     cmd_model = [
@@ -68,12 +97,12 @@ def _run_openscad(scad_file, output_folder,
     
     # Command to export the rendered image
     # You can adjust options like --imgsize, --camera, or --render as needed.
-    cmd_image = [
-        openscad_executable,
-        "--imgsize=256,256",
-        "-o", image_output_path,
-        scad_file
-    ]
+    # cmd_image = [
+    #     openscad_executable,
+    #     "--imgsize=256,256",
+    #     "-o", image_output_path,
+    #     scad_file
+    # ]
     
     # Run the command for exporting the 3D model
     try:
@@ -94,24 +123,24 @@ def _run_openscad(scad_file, output_folder,
         _log_error(error_log_path, errors)
         return
     
-    # Run the command for exporting the rendered image
-    try:
-        # print("Running OpenSCAD for image export...")
-        result_image = subprocess.run(cmd_image, capture_output=True, text=True, check=False)
-        if result_image.returncode != 0:
-            errors.append("Error exporting rendered image:\n" + result_image.stderr)
-            _log_error(error_log_path, errors)
-            return
-    except Exception as e:
-        errors.append("Exception during image export: " + str(e))
-        _log_error(error_log_path, errors)
-        return
+    # Run the command for exporting the rendered image  # now we rely on blender renders
+    # try:
+    #     # print("Running OpenSCAD for image export...")
+    #     result_image = subprocess.run(cmd_image, capture_output=True, text=True, check=False)
+    #     if result_image.returncode != 0:
+    #         errors.append("Error exporting rendered image:\n" + result_image.stderr)
+    #         _log_error(error_log_path, errors)
+    #         return
+    # except Exception as e:
+    #     errors.append("Exception during image export: " + str(e))
+    #     _log_error(error_log_path, errors)
+    #     return
     
-    # Check if the image file was created
-    if not os.path.exists(image_output_path):
-        errors.append(f"Rendered image file not found: {image_output_path}")
-        _log_error(error_log_path, errors)
-        return
+    # # Check if the image file was created
+    # if not os.path.exists(image_output_path):
+    #     errors.append(f"Rendered image file not found: {image_output_path}")
+    #     _log_error(error_log_path, errors)
+    #     return
     
     # If any errors occurred, write them to the error log file
     if errors:
@@ -124,6 +153,7 @@ def _run_openscad(scad_file, output_folder,
 
 # Example usage:
 if __name__ == "__main__":
-    scad_file_path = "bottle.scad"
-    output_dir = "exp/scads"
-    _run_openscad(scad_file_path, output_dir)
+    # scad_file_path = "bottle.scad"
+    # output_dir = "exp/scads"
+    # _run_openscad(scad_file_path, output_dir)
+    run_render_export("C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\scads\coffee_mug\\0_0.stl", "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\scads\coffee_mug")

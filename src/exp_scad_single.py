@@ -1,4 +1,4 @@
-from openscad_utils import run_openscad
+from openscad_utils import run_openscad, run_render_export
 from agents import llm_with_history, exp_single_get_prompt_scad, _extract_openscad_code, shape_evaluation, format_feedback
 
 import os
@@ -44,7 +44,8 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
             scad_code_path = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}.scad")
             with open(scad_code_path, "w") as f:
                 f.write(scad_code)
-            run_openscad(scad_code_path, exp_folder_abs)
+            # run_openscad(scad_code_path, exp_folder_abs)
+            run_render_export(scad_code_path, exp_folder_abs)
             # check for successful execution
             error_log_path = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}.log")
             if os.path.exists(error_log_path):
@@ -57,7 +58,7 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
                     ite += 1
                     continue
             # if no errors from above two checks, images should definitely be in place (openscad plan to render one image for now)
-            images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}") and f.endswith('.png')]
+            images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}_") and f.endswith('.png')]
             image_paths = [os.path.join(exp_folder_abs, img) for img in images]
             if len(images) == 0:
                 raise ValueError(f"No images found for iteration {ite}, path {path}.")
@@ -106,7 +107,7 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
 
 if __name__ == "__main__":
     shape_description = "A cylindrical coffee mug with a handle on the side."
-    exp_folder_abs = os.path.join("exp", "scads", "coffee_mug")
+    exp_folder_abs = os.path.abspath(os.path.join("exp", "scads", "coffee_mug"))
     result = one_shape_mp_eaf(shape_description, exp_folder_abs)
     print(result)
     print("Operation completed successfully.")
