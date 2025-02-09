@@ -61,7 +61,7 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
             images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}_") and f.endswith('.png')]
             image_paths = [os.path.join(exp_folder_abs, img) for img in images]
             if len(images) == 0:
-                raise ValueError(f"No images found for iteration {ite}, path {path}.")
+                raise ValueError(f"No images found for iteration {ite}, path {path} at {exp_folder_abs}.")
             for img in images:
                 assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
             # evaluation
@@ -88,15 +88,15 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
         # save final history
         with open(os.path.join(exp_folder_abs, f"{str(path)}_history.json"), "w") as f:
             json.dump(history, f)
-        # save evaluation history
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_history.json"), "w") as f:
-            json.dump(evaluation_history, f)
-        # save evaluations
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluations.json"), "w") as f:
-            json.dump(evaluations, f)
-        # save evaluation prompt used
-        with open(os.path.join(exp_folder_abs, f"{str(path)}_evaluation_prompt.md"), "w") as f:
-            f.write(evaluation_prompt_record)
+    # save evaluation history
+    with open(os.path.join(exp_folder_abs, f"evaluation_history.json"), "w") as f:
+        json.dump(evaluation_history, f)
+    # save evaluations
+    with open(os.path.join(exp_folder_abs, f"evaluations.json"), "w") as f:
+        json.dump(evaluations, f)
+    # save evaluation prompt used
+    with open(os.path.join(exp_folder_abs, f"evaluation_prompt.md"), "w") as f:
+        f.write(evaluation_prompt_record)
     # choose best
     best_score, best_code_path = max(evaluations, key=lambda x: x[0])
     return {

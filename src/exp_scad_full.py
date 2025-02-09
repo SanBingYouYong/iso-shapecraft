@@ -62,7 +62,7 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
             images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}_") and f.endswith('.png')]
             image_paths = [os.path.join(exp_folder_abs, img) for img in images]
             if len(images) == 0:
-                raise ValueError(f"No images found for iteration {ite}.")
+                raise ValueError(f"No images found for iteration {ite}, path {path} at {exp_folder_abs}.")
             for img in images:
                 assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
             # evaluation
@@ -169,7 +169,7 @@ def full_pipeline(shape_description, exp_root_folder_abs):
 
 if __name__ == "__main__":
     shape_description = "A cylindrical coffee mug with a handle on the side."
-    exp_folder_abs = os.path.join("exp", "scads_full", "coffee_mug")
+    exp_folder_abs = os.path.abspath(os.path.join("exp", "scads_full", "coffee_mug"))
     result = full_pipeline(shape_description, exp_folder_abs)
     print(result)
     print("Operation completed successfully.")

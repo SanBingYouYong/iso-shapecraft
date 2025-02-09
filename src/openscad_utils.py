@@ -14,14 +14,13 @@ BLEND_FILE = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\auto_render.blend
 def _run_stl_render(stl_py_file=STL_PYFILE):
     command = [BLENDER_EXE, BLEND_FILE, "-P", stl_py_file]
     result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8')
-    if result.stderr:
-        stderr_log = os.path.join(os.path.dirname(stl_py_file), "blender_stderr.log")
-        with open(stderr_log, 'a', encoding='utf-8') as f:
-            filtered_stderr = "\n".join(line for line in result.stderr.splitlines() if not (line.startswith("TBBmalloc") or line.startswith("Writing to")))
-            f.write(filtered_stderr)
+    return result
 
 def run_render_export(scad_abs_path: str, output_folder_abs_path: str):
-    run_openscad(scad_abs_path, output_folder_abs_path)
+    no_error = run_openscad(scad_abs_path, output_folder_abs_path)
+    if not no_error:
+        # print(f"An error processing {scad_abs_path}, check {output_folder_abs_path} for logs.")
+        return
     stl_abs_path = os.path.join(output_folder_abs_path, os.path.basename(scad_abs_path).split(".")[0] + ".stl")
     config = {
         "stl_abspath": stl_abs_path,
@@ -30,7 +29,13 @@ def run_render_export(scad_abs_path: str, output_folder_abs_path: str):
     }
     with open(STL_JSON, "w") as f:
         json.dump(config, f)
-    _run_stl_render()
+    result = _run_stl_render()
+    if result.stderr:
+        log_file = os.path.join(output_folder_abs_path, "render_log.txt")
+        filtered_stderr = [line for line in result.stderr.splitlines() if not (line.startswith("TBBmalloc") or line.startswith("Writing to"))]
+        if filtered_stderr != []:
+            with open(log_file, "w") as f:
+                f.write("\n".join(filtered_stderr))
 
 
 def run_openscad(scad_abs_path: str, output_folder_abs_path: str):
@@ -45,7 +50,7 @@ def run_openscad(scad_abs_path: str, output_folder_abs_path: str):
     model_filename = f"{scad_base}.stl"
     image_filename = f"{scad_base}.png"
     error_log_filename = f"{scad_base}.log"
-    _run_openscad(
+    return _run_openscad(
         scad_abs_path,
         output_folder_abs_path,
         model_filename=model_filename,
@@ -143,7 +148,8 @@ def _run_openscad(scad_file, output_folder,
     #     return
     
     # If any errors occurred, write them to the error log file
-    if errors:
+    if errors != []:
+        print(f"Operation completed with errors. See {error_log_path} for details.")
         with open(error_log_path, "w") as f:
             f.write("\n\n".join(errors))
         # print(f"Operation completed with errors. See {error_log_path} for details.")
@@ -151,9 +157,11 @@ def _run_openscad(scad_file, output_folder,
         # print("Operation completed successfully.")
         pass
 
+    return errors == []
+
 # Example usage:
 if __name__ == "__main__":
     # scad_file_path = "bottle.scad"
     # output_dir = "exp/scads"
     # _run_openscad(scad_file_path, output_dir)
-    run_render_export("C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\scads\coffee_mug\\0_0.stl", "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\scads\coffee_mug")
+    run_render_export("C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\scads_full\coffee_mug\\sub_task_0\\0_0.scad", "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\scads_full\coffee_mug\\sub_task_0")
