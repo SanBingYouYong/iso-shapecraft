@@ -16,6 +16,9 @@ PROJECT_ROOT = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft"
 SUFFIX_PY = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\code_suffix.py"
 CONFIG_JSON = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\config.json"
 
+STL_PYFILE = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\render_stl.py"
+STL_JSON = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\stl_config.json"
+
 def paths(exp_folder: str, output_py: str, suffix_py: str, config_json: str, render_folder: str, obj_folder: str):
     exp_folder = os.path.join(PROJECT_ROOT, get_exp(), exp_folder)
     os.makedirs(exp_folder, exist_ok=True)
@@ -193,8 +196,19 @@ def combine_and_run_looped(abs_path_py: str, abs_path_out_folder: str,
         with open(stderr_log, 'w', encoding='utf-8') as f:
             f.write(result.stderr)
 
+def run_stl_render(stl_py_file=STL_PYFILE):
+    command = [BLENDER_EXE, BLEND_FILE, "-P", stl_py_file]
+    result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8')
+    # stable process, record incremental logs locally
+    # if result.stderr:  # record no log for now
+    #     stderr_log = os.path.join(os.path.dirname(stl_py_file), "blender_stderr.log")
+    #     with open(stderr_log, 'a', encoding='utf-8') as f:
+    #         filtered_stderr = "\n".join(line for line in result.stderr.splitlines() if not (line.startswith("TBBmalloc") or line.startswith("Writing to")))
+    #         f.write(filtered_stderr)
+
 if __name__ == "__main__":
-    combine_and_run(
-        exp_id="exp_a",
-        output_py="sample_output.py"
-    )
+    # combine_and_run(
+    #     exp_id="exp_a",
+    #     output_py="sample_output.py"
+    # )
+    run_stl_render()
