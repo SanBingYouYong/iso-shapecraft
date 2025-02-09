@@ -7,7 +7,12 @@ import json
 import yaml
 from tqdm import tqdm
 
-def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs):
+with open("src/config.yaml", "r") as f:
+    config = yaml.safe_load(f)
+PATHS = config["paths"]
+PATH_MAX_ITER = config["path_max_iter"]
+
+def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs, paths=PATHS, path_max_iter=PATH_MAX_ITER):
     '''
     Expects a shape description and an experiment folder (absolute path!) to output to.
     
@@ -21,8 +26,6 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
         # delete everything
         for f in os.listdir(exp_folder_abs):
             os.remove(os.path.join(exp_folder_abs, f))
-    paths = 3
-    path_max_iter = 3
     evaluation_prompt_record = None
     evaluation_history = []
     done = False
@@ -184,8 +187,8 @@ def for_n_shapes(data_yml: str, n: int=3):
     print("Operation completed successfully.")
 
 if __name__ == "__main__":
-    shape_description = "A book lying flat on a table, one chair on each side."
-    exp_folder_abs = os.path.abspath(os.path.join("exp", "scene", "book_table_chairs"))
+    shape_description = "A cylindrical coffee mug with a handle on the side."
+    exp_folder_abs = os.path.abspath(os.path.join("exp", "manual", "coffee_mug"))
     result = full_pipeline(shape_description, exp_folder_abs)
     print(result)
     print("Operation completed successfully.")

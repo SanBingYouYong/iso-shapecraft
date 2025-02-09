@@ -3,9 +3,15 @@ from agents import llm_with_history, exp_single_get_prompt_scad, _extract_opensc
 
 import os
 import json
+import yaml
+
+with open("src/config.yaml", "r") as f:
+    config = yaml.safe_load(f)
+PATHS = config["paths"]
+PATH_MAX_ITER = config["path_max_iter"]
 
 
-def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
+def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str, paths=PATHS, path_max_iter=PATH_MAX_ITER):
     '''
     Expects a shape description and an experiment folder (absolute path!) to output to.
     
@@ -19,8 +25,6 @@ def one_shape_mp_eaf(shape_description: str, exp_folder_abs: str):
         # delete everything
         for f in os.listdir(exp_folder_abs):
             os.remove(os.path.join(exp_folder_abs, f))
-    paths = 3
-    path_max_iter = 3
     evaluation_prompt_record = None
     evaluation_history = []
     done = False

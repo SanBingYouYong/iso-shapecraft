@@ -4,6 +4,10 @@ coding_language: "OpenSCAD"
 ### Blender | OpenSCAD
 shape_engine: "OpenSCAD"
 
+# Performance-related
+paths: 3
+path_max_iter: 3
+
 # Task-specific definitions
 output_format:
   - ""
