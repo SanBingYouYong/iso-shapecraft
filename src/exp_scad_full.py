@@ -5,6 +5,7 @@ from exp_scad_single import one_shape_mp_eaf
 import os
 import json
 import yaml
+from tqdm import tqdm
 
 def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs):
     '''
@@ -166,10 +167,32 @@ def full_pipeline(shape_description, exp_root_folder_abs):
         print(f"Error in full_shape_looped: {e}")
     return aggre_folder
 
+def for_n_shapes(data_yml: str, n: int=3):
+    '''
+    data_yml: str (absolute path)
+    n: int
+    '''
+    with open(data_yml, "r") as f:
+        data = yaml.safe_load(f)['shapes']
+    if len(data) < n:
+        n = len(data)
+    exp_root = f"scad_exp_{n}x_{os.path.basename(data_yml).split('.')[0]}"
+    for i in tqdm(range(n), desc="Processing shapes"):
+        shape_description = data[i]
+        exp_folder_abs = os.path.abspath(os.path.join("exp", exp_root, f"shape_{i:04d}"))
+        result = full_pipeline(shape_description, exp_folder_abs)
+    print("Operation completed successfully.")
 
 if __name__ == "__main__":
-    shape_description = "A cylindrical coffee mug with a handle on the side."
-    exp_folder_abs = os.path.abspath(os.path.join("exp", "scads_full", "coffee_mug"))
+    shape_description = "A book lying flat on a table, one chair on each side."
+    exp_folder_abs = os.path.abspath(os.path.join("exp", "scene", "book_table_chairs"))
     result = full_pipeline(shape_description, exp_folder_abs)
     print(result)
     print("Operation completed successfully.")
+
+
+    # data_yml = "dataset/shapes_daily_multistruct_4omini.yaml"
+    # data_yml = "dataset/shapes_simple_4omini.yaml"
+    # data_yml = "dataset/shapes_daily_4omini.yaml"
+
+    # for_n_shapes(data_yml, 3)
