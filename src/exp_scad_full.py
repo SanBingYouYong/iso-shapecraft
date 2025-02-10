@@ -1,6 +1,6 @@
 from openscad_utils import run_openscad, run_render_export
-from agents import llm_with_history, exp_single_get_prompt_scad, _extract_openscad_code, shape_evaluation, format_feedback, task_decomp_get_prompt, parse_as_yaml, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt
-from exp_scad_single import one_shape_mp_eaf
+from agents import llm_with_history, exp_single_get_prompt_scad, _extract_openscad_code, shape_evaluation, format_feedback, task_decomp_get_prompt, parse_as_yaml, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt, one_issue
+from exp_scad_single import one_shape_mp_eaf, one_shape_mp_eaf_one_issue
 
 import os
 import json
@@ -69,6 +69,9 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
                 raise ValueError(f"No images found for iteration {ite}, path {path} at {exp_folder_abs}.")
             for img in images:
                 assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
+            # one issue feedback
+            one_issue_feedback = one_issue(shape_description, image_paths)['response']
+            prompt = format_feedback(one_issue_feedback)
             # evaluation
             eval_result = shape_evaluation(shape_description, image_paths)
             # print(f"Evaluation result: {eval_result['parsed']}")
@@ -85,8 +88,8 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
             evaluations.append(
                 (score, scad_code_path)
             )
-            feedback = eval_result['parsed']['explanation']
-            prompt = format_feedback(feedback)
+            # feedback = eval_result['parsed']['explanation']
+            # prompt = format_feedback(feedback)
             ite += 1
             if int(score) >= 9:
                 done = True
@@ -120,7 +123,8 @@ def components_multi_pathed(sub_tasks, exp_root_folder_abs):
         description_str = f"shape to be modeled: {sub_task_name}\nshape description: {sub_task_desc}"
         sub_task_folder = os.path.join(exp_root_folder_abs, f"sub_task_{i}")
         # sub-task description (text) -> one_shape_looped (pycode) [root/sub-task_folder]
-        bests = one_shape_mp_eaf(description_str, sub_task_folder)
+        # bests = one_shape_mp_eaf(description_str, sub_task_folder)
+        bests = one_shape_mp_eaf_one_issue(description_str, sub_task_folder)
         best_py_path = bests['best_code_path']
         with open(best_py_path, "r") as f:
             sub_task_codes[sub_task_name] = f.read()
@@ -188,7 +192,7 @@ def for_n_shapes(data_yml: str, n: int=3):
 
 if __name__ == "__main__":
     shape_description = "A cylindrical coffee mug with a handle on the side."
-    exp_folder_abs = os.path.abspath(os.path.join("exp", "manual", "coffee_mug"))
+    exp_folder_abs = os.path.abspath(os.path.join("exp", "manual", "coffee_mug_os_full"))
     result = full_pipeline(shape_description, exp_folder_abs)
     print(result)
     print("Operation completed successfully.")

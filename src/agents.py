@@ -415,6 +415,18 @@ def code_level_aggregation_get_prompt(high_level_instruct: str, code_snippets: D
     ins = prompts[TaskType.CODE_AGGRE.value]
     return ins + f"\nHigh-level Aggregation Instructions: {high_level_instruct}\n\nCode Snippets:\n{_format_code_snippets(code_snippets, lang)}\n"
 
+def one_issue(shape_description: str, image_paths: List[str]) -> dict:
+    '''
+    Prompt + shape description + images
+    '''
+    ins = prompts[TaskType.ONE_ISSUE.value]
+    prompt = ins + shape_description
+    response = vlm_multi_img(prompt, image_paths)  # this output is used as plain text
+    return {
+        "prompt": prompt,
+        "response": response,
+    }
+
 def shape_evaluation(shape_description: str, image_paths: List[str]) -> dict:
     '''
     Prompt + shape description + images

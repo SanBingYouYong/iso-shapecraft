@@ -87,10 +87,28 @@ def vlm_multi_img(prompt: str, image_paths: list, model: str=MODEL, img_format: 
 
 # Example usage
 if __name__ == "__main__":
-    prompt = "Briefly describe this 3D model."
-    img_path = "test.png"
-    # response = llm_request(prompt)
-    response = vlm_request(prompt, encode_image(img_path))
-    print(f"Response: '{response}'")
-    with open("output.txt", "w") as f:
-        f.write(response)
+    # prompt = "Briefly describe this 3D model."
+    # img_path = "test.png"
+    # # response = llm_request(prompt)
+    # response = vlm_request(prompt, encode_image(img_path))
+    # print(f"Response: '{response}'")
+    # with open("output.txt", "w") as f:
+    #     f.write(response)
+    prompt = """# Shape Synthesis Instruction
+
+**Objective:** Generate a code snippet in the target programming language to produce the 3D shape described. The generated code should:
+1. Align with the shape description.
+2. Be syntactically correct, functional, can be executed stand-alone or be called as a method. 
+3. Focus on the current shape, ignore other unrelated descriptions.
+
+**Output Format:** 
+```openscad
+your code here
+```
+
+# Shape Description
+"""
+    prompt += """A cylindrical coffee mug with a handle on the side."""
+    print(prompt)
+    response, history = llm_with_history(prompt, [])
+    print(response)
