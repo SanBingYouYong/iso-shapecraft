@@ -1,8 +1,8 @@
 # Variables
 ### Python | OpenSCAD
-coding_language: "OpenSCAD"
+coding_language: "Python"
 ### Blender | OpenSCAD
-shape_engine: "OpenSCAD"
+shape_engine: "Blender"
 
 # Performance-related
 paths: 3

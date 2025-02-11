@@ -1,4 +1,4 @@
-from agents import visual_feedback, exp_full_task, exp_single_get_prompt, _extract_python_code, visual_feedback_get_prompts, _extract_yml_code, shape_evaluation, procedural_synth, procedural_synth_get_prompt
+from agents import visual_feedback, exp_full_task, exp_single_get_prompt, _extract_python_code, visual_feedback_get_prompts, _extract_yml_code, shape_evaluation, procedural_synth, procedural_synth_get_prompt, one_issue
 from chat import llm_with_history, vlm_multi_img
 from combine_and_run import combine_and_run_looped
 from file_utils import parse_as_yaml
@@ -9,6 +9,11 @@ import json
 import yaml
 import random
 from tqdm import tqdm
+
+with open("src/config.yaml", "r") as f:
+    config = yaml.safe_load(f)
+PATHS = config["paths"]
+PATH_MAX_ITER = config["path_max_iter"]
 
 '''
 Initial code -> 
@@ -446,6 +451,114 @@ def one_shape_mp_eaf_procedural(shape_name: str, shape_description: str, exp_fol
         "best_py_path": best_py_path,
     }
 
+# EVAL: testing 10 daily
+def one_shape_mp_one_issue(shape_description: str, exp_folder_abs: str, paths=PATHS, path_max_iter=PATH_MAX_ITER):
+    '''
+    Expects a shape description and an experiment folder (absolute path!) to output to.
+    
+    foreach path foreach iteration, if execution successful then run evaluation and store results
+
+    now uses evaluation directly as feedback
+    '''
+    os.makedirs(exp_folder_abs, exist_ok=True)
+    # Check if the folder contains any content
+    if os.listdir(exp_folder_abs) != []:
+        # delete everything
+        for f in os.listdir(exp_folder_abs):
+            os.remove(os.path.join(exp_folder_abs, f))
+    evaluation_prompt_record = ""
+    evaluation_history = []
+    done = False
+    evaluations = []
+    # add a short indicator to record the shape description
+    with open(os.path.join(exp_folder_abs, f"shape_description.txt"), "w") as f:
+        f.write(shape_description)
+    for path in range(paths):
+        if done:
+            break
+        # print(f"Processing path {path}...")
+        ite = 0
+        history = []
+        prompt = exp_single_get_prompt(shape_description)
+        while not done and ite < path_max_iter:
+            # print(f" - Iteration {ite}...")
+            response, history = llm_with_history(prompt, history)
+            py_code = _extract_python_code(response)
+            if py_code == "":
+                raise ValueError(f"No Python code extracted from LLM response. {response}")
+            scad_code_path = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}.py")
+            with open(scad_code_path, "w") as f:
+                f.write(py_code)
+            # run_openscad(scad_code_path, exp_folder_abs)
+            # run_render_export(scad_code_path, exp_folder_abs)
+            combine_and_run_looped(scad_code_path, exp_folder_abs)
+            # check for successful execution
+            syntax_error = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}_syntax_error.txt")
+            if os.path.exists(syntax_error):
+                with open(syntax_error, "r") as f:
+                    error = f.read()
+                prompt = f"Error encountered: {error}"
+                ite += 1
+                continue
+            # if no syntax error, check stderr log
+            error_log = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}_blender_stderr.log")
+            with open(error_log, "r") as f:
+                error = f.read()
+            if "An error occurred:" in error:
+                error_lines = error.split("\n")
+                error = error_lines[error_lines.index("An error occurred:"):]
+                error_str = "\n".join(error)
+                prompt = f"Error encountered: {error_str}"
+                ite += 1
+                continue
+            # if no errors from above two checks, images should definitely be in place (openscad plan to render one image for now)
+            images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}_") and f.endswith('.png')]
+            image_paths = [os.path.join(exp_folder_abs, img) for img in images]
+            if len(images) == 0:
+                raise ValueError(f"No images found for iteration {ite}, path {path} at {exp_folder_abs}.")
+            for img in images:
+                assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
+            # visual feedback
+            one_issue_feedback = one_issue(shape_description, image_paths)['response']
+            prompt = format_feedback(one_issue_feedback)
+            # evaluation
+            eval_result = shape_evaluation(shape_description, image_paths)
+            # print(f"Evaluation result: {eval_result['parsed']}")
+            if evaluation_prompt_record == "":
+                evaluation_prompt_record = eval_result['prompt']
+            evaluation_history.append(
+                {
+                    "path": path,
+                    "iteration": ite,
+                    "evaluation_response": eval_result['response'],
+                }
+            )
+            score = eval_result['parsed']['score']
+            evaluations.append(
+                (score, scad_code_path)
+            )
+            ite += 1
+            if int(score) >= 9:
+                done = True
+        # save final history
+        with open(os.path.join(exp_folder_abs, f"{str(path)}_history.json"), "w") as f:
+            json.dump(history, f)
+    # save evaluation history
+    with open(os.path.join(exp_folder_abs, f"evaluation_history.json"), "w") as f:
+        json.dump(evaluation_history, f)
+    # save evaluations
+    with open(os.path.join(exp_folder_abs, f"evaluations.json"), "w") as f:
+        json.dump(evaluations, f)
+    # save evaluation prompt used
+    with open(os.path.join(exp_folder_abs, f"evaluation_prompt.md"), "w") as f:
+        f.write(evaluation_prompt_record)
+    # choose best
+    best_score, best_code_path = max(evaluations, key=lambda x: x[0])
+    return {
+        "best_score": best_score,
+        "best_code_path": best_code_path,
+    }
+
 SHAPE_DESCRIPTIONS_YAML = "C:\\ZSY\\imperial\\courses\\ISO\\iso-shapecraft\\dataset\\shapes_daily_4omini.yaml"
 
 def read_shapes(shapes_yaml: str) -> dict:
@@ -485,6 +598,26 @@ def all_shapes_looped(manual_skip_idx: int=0, manual_exp_out_root: str=None):
     with open(os.path.join(exp_out_root, "iterations.csv"), "w") as f:
         f.write("\n".join([str(i) for i in iterations]))
 
+def for_n_shapes(data_yml: str, n: int=3, sample=False):
+    '''
+    data_yml: str (absolute path)
+    n: int
+    '''
+    with open(data_yml, "r") as f:
+        data = yaml.safe_load(f)['shapes']
+    if sample:
+        data = random.sample(data, min(n, len(data)))
+    else:
+        if len(data) < n:
+            n = len(data)
+        data = data[:n]
+    exp_root = f"eval_python_single_{n}x_{os.path.basename(data_yml).split('.')[0]}"
+    for i in tqdm(range(len(data)), desc="Processing shapes"):
+        shape_description = data[i]
+        exp_folder_abs = os.path.abspath(os.path.join("exp", exp_root, f"shape_{i:04d}"))
+        result = one_shape_mp_one_issue(shape_description, exp_folder_abs)
+    print("Operation completed successfully.")
+
 if __name__ == "__main__":
     # shape = "A chair with four legs, a backrest, no armrests, and a cushioned seat."
     # timestamp = time.strftime("%m%d-%H%M%S")
@@ -504,7 +637,21 @@ if __name__ == "__main__":
     # print(bests)
     # combine_and_run_looped(bests['best_py_path'], os.path.abspath("exp\\multi_path_test_eaf\\chair_best"))
 
-    bests = one_shape_mp_eaf_procedural("A chair", "A chair with four legs, a backrest, no armrests, and a cushioned seat.", os.path.abspath("exp\\mp_eaf_procedural\\chair"))
-    print(bests)
-    combine_and_run_looped(bests['best_py_path'], os.path.abspath("exp\\mp_eaf_procedural\\chair_best"))
+    # bests = one_shape_mp_eaf_procedural("A chair", "A chair with four legs, a backrest, no armrests, and a cushioned seat.", os.path.abspath("exp\\mp_eaf_procedural\\chair"))
+    # print(bests)
+    # combine_and_run_looped(bests['best_py_path'], os.path.abspath("exp\\mp_eaf_procedural\\chair_best"))
+
+    # shape_description = "A cylindrical coffee mug with a handle on the side."
+    # exp_folder_abs = os.path.abspath(os.path.join("exp", "manual", "python_coffee_mug_single"))
+    # # result = one_shape_mp_eaf(shape_description, exp_folder_abs)
+    # result = one_shape_mp_one_issue(shape_description, exp_folder_abs)
+    # print(result)
+    # print("Operation completed successfully.")
+    
+    # data_yml = "dataset/shapes_daily_multistruct_4omini.yaml"
+    # data_yml = "dataset/shapes_simple_4omini.yaml"
+    data_yml = "dataset/shapes_daily_4omini.yaml"
+    # data_yml = "dataset/shapes_primitive_multi_4omini.yaml"
+
+    for_n_shapes(data_yml, 10)
 

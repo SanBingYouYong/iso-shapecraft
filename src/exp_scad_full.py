@@ -1,6 +1,6 @@
 from openscad_utils import run_openscad, run_render_export
 from agents import llm_with_history, exp_single_get_prompt_scad, _extract_openscad_code, shape_evaluation, format_feedback, task_decomp_get_prompt, parse_as_yaml, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt, one_issue
-from exp_scad_single import one_shape_mp_eaf, one_shape_mp_eaf_one_issue
+from exp_scad_single import one_shape_mp_eaf, one_shape_mp_one_issue
 
 import os
 import json
@@ -125,13 +125,13 @@ def components_multi_pathed(sub_tasks, exp_root_folder_abs):
         sub_task_folder = os.path.join(exp_root_folder_abs, f"sub_task_{i}")
         # sub-task description (text) -> one_shape_looped (pycode) [root/sub-task_folder]
         # bests = one_shape_mp_eaf(description_str, sub_task_folder)
-        bests = one_shape_mp_eaf_one_issue(description_str, sub_task_folder)
+        bests = one_shape_mp_one_issue(description_str, sub_task_folder)
         best_py_path = bests['best_code_path']
         with open(best_py_path, "r") as f:
             sub_task_codes[sub_task_name] = f.read()
     return sub_task_codes
 
-
+# EVAL: tested 10 daily
 def full_pipeline(shape_description, exp_root_folder_abs):
     '''
     shape description (text) -llm> sub-tasks (yaml) [exp/exp_root_folder]
@@ -188,7 +188,7 @@ def for_n_shapes(data_yml: str, n: int=3, sample=False):
         if len(data) < n:
             n = len(data)
         data = data[:n]
-    exp_root = f"scad_exp_{n}x_{os.path.basename(data_yml).split('.')[0]}"
+    exp_root = f"scad_full_exp_{n}x_{os.path.basename(data_yml).split('.')[0]}"
     for i in tqdm(range(len(data)), desc="Processing shapes"):
         shape_description = data[i]
         exp_folder_abs = os.path.abspath(os.path.join("exp", exp_root, f"shape_{i:04d}"))

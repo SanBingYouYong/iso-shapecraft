@@ -463,5 +463,5 @@ if __name__ == "__main__":
     # test full_shape_multi_path_eaf with pre-defined inputs
     # test_full_shape_multi_path_eaf()
     # full test
-    full_pipeline("A cylindrical water bottle with a screw-on cap and a transparent body.", os.path.abspath("exp/full_mp_eaf_procedural/bottle"))
+    full_pipeline("A cylindrical water bottle with a screw-on cap and a transparent body.", os.path.abspath("exp/manual/python_bottle_procedural"))
 

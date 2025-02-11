@@ -33,6 +33,7 @@ def select_objects_join_normalize_size(collection: str="Collection"):
             continue
         obj.select_set(True)
         bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.convert(target='MESH')
     bpy.ops.object.join()
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
     bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
