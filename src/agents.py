@@ -427,6 +427,18 @@ def one_issue(shape_description: str, image_paths: List[str]) -> dict:
         "response": response,
     }
 
+def visual_code(shape_description: str, code_snippet: str, image_paths: List[str]) -> dict:
+    '''
+    Prompt + shape description + code snippet + images
+    '''
+    ins = prompts[TaskType.VISUAL_CODE.value]
+    prompt = ins + "# Shape Description" + shape_description + code_snippet
+    response = vlm_multi_img(prompt, image_paths)  # this output is used as plain text
+    return {
+        "prompt": prompt,
+        "response": response,
+    }
+
 def shape_evaluation(shape_description: str, image_paths: List[str]) -> dict:
     '''
     Prompt + shape description + images

@@ -14,6 +14,7 @@ class TaskType(Enum):
     PROC_SYNTH = "1_procedural_synthesis"
     VIS_FEEDBACK = "1_visual_feedback"
     ONE_ISSUE = "1_one_issue"
+    VISUAL_CODE = "1_visual_code"
     # COMP_JUDGE = "1_component_judgement"
     SHAPE_IMPROVEMENT = "1_shape_improvement"
     SHAPE_EVALUATION = "1_shape_evaluation"
