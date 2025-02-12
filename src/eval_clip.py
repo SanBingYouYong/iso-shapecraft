@@ -2,6 +2,25 @@ import os
 import torch
 import clip
 from PIL import Image
+import re
+
+PREFIX = "A raw mesh rendering of "
+
+def parse_shape_file(file_path):
+    parsed_data = {}
+    
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    shape_match = re.search(r"shape to be modeled:\s*(.*)", content, re.IGNORECASE)
+    description_match = re.search(r"shape description:\s*(.*)", content, re.IGNORECASE | re.DOTALL)
+    
+    if shape_match:
+        parsed_data['shape'] = shape_match.group(1).strip()
+    if description_match:
+        parsed_data['description'] = description_match.group(1).strip()
+    
+    return parsed_data
 
 def compute_clip_similarity(folder_path):
     """
@@ -21,6 +40,13 @@ def compute_clip_similarity(folder_path):
         raise FileNotFoundError(f"Text file not found in {folder_path}")
     with open(txt_path, 'r', encoding='utf-8') as file:
         text_description = file.read().strip()
+    try:
+        parsed = parse_shape_file(txt_path)['shape']
+        if parsed:
+            text_description = parsed
+    except Exception as e:
+        pass
+    text_description = PREFIX + text_description
 
     # --- Set up CLIP ---
     # Choose the device: use CUDA if available, otherwise CPU.
@@ -57,7 +83,7 @@ def compute_clip_similarity(folder_path):
 # --- Example usage ---
 if __name__ == "__main__":
     # Replace with the path to your folder
-    folder = "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_single_10x_shapes_daily_4omini\shape_0000"
+    folder = "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_10x_shapes_daily_4omini\shape_0000\\aggregator"
     scores = compute_clip_similarity(folder)
     for image_file, score in scores.items():
         print(f"{image_file}: similarity score = {score:.4f}")

@@ -451,7 +451,7 @@ def one_shape_mp_eaf_procedural(shape_name: str, shape_description: str, exp_fol
         "best_py_path": best_py_path,
     }
 
-# EVAL: testing 10 daily
+# EVAL: tested 10 daily
 def one_shape_mp_one_issue(shape_description: str, exp_folder_abs: str, paths=PATHS, path_max_iter=PATH_MAX_ITER):
     '''
     Expects a shape description and an experiment folder (absolute path!) to output to.

@@ -1,11 +1,18 @@
-from exp_1_loop import one_shape_single_loop, one_shape_multi_path_evaluation_as_feedback, one_shape_mp_eaf_procedural
-from agents import task_decomp_get_prompt, parse_as_yaml, _extract_python_code, _extract_yml_code, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt, visual_feedback_get_prompts, shape_evaluation
+from exp_1_loop import one_shape_single_loop, one_shape_multi_path_evaluation_as_feedback, one_shape_mp_eaf_procedural, one_shape_mp_one_issue
+from agents import task_decomp_get_prompt, parse_as_yaml, _extract_python_code, _extract_yml_code, high_level_aggregation_get_prompt, code_level_aggregation_get_prompt, visual_feedback_get_prompts, shape_evaluation, one_issue
 from chat import llm_with_history, vlm_multi_img
 from combine_and_run import combine_and_run_looped
 
 import yaml
 import os
 import json
+from tqdm import tqdm
+import random
+
+with open("src/config.yaml", "r") as f:
+    config = yaml.safe_load(f)
+PATHS = config["paths"]
+PATH_MAX_ITER = config["path_max_iter"]
 
 def format_feedback(feedback: str) -> str:
     return f"Please update the code based on the feedback: \n{feedback}"
@@ -94,7 +101,8 @@ def full_aggregation_single_loop(aggregator_prompt, sub_task_codes, shape_descri
     
     return ite, history
 
-def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs):
+# EVAL: testing 10 daily
+def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs, paths=PATHS, path_max_iter=PATH_MAX_ITER):
     '''
     Expects a shape description and an experiment folder (absolute path!) to output to.
     
@@ -108,8 +116,6 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
         # delete everything
         for f in os.listdir(exp_folder_abs):
             os.remove(os.path.join(exp_folder_abs, f))
-    paths = 3
-    path_max_iter = 3
     evaluation_prompt_record = None
     evaluation_history = []
     done = False
@@ -157,9 +163,12 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
             images = [f for f in os.listdir(exp_folder_abs) if f.startswith(f"{str(path)}_{str(ite)}_") and f.endswith('.png')]
             image_paths = [os.path.join(exp_folder_abs, img) for img in images]
             if len(images) == 0:
-                raise ValueError(f"No images found for iteration {ite}.")
+                raise ValueError(f"No images found for iteration {ite}, path {path} at {exp_folder_abs}.")
             for img in images:
                 assert os.path.exists(os.path.join(exp_folder_abs, img)), f"Image {img} not found."
+            # one issue feedback
+            one_issue_feedback = one_issue(shape_description, image_paths)['response']
+            prompt = format_feedback(one_issue_feedback)
             # evaluation
             eval_result = shape_evaluation(shape_description, image_paths)
             # print(f"Evaluation result: {eval_result['parsed']}")
@@ -176,8 +185,8 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
             evaluations.append(
                 (score, pycode_path)
             )
-            feedback = eval_result['parsed']['explanation']
-            prompt = format_feedback(feedback)
+            # feedback = eval_result['parsed']['explanation']
+            # prompt = format_feedback(feedback)
             ite += 1
             if int(score) >= 9:
                 done = True
@@ -199,7 +208,7 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
     best_score, best_py_path = max(evaluations, key=lambda x: x[0])
     return {
         "best_score": best_score,
-        "best_py_path": best_py_path,
+        "best_code_path": best_py_path,
     }
 
 # TODO: exactly the same as non-procedural, but see if we want to design a new prompt
@@ -380,6 +389,7 @@ def components_one_looped(sub_tasks, exp_root_folder_abs):
             sub_task_codes[sub_task_name] = f.read()
     return sub_task_codes
 
+# EVAL: testing 10 daily
 def components_multi_pathed(sub_tasks, exp_root_folder_abs):
     sub_task_codes = {}
     # for each sub-task:
@@ -389,8 +399,9 @@ def components_multi_pathed(sub_tasks, exp_root_folder_abs):
         description_str = f"shape to be modeled: {sub_task_name}\nshape description: {sub_task_desc}"
         sub_task_folder = os.path.join(exp_root_folder_abs, f"sub_task_{i}_{sub_task_name}")
         # sub-task description (text) -> one_shape_looped (pycode) [root/sub-task_folder]
-        bests = one_shape_multi_path_evaluation_as_feedback(description_str, sub_task_folder)
-        best_py_path = bests['best_py_path']
+        # bests = one_shape_multi_path_evaluation_as_feedback(description_str, sub_task_folder)
+        bests = one_shape_mp_one_issue(description_str, sub_task_folder)
+        best_py_path = bests['best_code_path']
         with open(best_py_path, "r") as f:
             sub_task_codes[sub_task_name] = f.read()
     return sub_task_codes
@@ -409,7 +420,7 @@ def components_mp_procedural(sub_tasks, exp_root_folder_abs):
             sub_task_codes[sub_task_name] = f.read()
     return sub_task_codes
         
-
+# EVAL: testing 10 daily
 def full_pipeline(shape_description, exp_root_folder_abs):
     '''
     shape description (text) -llm> sub-tasks (yaml) [exp/exp_root_folder]
@@ -438,8 +449,8 @@ def full_pipeline(shape_description, exp_root_folder_abs):
     sub_tasks = sub_tasks['components']
     
     # sub_task_codes = components_one_looped(sub_tasks, exp_root_folder_abs)
-    # sub_task_codes = components_multi_pathed(sub_tasks, exp_root_folder_abs)
-    sub_task_codes = components_mp_procedural(sub_tasks, exp_root_folder_abs)
+    sub_task_codes = components_multi_pathed(sub_tasks, exp_root_folder_abs)
+    # sub_task_codes = components_mp_procedural(sub_tasks, exp_root_folder_abs)
     
     # (high-level) shape description + sub-tasks (text) -llm> aggregator prompt (text) [root/aggregator_folder]
     high_aggregator_prompt = high_level_aggregation_get_prompt(shape_description, sub_tasks)
@@ -457,11 +468,40 @@ def full_pipeline(shape_description, exp_root_folder_abs):
     return aggre_folder
 
 
+def for_n_shapes(data_yml: str, n: int=3, sample=False):
+    '''
+    data_yml: str (absolute path)
+    n: int
+    '''
+    with open(data_yml, "r") as f:
+        data = yaml.safe_load(f)['shapes']
+    if sample:
+        data = random.sample(data, min(n, len(data)))
+    else:
+        if len(data) < n:
+            n = len(data)
+        data = data[:n]
+    exp_root = f"eval_python_full_{n}x_{os.path.basename(data_yml).split('.')[0]}"
+    for i in tqdm(range(len(data)), desc="Processing shapes"):
+        shape_description = data[i]
+        exp_folder_abs = os.path.abspath(os.path.join("exp", exp_root, f"shape_{i:04d}"))
+        result = full_pipeline(shape_description, exp_folder_abs)
+    print("Operation completed successfully.")
+
+
 if __name__ == "__main__":
     # test full_shape_looped with pre-defined inputs
     # test_full_shape_looped()
     # test full_shape_multi_path_eaf with pre-defined inputs
     # test_full_shape_multi_path_eaf()
     # full test
-    full_pipeline("A cylindrical water bottle with a screw-on cap and a transparent body.", os.path.abspath("exp/manual/python_bottle_procedural"))
+    # full_pipeline("A cylindrical water bottle with a screw-on cap and a transparent body.", os.path.abspath("exp/manual/python_bottle_procedural"))
+    random.seed(0)
+
+    # data_yml = "dataset/shapes_daily_multistruct_4omini.yaml"
+    # data_yml = "dataset/shapes_simple_4omini.yaml"
+    data_yml = "dataset/shapes_daily_4omini.yaml"
+    # data_yml = "dataset/shapes_primitive_multi_4omini.yaml"
+
+    for_n_shapes(data_yml, 1)
 

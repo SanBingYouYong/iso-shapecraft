@@ -150,8 +150,12 @@ def combine_and_run_looped(abs_path_py: str, abs_path_out_folder: str,
     os.makedirs(abs_path_out_folder, exist_ok=True)
     # Read and combine files
     with open(abs_path_py, 'r', encoding='utf-8') as f1, open(suffix_py, 'r', encoding='utf-8') as f2:
-        content1 = f1.read()
-        content2 = f2.read()
+        try:
+            content1 = f1.read()
+        except UnicodeDecodeError:
+            content1 = "import bpy\nraise Exception('UnicodeDecodeError')  # Error reading output_py"
+        content2 = f2.read()  # our own file is save
+
     # add a try except block to content1 (src llm shape script)
     import_line = "import sys\nimport traceback\n"
     flag0_line = "success = True\n"
@@ -207,8 +211,8 @@ def run_stl_render(stl_py_file=STL_PYFILE):
     #         f.write(filtered_stderr)
 
 if __name__ == "__main__":
-    # combine_and_run(
-    #     exp_id="exp_a",
-    #     output_py="sample_output.py"
-    # )
-    run_stl_render()
+    combine_and_run_looped(
+        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_full_1x_shapes_daily_4omini\shape_0000\sub_task_2_mug handle\\1_1.py",
+        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_full_1x_shapes_daily_4omini\shape_0000\sub_task_2_mug handle",
+    )
+    # run_stl_render()
