@@ -486,12 +486,12 @@ def one_shape_mp_one_issue(shape_description: str, exp_folder_abs: str, paths=PA
             py_code = _extract_python_code(response)
             if py_code == "":
                 raise ValueError(f"No Python code extracted from LLM response. {response}")
-            scad_code_path = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}.py")
-            with open(scad_code_path, "w") as f:
+            py_code_path = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}.py")
+            with open(py_code_path, "w") as f:
                 f.write(py_code)
             # run_openscad(scad_code_path, exp_folder_abs)
             # run_render_export(scad_code_path, exp_folder_abs)
-            combine_and_run_looped(scad_code_path, exp_folder_abs)
+            combine_and_run_looped(py_code_path, exp_folder_abs)
             # check for successful execution
             syntax_error = os.path.join(exp_folder_abs, f"{str(path)}_{str(ite)}_syntax_error.txt")
             if os.path.exists(syntax_error):
@@ -535,7 +535,7 @@ def one_shape_mp_one_issue(shape_description: str, exp_folder_abs: str, paths=PA
             )
             score = eval_result['parsed']['score']
             evaluations.append(
-                (score, scad_code_path)
+                (score, py_code_path)
             )
             ite += 1
             if int(score) >= 9:
@@ -553,6 +553,11 @@ def one_shape_mp_one_issue(shape_description: str, exp_folder_abs: str, paths=PA
     with open(os.path.join(exp_folder_abs, f"evaluation_prompt.md"), "w") as f:
         f.write(evaluation_prompt_record)
     # choose best
+    if len(evaluations) == 0:  # in case none is successful
+        return {
+            "best_score": 0,
+            "best_code_path": "",
+        }
     best_score, best_code_path = max(evaluations, key=lambda x: x[0])
     return {
         "best_score": best_score,

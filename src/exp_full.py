@@ -205,6 +205,11 @@ def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_des
             f.write(evaluation_prompt_record)
         
     # choose best
+    if len(evaluations) == 0:
+        return {
+            "best_score": 0,
+            "best_py_path": "",
+        }
     best_score, best_py_path = max(evaluations, key=lambda x: x[0])
     return {
         "best_score": best_score,
@@ -468,7 +473,7 @@ def full_pipeline(shape_description, exp_root_folder_abs):
     return aggre_folder
 
 
-def for_n_shapes(data_yml: str, n: int=3, sample=False):
+def for_n_shapes(data_yml: str, n: int=3, sample=False, skip_n=0):
     '''
     data_yml: str (absolute path)
     n: int
@@ -483,6 +488,8 @@ def for_n_shapes(data_yml: str, n: int=3, sample=False):
         data = data[:n]
     exp_root = f"eval_python_full_{n}x_{os.path.basename(data_yml).split('.')[0]}"
     for i in tqdm(range(len(data)), desc="Processing shapes"):
+        if i < skip_n:
+            continue
         shape_description = data[i]
         exp_folder_abs = os.path.abspath(os.path.join("exp", exp_root, f"shape_{i:04d}"))
         result = full_pipeline(shape_description, exp_folder_abs)
@@ -503,5 +510,5 @@ if __name__ == "__main__":
     data_yml = "dataset/shapes_daily_4omini.yaml"
     # data_yml = "dataset/shapes_primitive_multi_4omini.yaml"
 
-    for_n_shapes(data_yml, 1)
+    for_n_shapes(data_yml, 10, skip_n=5)  # 断点续传
 
