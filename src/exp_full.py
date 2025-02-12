@@ -101,7 +101,7 @@ def full_aggregation_single_loop(aggregator_prompt, sub_task_codes, shape_descri
     
     return ite, history
 
-# EVAL: testing 10 daily
+# EVAL: tested 10 daily
 def full_aggregation_multi_path_eaf(aggregator_prompt, sub_task_codes, shape_description, exp_folder_abs, paths=PATHS, path_max_iter=PATH_MAX_ITER):
     '''
     Expects a shape description and an experiment folder (absolute path!) to output to.
@@ -394,7 +394,7 @@ def components_one_looped(sub_tasks, exp_root_folder_abs):
             sub_task_codes[sub_task_name] = f.read()
     return sub_task_codes
 
-# EVAL: testing 10 daily
+# EVAL: tested 10 daily
 def components_multi_pathed(sub_tasks, exp_root_folder_abs):
     sub_task_codes = {}
     # for each sub-task:
@@ -425,7 +425,7 @@ def components_mp_procedural(sub_tasks, exp_root_folder_abs):
             sub_task_codes[sub_task_name] = f.read()
     return sub_task_codes
         
-# EVAL: testing 10 daily
+# EVAL: tested 10 daily
 def full_pipeline(shape_description, exp_root_folder_abs):
     '''
     shape description (text) -llm> sub-tasks (yaml) [exp/exp_root_folder]

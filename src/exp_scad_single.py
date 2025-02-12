@@ -242,8 +242,8 @@ if __name__ == "__main__":
 
     # data_yml = "dataset/shapes_daily_multistruct_4omini.yaml"
     # data_yml = "dataset/shapes_simple_4omini.yaml"
-    data_yml = "dataset/shapes_daily_4omini.yaml"
-    # data_yml = "dataset/shapes_primitive_multi_4omini.yaml"
+    # data_yml = "dataset/shapes_daily_4omini.yaml"
+    data_yml = "dataset/shapes_primitive_multi_4omini.yaml"
 
-    for_n_shapes(data_yml, 10)
+    for_n_shapes(data_yml, 3)
 

@@ -188,7 +188,7 @@ def for_n_shapes(data_yml: str, n: int=3, sample=False):
         if len(data) < n:
             n = len(data)
         data = data[:n]
-    exp_root = f"scad_full_exp_{n}x_{os.path.basename(data_yml).split('.')[0]}"
+    exp_root = f"eval_scad_full_{n}x_{os.path.basename(data_yml).split('.')[0]}"
     for i in tqdm(range(len(data)), desc="Processing shapes"):
         shape_description = data[i]
         exp_folder_abs = os.path.abspath(os.path.join("exp", exp_root, f"shape_{i:04d}"))
@@ -206,7 +206,7 @@ if __name__ == "__main__":
 
     # data_yml = "dataset/shapes_daily_multistruct_4omini.yaml"
     # data_yml = "dataset/shapes_simple_4omini.yaml"
-    data_yml = "dataset/shapes_daily_4omini.yaml"
-    # data_yml = "dataset/shapes_primitive_multi_4omini.yaml"
+    # data_yml = "dataset/shapes_daily_4omini.yaml"
+    data_yml = "dataset/shapes_primitive_multi_4omini.yaml"
 
-    for_n_shapes(data_yml, 10)
+    for_n_shapes(data_yml, 3)
