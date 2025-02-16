@@ -95,7 +95,7 @@ def eval_paths(paths):
         results[path] = eval_stat(path)
     return results
 
-def table(result):
+def table_for_full_single(result):
     print("Path".ljust(50), "Best Clip".ljust(15), "Clip".ljust(15), "Best VLM".ljust(15), "VLM".ljust(15))
     for path, stat in result.items():
         best_clip = f"{stat['best_clip_mean']:.2f}/{stat['best_clip_stddev']:.2f}"
@@ -108,6 +108,83 @@ def table(result):
               clip.ljust(15), 
               best_vlm.ljust(15), 
               vlm.ljust(15))
+
+def get_all_aggregator_and_subtask_folders(root_folder: str):
+    aggregator_folders = []
+    subtask_folders = []
+    
+    for dirpath, _, _ in os.walk(root_folder):
+        if "aggregator" in dirpath:
+            aggregator_folders.append(dirpath)
+        elif "sub_task_" in dirpath:
+            subtask_folders.append(dirpath)
+    
+    return aggregator_folders, subtask_folders
+
+def get_clip_and_vlm_scores(folder: str):
+    best_clip_scores, clip_scores = get_clip_scores(folder)
+    best_vlm_scores, vlm_scores = get_vlm_scores(folder)
+    
+    return best_clip_scores, clip_scores, best_vlm_scores, vlm_scores
+
+def eval_aggregator_vs_subtask(aggregator_folders, subtask_folders):
+    aggregator_scores = []
+    subtask_scores = []
+
+    for folder in aggregator_folders:
+        best_clip_scores, clip_scores, best_vlm_scores, vlm_scores = get_clip_and_vlm_scores(folder)
+        aggregator_scores.append((best_clip_scores, clip_scores, best_vlm_scores, vlm_scores))
+
+    for folder in subtask_folders:
+        best_clip_scores, clip_scores, best_vlm_scores, vlm_scores = get_clip_and_vlm_scores(folder)
+        subtask_scores.append((best_clip_scores, clip_scores, best_vlm_scores, vlm_scores))
+    
+    return aggregator_scores, subtask_scores
+
+def calcstat_aggre_sub(aggregator_scores, subtask_scores):
+    aggregator_best_clip_mean = []
+    aggregator_clip_mean = []
+    aggregator_best_vlm_mean = []
+    aggregator_vlm_mean = []
+
+    subtask_best_clip_mean = []
+    subtask_clip_mean = []
+    subtask_best_vlm_mean = []
+    subtask_vlm_mean = []
+
+    for best_clip_scores, clip_scores, best_vlm_scores, vlm_scores in aggregator_scores:
+        aggregator_best_clip_mean.append(sum(best_clip_scores) / len(best_clip_scores))
+        aggregator_clip_mean.append(sum(clip_scores) / len(clip_scores))
+        aggregator_best_vlm_mean.append(sum(best_vlm_scores) / len(best_vlm_scores))
+        aggregator_vlm_mean.append(sum(vlm_scores) / len(vlm_scores))
+
+    for best_clip_scores, clip_scores, best_vlm_scores, vlm_scores in subtask_scores:
+        subtask_best_clip_mean.append(sum(best_clip_scores) / len(best_clip_scores))
+        subtask_clip_mean.append(sum(clip_scores) / len(clip_scores))
+        subtask_best_vlm_mean.append(sum(best_vlm_scores) / len(best_vlm_scores))
+        subtask_vlm_mean.append(sum(vlm_scores) / len(vlm_scores))
+
+    return {
+        "aggregator_best_clip_mean": sum(aggregator_best_clip_mean) / len(aggregator_best_clip_mean),
+        "aggregator_clip_mean": sum(aggregator_clip_mean) / len(aggregator_clip_mean),
+        "aggregator_best_vlm_mean": sum(aggregator_best_vlm_mean) / len(aggregator_best_vlm_mean),
+        "aggregator_vlm_mean": sum(aggregator_vlm_mean) / len(aggregator_vlm_mean),
+        "subtask_best_clip_mean": sum(subtask_best_clip_mean) / len(subtask_best_clip_mean),
+        "subtask_clip_mean": sum(subtask_clip_mean) / len(subtask_clip_mean),
+        "subtask_best_vlm_mean": sum(subtask_best_vlm_mean) / len(subtask_best_vlm_mean),
+        "subtask_vlm_mean": sum(subtask_vlm_mean) / len(subtask_vlm_mean),
+    }
+
+def table_for_aggregator_subtask(aggregator_scores, subtask_scores):
+    stat = calcstat_aggre_sub(aggregator_scores, subtask_scores)
+
+    print("Category".ljust(15), "Clip".ljust(15), "VLM".ljust(15))
+    print("Aggregator".ljust(15), 
+          f"{stat['aggregator_best_clip_mean']:.2f}/{stat['aggregator_clip_mean']:.2f}".ljust(15), 
+          f"{stat['aggregator_best_vlm_mean']:.2f}/{stat['aggregator_vlm_mean']:.2f}".ljust(15))
+    print("Subtask".ljust(15), 
+          f"{stat['subtask_best_clip_mean']:.2f}/{stat['subtask_clip_mean']:.2f}".ljust(15), 
+          f"{stat['subtask_best_vlm_mean']:.2f}/{stat['subtask_vlm_mean']:.2f}".ljust(15))
 
 if __name__ == "__main__":
     evaluated_datapaths = [
@@ -123,5 +200,12 @@ if __name__ == "__main__":
     test_path = [
         "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_full_10x_shapes_daily_4omini"
     ]
-    results = eval_paths(evaluated_datapaths)
-    table(results)
+    # full vs single
+    # results = eval_paths(evaluated_datapaths)
+    # table(results)
+
+    # aggregator vs subtask
+    aggregator_folders, subtask_folders = get_all_aggregator_and_subtask_folders(test_path[0])
+    aggregator_scores, subtask_scores = eval_aggregator_vs_subtask(aggregator_folders, subtask_folders)
+    table_for_aggregator_subtask(aggregator_scores, subtask_scores)
+
