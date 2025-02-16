@@ -22,9 +22,7 @@ def collect_data_for(root_dir):
     
         {path}_{iteration}_{id}.png: similarity_score
         
-    Group the scores by path and iteration, compute the average similarity for 
-    each iteration, and plot a line graph (one line per path) showing how the 
-    average similarity evolves over iterations.
+    Group the scores by path and iteration, and return the collected data.
     
     Parameters:
         root_dir (str): The root directory to start searching from.
@@ -80,17 +78,10 @@ def collect_data_multiple(root_dirs):
 
 def plot_clip_similarity(data):
     """
-    Recursively search for clip_similarity.yml files starting from `root_dir`,
-    parse the entries of the form:
-    
-        {path}_{iteration}_{id}.png: similarity_score
-        
-    Group the scores by path and iteration, compute the average similarity for 
-    each iteration, and plot a line graph (one line per path) showing how the 
-    average similarity evolves over iterations.
-    
+    Plot the CLIP similarity scores.
+
     Parameters:
-        root_dir (str): The root directory to start searching from.
+        data (list): A list of dictionaries containing the collected data.
     """
     upward_count = 0
     overall_count = 0
