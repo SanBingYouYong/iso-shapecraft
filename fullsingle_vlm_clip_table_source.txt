@@ -1,0 +1,24 @@
+Path                                               Best Clip       Clip            Best VLM        VLM
+eval_python_full_10x_shapes_daily_4omini           0.33/0.03       0.31/0.03       8.37/1.46       5.62/2.27
+eval_python_single_10x_shapes_daily_4omini         0.35/0.03       0.33/0.03       7.40/2.06       5.62/2.07
+eval_scad_full_3x_shapes_daily_multistruct_4omini  0.31/0.02       0.29/0.02       7.64/2.57       5.06/2.64
+eval_scad_full_3x_shapes_primitive_multi_4omini    0.35/0.01       0.33/0.02       8.89/2.51       5.52/3.26
+eval_scad_full_10x_shapes_daily_4omini             0.33/0.03       0.31/0.03       8.26/1.46       5.34/2.36
+eval_scad_single_3x_shapes_daily_multistruct_4omini 0.36/0.02       0.32/0.03       7.33/0.47       4.69/2.27
+eval_scad_single_3x_shapes_primitive_multi_4omini  0.36/0.01       0.35/0.01       8.00/2.83       3.41/2.64
+eval_scad_single_10x_shapes_daily_4omini           0.35/0.02       0.32/0.03       7.60/2.11       5.05/2.22
+
+CLIP: 
+Method | daily shapes | multiple structures | multiple primitives | all
+full-python | 0.33(0.03)/0.31(0.03) | N/A | N/A | 0.33(0.03)/0.31(0.03)
+full-scad
+single-python
+full-scad
+
+VLM:
+Method | daily shapes | multiple structures | multiple primitives | all
+full-python | 8.37(1.46)/5.62(2.27) | N/A | N/A | 8.37(1.46)/5.62(2.27)
+full-scad
+single-python
+full-scad
+
