@@ -1,4 +1,4 @@
-# Independent Study Option
+# ISO module at Imperial
 ShapeCraft: an LLM Multi-agent Pipeline for Synthesizing 3D Shape Programs
 ![gallery](./renders/gallery.png)
 
