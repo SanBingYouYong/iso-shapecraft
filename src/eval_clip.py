@@ -340,15 +340,16 @@ if __name__ == "__main__":
     # calcstat_iteration_aves("C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_10x_shapes_daily_4omini")
 
     paths = [
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_full_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_single_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_3x_shapes_daily_multistruct_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_3x_shapes_primitive_multi_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_3x_shapes_daily_multistruct_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_3x_shapes_primitive_multi_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_10x_shapes_daily_4omini",        
+        "exp/eval_python_full_10x_shapes_daily_4omini",
+        "exp/eval_python_single_10x_shapes_daily_4omini",
+        "exp/eval_scad_full_3x_shapes_daily_multistruct_4omini",
+        "exp/eval_scad_full_3x_shapes_primitive_multi_4omini",
+        "exp/eval_scad_full_10x_shapes_daily_4omini",
+        "exp/eval_scad_single_3x_shapes_daily_multistruct_4omini",
+        "exp/eval_scad_single_3x_shapes_primitive_multi_4omini",
+        "exp/eval_scad_single_10x_shapes_daily_4omini",        
     ]
+    paths = [os.path.abspath(p) for p in paths]
 
     # for path in paths:
     #     calcstat_clip_forall(path)

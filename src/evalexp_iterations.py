@@ -187,15 +187,16 @@ def plot_clip_similarity(data):
 
 if __name__ == "__main__":
     paths = [
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_full_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_single_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_3x_shapes_daily_multistruct_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_3x_shapes_primitive_multi_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_3x_shapes_daily_multistruct_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_3x_shapes_primitive_multi_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_10x_shapes_daily_4omini",        
+        "exp/eval_python_full_10x_shapes_daily_4omini",
+        "exp/eval_python_single_10x_shapes_daily_4omini",
+        "exp/eval_scad_full_3x_shapes_daily_multistruct_4omini",
+        "exp/eval_scad_full_3x_shapes_primitive_multi_4omini",
+        "exp/eval_scad_full_10x_shapes_daily_4omini",
+        "exp/eval_scad_single_3x_shapes_daily_multistruct_4omini",
+        "exp/eval_scad_single_3x_shapes_primitive_multi_4omini",
+        "exp/eval_scad_single_10x_shapes_daily_4omini",        
     ]
+    paths = [os.path.abspath(p) for p in paths]
     # data = collect_data_for(paths[0])
     data = collect_data_multiple(paths)
     plot_clip_similarity(data)

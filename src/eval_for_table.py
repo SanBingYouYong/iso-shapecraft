@@ -188,15 +188,16 @@ def table_for_aggregator_subtask(aggregator_scores, subtask_scores):
 
 if __name__ == "__main__":
     evaluated_datapaths = [
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_full_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_single_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_3x_shapes_daily_multistruct_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_3x_shapes_primitive_multi_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_10x_shapes_daily_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_3x_shapes_daily_multistruct_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_3x_shapes_primitive_multi_4omini",
-        "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_single_10x_shapes_daily_4omini",        
+        "exp/eval_python_full_10x_shapes_daily_4omini",
+        "exp/eval_python_single_10x_shapes_daily_4omini",
+        "exp/eval_scad_full_3x_shapes_daily_multistruct_4omini",
+        "exp/eval_scad_full_3x_shapes_primitive_multi_4omini",
+        "exp/eval_scad_full_10x_shapes_daily_4omini",
+        "exp/eval_scad_single_3x_shapes_daily_multistruct_4omini",
+        "exp/eval_scad_single_3x_shapes_primitive_multi_4omini",
+        "exp/eval_scad_single_10x_shapes_daily_4omini",        
     ]
+    paths = [os.path.abspath(p) for p in evaluated_datapaths]
     test_path = [
         "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_full_10x_shapes_daily_4omini"
     ]
