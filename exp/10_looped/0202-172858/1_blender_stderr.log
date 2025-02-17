@@ -1,9 +1,0 @@
-TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
-An error occurred:
-Traceback (most recent call last):
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-172858\1_combined.py", line 43, in <module>
-    create_bread_box()
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-172858\1_combined.py", line 36, in create_bread_box
-    base.modifiers["Bevel"].width = 0.05
-    ~~~~~~~~~~~~~~^^^^^^^^^
-KeyError: 'bpy_prop_collection[key]: key "Bevel" not found'

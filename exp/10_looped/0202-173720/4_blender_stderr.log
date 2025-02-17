@@ -1,9 +1,0 @@
-TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
-An error occurred:
-Traceback (most recent call last):
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-173720\4_combined.py", line 71, in <module>
-    create_charging_cable()
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-173720\4_combined.py", line 66, in create_charging_cable
-    bsdf.inputs['Specular'].default_value = 0.5  # Reflectivity
-    ~~~~~~~~~~~^^^^^^^^^^^^
-KeyError: 'bpy_prop_collection[key]: key "Specular" not found'

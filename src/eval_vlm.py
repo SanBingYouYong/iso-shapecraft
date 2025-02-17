@@ -93,6 +93,8 @@ def plot_vlm_evaluations(plain_iteration_scores, all_lines):
             axs[0].plot(x[:len(row)], row, marker='o', markersize=8, 
                             linewidth=2.5, color='#00b4d8', alpha=0.7, 
                             markeredgecolor='white', markeredgewidth=1)
+    
+    print(f"Upward trends: {upward_count}/{overall_count} ({upward_count / overall_count:.2%})")
 
     axs[0].set_title('All VLM Evaluation Scores', fontsize=16, fontweight='bold', pad=20)
     axs[0].set_xlabel('Iteration', fontsize=16, fontweight='bold')

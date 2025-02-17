@@ -1,9 +1,0 @@
-TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
-An error occurred:
-Traceback (most recent call last):
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\looped\0202-165725\3_combined.py", line 62, in <module>
-    create_refined_tapered_wedge()
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\looped\0202-165725\3_combined.py", line 43, in create_refined_tapered_wedge
-    bm.faces.new((new_verts[i - 1], new_verts[i], new_verts[i + 1], new_verts[i + len(new_verts) // 2]))
-                                                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-IndexError: list index out of range

@@ -1,9 +1,0 @@
-TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
-An error occurred:
-Traceback (most recent call last):
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-174053\0_combined.py", line 34, in <module>
-    create_clock()
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-174053\0_combined.py", line 10, in create_clock
-    bpy.data.objects['Cube'].select_set(True)
-    ~~~~~~~~~~~~~~~~^^^^^^^^
-KeyError: 'bpy_prop_collection[key]: key "Cube" not found'

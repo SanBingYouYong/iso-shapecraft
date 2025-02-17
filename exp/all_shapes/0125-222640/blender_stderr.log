@@ -1,8 +1,0 @@
-TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
-Traceback (most recent call last):
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\all_shapes\0125-222640\_combined_exp_full_task.py", line 23, in <module>
-    create_undulating_plane(20, 15, 2, 5)
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\all_shapes\0125-222640\_combined_exp_full_task.py", line 12, in create_undulating_plane
-    mesh = bmesh.from_edit_mesh(plane.data)
-           ^^^^^
-NameError: name 'bmesh' is not defined. Did you mean: 'mesh'?

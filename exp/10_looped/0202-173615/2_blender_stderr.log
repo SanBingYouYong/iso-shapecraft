@@ -1,9 +1,0 @@
-TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
-An error occurred:
-Traceback (most recent call last):
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-173615\2_combined.py", line 46, in <module>
-    create_rubber_ball()
-  File "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\10_looped\0202-173615\2_combined.py", line 28, in create_rubber_ball
-    bsdf.inputs['Specular'].default_value = 0.5  # Add specular highlight
-    ~~~~~~~~~~~^^^^^^^^^^^^
-KeyError: 'bpy_prop_collection[key]: key "Specular" not found'
