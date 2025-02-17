@@ -2,12 +2,14 @@
 ShapeCraft: an LLM Multi-agent Pipeline for Synthesizing 3D Shape Programs
 ![gallery](./renders/gallery.png)
 
-### Getting started
+## Getting started
 
 Install dependencies in a python (recommanded 3.10.16) environment: 
 - `pip install -r requirements` for all dependencies
 
-### Files of interest
+## Files of interest
+
+### in `src`:
 
 Running experiments:
 - `exp_1_loop.py`: Single Run with Python + Blender
@@ -26,4 +28,11 @@ Evaluation:
 - `evalexp_iterations.py`: check for improvements over iterations
 
 Auxiliary:
-- 
+- `agents.py`: llm agents code
+- `chat.py`: api
+- `combine_and_run.py`: combine generated script with our suffix and run to render and export
+
+### root:
+
+- `code_suffix.py`: suffix appended to each generated python script to be executed within blender
+- `render_stl.py`: import OpenSCAD generated stl file, normalize and render export in blender
