@@ -101,14 +101,14 @@ def parse_shape_description(input_yml_path, output_yml_path):
             if not isinstance(entry_data, dict):
                 continue
 
-            prompt = entry_data.get('natural_language_prompt')
+            prompt = entry_data.get('natural_language_prompt').lower()
             if not prompt:
                 print(f"未找到自然语言提示: {entry_id}")
                 continue
             split_prefix = None
             for candidate in SPLIT_CANDIDATES:
                 if candidate.lower() in prompt.lower():
-                    split_prefix = candidate
+                    split_prefix = candidate.lower()
                     break
             
             if not split_prefix:
@@ -116,12 +116,14 @@ def parse_shape_description(input_yml_path, output_yml_path):
                 continue
 
             # 解析文本
-            if prompt and split_prefix in prompt:
+            if prompt:
                 # 分割字符串（最多分割一次）
                 parts = prompt.split(split_prefix, 1)
                 entry_data['parsed_shape_description'] = parts[1].strip() if len(parts) > 1 else None
             else:
                 entry_data['parsed_shape_description'] = None
+            if not entry_data['parsed_shape_description']:
+                print(f"未找到解析的形状描述: {entry_id} | {prompt}")
 
         # 写回新文件
         with open(output_yml_path, 'w', encoding='utf-8') as yaml_file:

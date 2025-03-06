@@ -16,7 +16,7 @@
     with a diameter of 0.12512 units.
   natural_language_prompt: Write a python code using CADQuery to create a rectangle
     with a circular hole in the middle.
-  parsed_shape_description: null
+  parsed_shape_description: a rectangle with a circular hole in the middle.
 00000960:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00000960
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00000960\Ground_Truth.obj
@@ -30,8 +30,8 @@
     Next, create another rectangle that is smaller than the first one. This second
     rectangle should connect to the edge of the first one, on the right side, starting
     halfway up.
-  parsed_shape_description: a rectangle. Next, create another rectangle that is smaller
-    than the first one. This second rectangle should connect to the edge of the first
+  parsed_shape_description: a rectangle. next, create another rectangle that is smaller
+    than the first one. this second rectangle should connect to the edge of the first
     one, on the right side, starting halfway up.
 '00001411':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00001411
@@ -51,8 +51,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a large cylinder.
     This cylinder should be larger in diameter than it is in height. At the center
     of the cylinder include a small circular cutout extending the height of the cylinder.
-  parsed_shape_description: a large cylinder. This cylinder should be larger in diameter
-    than it is in height. At the center of the cylinder include a small circular cutout
+  parsed_shape_description: a large cylinder. this cylinder should be larger in diameter
+    than it is in height. at the center of the cylinder include a small circular cutout
     extending the height of the cylinder.
 '00001615':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00001615
@@ -67,8 +67,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a cylinder.
     Then, cut a portion out of the top of the cylinder. You need to remove a portion
     that is approximately 1/4th the length and diameter of the original cylinder.
-  parsed_shape_description: a cylinder. Then, cut a portion out of the top of the
-    cylinder. You need to remove a portion that is approximately 1/4th the length
+  parsed_shape_description: a cylinder. then, cut a portion out of the top of the
+    cylinder. you need to remove a portion that is approximately 1/4th the length
     and diameter of the original cylinder.
 00001817:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00001817
@@ -82,7 +82,7 @@
   natural_language_prompt: Write Python code using CADQuery to create a table with
     four legs. First, create a rectangle, and then create four long extruded squares
     that link to the bottom of each corner of the rectangle.
-  parsed_shape_description: a table with four legs. First, create a rectangle, and
+  parsed_shape_description: a table with four legs. first, create a rectangle, and
     then create four long extruded squares that link to the bottom of each corner
     of the rectangle.
 00001977:
@@ -109,10 +109,10 @@
     at their edges like the intersection between the wall and the floor. Both rectangles
     have the same length, width, and height. The two extruded rectangles are perpendicular
     to each other and are connected by the elongated edge.
-  parsed_shape_description: a 3D model. This object is comprised of two marginally
+  parsed_shape_description: a 3d model. this object is comprised of two marginally
     extruded rectangles that are connected at their edges like the intersection between
-    the wall and the floor. Both rectangles have the same length, width, and height.
-    The two extruded rectangles are perpendicular to each other and are connected
+    the wall and the floor. both rectangles have the same length, width, and height.
+    the two extruded rectangles are perpendicular to each other and are connected
     by the elongated edge.
 00002298:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00002298
@@ -129,7 +129,9 @@
     and slightly extrude it. Then, create a rectangular cut-out that positioned at
     the midpoint of its length and slightly above the midpoint of its height relative
     to the first rectangle.
-  parsed_shape_description: null
+  parsed_shape_description: a rectangle and slightly extrude it. then, create a rectangular
+    cut-out that positioned at the midpoint of its length and slightly above the midpoint
+    of its height relative to the first rectangle.
 00003219:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00003219
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00003219\Ground_Truth.obj
@@ -154,7 +156,7 @@
     0.37148 units.
   natural_language_prompt: Write a python code using CADQuery to create a rectangular
     prism.
-  parsed_shape_description: null
+  parsed_shape_description: a rectangular prism.
 '00003763':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00003763
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00003763\Ground_Truth.obj
@@ -175,11 +177,11 @@
     the first two cylinders. This third cylinder should connect to the center of the
     second cylinders other base. Finally, create a small circular cut-out extending
     the length of all three cylinders relative to their centers.
-  parsed_shape_description: a cylinder. Next, create a second cylinder with the same
-    height but smaller diameter. The second cylinder should connect to the center
-    of the first cylinders base. Then, create a third cylinder with a shorter height
-    and larger diameter relative to the first two cylinders. This third cylinder should
-    connect to the center of the second cylinders other base. Finally, create a small
+  parsed_shape_description: a cylinder. next, create a second cylinder with the same
+    height but smaller diameter. the second cylinder should connect to the center
+    of the first cylinders base. then, create a third cylinder with a shorter height
+    and larger diameter relative to the first two cylinders. this third cylinder should
+    connect to the center of the second cylinders other base. finally, create a small
     circular cut-out extending the length of all three cylinders relative to their
     centers.
 00003801:
@@ -202,7 +204,7 @@
     at the origin.
   natural_language_prompt: Write a python code using CADQuery to create a rounded
     rectangle, and then extrude it.
-  parsed_shape_description: null
+  parsed_shape_description: a rounded rectangle, and then extrude it.
 00004495:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00004495
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00004495\Ground_Truth.obj
@@ -219,7 +221,7 @@
     an inner hole diameter of 0.3125 units. The cylinder should be oriented horizontally.
   natural_language_prompt: Write Python code using CADQuery to create a long hollow
     cylinder. The hollow cylinder should have a small inner radius.
-  parsed_shape_description: a long hollow cylinder. The hollow cylinder should have
+  parsed_shape_description: a long hollow cylinder. the hollow cylinder should have
     a small inner radius.
 00004935:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00004935
@@ -233,7 +235,7 @@
   natural_language_prompt: Write Python code using CADQuery to create a big circle
     and then extrude it. Next, create a slightly smaller extruded circle on top of
     the first circle.
-  parsed_shape_description: a big circle and then extrude it. Next, create a slightly
+  parsed_shape_description: a big circle and then extrude it. next, create a slightly
     smaller extruded circle on top of the first circle.
 '00005161':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00005161
@@ -247,7 +249,7 @@
     Then, connected to the center of the first cylinders base, create a second cylinder
     that is slightly smaller in diameter but larger in height relative to the first
     cylinder.
-  parsed_shape_description: a big cylinder. Then, connected to the center of the first
+  parsed_shape_description: a big cylinder. then, connected to the center of the first
     cylinders base, create a second cylinder that is slightly smaller in diameter
     but larger in height relative to the first cylinder.
 00005358:
@@ -298,7 +300,7 @@
   natural_language_prompt: Write Python code using CADQuery to create a rectangle.
     Then, create four small holes within the rectangle, each one positioned close
     to a different corner.
-  parsed_shape_description: a rectangle. Then, create four small holes within the
+  parsed_shape_description: a rectangle. then, create four small holes within the
     rectangle, each one positioned close to a different corner.
 00006863:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00006863
@@ -309,7 +311,7 @@
     XY plane.
   natural_language_prompt: Write a python code using CADQuery to create an extruded
     sketch of a rectangle.
-  parsed_shape_description: null
+  parsed_shape_description: an extruded sketch of a rectangle.
 00006892:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00006892
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00006892\Ground_Truth.obj
@@ -322,7 +324,7 @@
     cuts through the center of one of the longer faces of the prism.
   natural_language_prompt: Write Python code using CADQuery to create a long rectangular
     prism. Then, cut out a semi-circle shape from the length of the rectanglular prism.
-  parsed_shape_description: a long rectangular prism. Then, cut out a semi-circle
+  parsed_shape_description: a long rectangular prism. then, cut out a semi-circle
     shape from the length of the rectanglular prism.
 00007258:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00007258
@@ -353,7 +355,7 @@
     by translating it along the Z-axis by half its height.
   natural_language_prompt: Write Python code using CADQuery to create a very long
     hollow cylinder. The hollow cylinder should have a medium sized inner radius.
-  parsed_shape_description: a very long hollow cylinder. The hollow cylinder should
+  parsed_shape_description: a very long hollow cylinder. the hollow cylinder should
     have a medium sized inner radius.
 00008315:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00008315
@@ -393,8 +395,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a cylinder.
     This cylinder should be short but have a very large diameter. Then, include a
     small circular cutout at the center of the cylinder.
-  parsed_shape_description: a cylinder. This cylinder should be short but have a very
-    large diameter. Then, include a small circular cutout at the center of the cylinder.
+  parsed_shape_description: a cylinder. this cylinder should be short but have a very
+    large diameter. then, include a small circular cutout at the center of the cylinder.
 00009307:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00009307
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00009307\Ground_Truth.obj
@@ -411,10 +413,10 @@
     One leg is connected to the left side of the table, and another leg is connected
     to the right side of the table. The length of each leg is approximately 1/3 of
     the length of the table. Both legs are extruded by the same amount as the table.
-  parsed_shape_description: a simple desk. First, create the surface of the table,
-    and then create two legs to the table. One leg is connected to the left side of
-    the table, and another leg is connected to the right side of the table. The length
-    of each leg is approximately 1/3 of the length of the table. Both legs are extruded
+  parsed_shape_description: a simple desk. first, create the surface of the table,
+    and then create two legs to the table. one leg is connected to the left side of
+    the table, and another leg is connected to the right side of the table. the length
+    of each leg is approximately 1/3 of the length of the table. both legs are extruded
     by the same amount as the table.
 00009529:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00009529
@@ -438,12 +440,12 @@
     is 75% smaller than the square on the right. The larger square is also extruded
     by twice the amount of the smaller square. Finally make sure the two squares are
     connected to the left and right edges of the rectangle.
-  parsed_shape_description: abstract 3D model. Start with a extruded rectangle such
-    that the length of the rectangle is approximately three times it's width. Next,
-    place two extruded squares on the left and right side of the rectangle. These
-    squares should have a surface area smaller than that of the rectangle. The surface
-    area of the square on the left is 75% smaller than the square on the right. The
-    larger square is also extruded by twice the amount of the smaller square. Finally
+  parsed_shape_description: abstract 3d model. start with a extruded rectangle such
+    that the length of the rectangle is approximately three times it's width. next,
+    place two extruded squares on the left and right side of the rectangle. these
+    squares should have a surface area smaller than that of the rectangle. the surface
+    area of the square on the left is 75% smaller than the square on the right. the
+    larger square is also extruded by twice the amount of the smaller square. finally
     make sure the two squares are connected to the left and right edges of the rectangle.
 00009823:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00009823
@@ -471,9 +473,9 @@
     one with slightly smaller widths on the left and right sides only. Finally, create
     a vertically opposite isosceles trapezoid on top of the second rectangle, with
     a slightly longer width than the second rectangle.
-  parsed_shape_description: a rectangle and then slightly extrude it. Next, create
+  parsed_shape_description: a rectangle and then slightly extrude it. next, create
     another rectangle on top of the first one with slightly smaller widths on the
-    left and right sides only. Finally, create a vertically opposite isosceles trapezoid
+    left and right sides only. finally, create a vertically opposite isosceles trapezoid
     on top of the second rectangle, with a slightly longer width than the second rectangle.
 00009863:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00009863
@@ -501,9 +503,9 @@
     is approximately 5 times the width of the rectangle. Next, place a cylinder on
     one side of the rectangle very close to the edge. The radius of this cylinder
     should be approximately 1/3 of the width of the rectangular surface.
-  parsed_shape_description: a 3D model. Start by creating an extruded rectangle such
+  parsed_shape_description: a 3d model. start by creating an extruded rectangle such
     that the length of the rectangle is approximately 5 times the width of the rectangle.
-    Next, place a cylinder on one side of the rectangle very close to the edge. The
+    next, place a cylinder on one side of the rectangle very close to the edge. the
     radius of this cylinder should be approximately 1/3 of the width of the rectangular
     surface.
 00017291:
@@ -519,9 +521,9 @@
     each other. The first shape is a large cube, and the second shape is a right triangular
     prism. The second shape should be 1/4th the size of the first shape. Where they
     touch, two of their edges should align.
-  parsed_shape_description: two shapes touching each other. The first shape is a large
-    cube, and the second shape is a right triangular prism. The second shape should
-    be 1/4th the size of the first shape. Where they touch, two of their edges should
+  parsed_shape_description: two shapes touching each other. the first shape is a large
+    cube, and the second shape is a right triangular prism. the second shape should
+    be 1/4th the size of the first shape. where they touch, two of their edges should
     align.
 00019015:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00019015
@@ -537,8 +539,8 @@
     prism, with a length slightly longer than the cylinder. It should sit horizontally
     on top of the cylinder.
   parsed_shape_description: a cylinder, it should be short but have a large diameter.
-    Then create a short and narrow rectangular prism, with a length slightly longer
-    than the cylinder. It should sit horizontally on top of the cylinder.
+    then create a short and narrow rectangular prism, with a length slightly longer
+    than the cylinder. it should sit horizontally on top of the cylinder.
 00019066:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00019066
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00019066\Ground_Truth.obj
@@ -553,10 +555,10 @@
     rectangle is approximately 1.5 times its width. Now add a very small rectangluar
     rod pointing upwards from one of the corners of the rectangular surface. The height
     of the rod should be 3 times the length of the rectangle.
-  parsed_shape_description: a 3D model. Start by creating a marginally extruded rectangle
-    such that the length of the rectangle is approximately 1.5 times its width. Now
+  parsed_shape_description: a 3d model. start by creating a marginally extruded rectangle
+    such that the length of the rectangle is approximately 1.5 times its width. now
     add a very small rectangluar rod pointing upwards from one of the corners of the
-    rectangular surface. The height of the rod should be 3 times the length of the
+    rectangular surface. the height of the rod should be 3 times the length of the
     rectangle.
 00031181:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00031181
@@ -566,7 +568,7 @@
     of 0.33843 meters. The object should be centered at the origin.
   natural_language_prompt: Write Python code using CADQuery to create a square and
     extrude it. The length should be twice the width.
-  parsed_shape_description: a square and extrude it. The length should be twice the
+  parsed_shape_description: a square and extrude it. the length should be twice the
     width.
 '00031303':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00031303
@@ -583,9 +585,9 @@
     This sketch can be made by adding a semi-circle at the bottom of a rectangle.
     Extrude this sketch. Next, at the respective center of the semi-circle, make a
     circular cutout that has the same height and 1/4th size diameter as the semi-circle.
-  parsed_shape_description: a 3D object that resembles a tag. To create the 3D object,
-    sketch a filled U-shaped figure. This sketch can be made by adding a semi-circle
-    at the bottom of a rectangle. Extrude this sketch. Next, at the respective center
+  parsed_shape_description: a 3d object that resembles a tag. to create the 3d object,
+    sketch a filled u-shaped figure. this sketch can be made by adding a semi-circle
+    at the bottom of a rectangle. extrude this sketch. next, at the respective center
     of the semi-circle, make a circular cutout that has the same height and 1/4th
     size diameter as the semi-circle.
 '00031637':
@@ -601,8 +603,8 @@
     prism. Then, cut out a small rectangular prism from the right side of the original
     shape. This cut out should be the same width, 1/4th the length, and 3/4th the
     height of the original shape.
-  parsed_shape_description: a long rectangular prism. Then, cut out a small rectangular
-    prism from the right side of the original shape. This cut out should be the same
+  parsed_shape_description: a long rectangular prism. then, cut out a small rectangular
+    prism from the right side of the original shape. this cut out should be the same
     width, 1/4th the length, and 3/4th the height of the original shape.
 00032961:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00032961
@@ -618,8 +620,8 @@
     semi-circular ends and then extrude it. Next, create two holes, positioning each
     near one end of the semi-cicles center.
   parsed_shape_description: an object that resembles a corner brace plate connector.
-    Sketch a very long rectangle with two semi-circular ends and then extrude it.
-    Next, create two holes, positioning each near one end of the semi-cicles center.
+    sketch a very long rectangle with two semi-circular ends and then extrude it.
+    next, create two holes, positioning each near one end of the semi-cicles center.
 00033093:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00033093
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00033093\Ground_Truth.obj
@@ -636,9 +638,9 @@
     and extrude it. Then, cut out two small symmetric circles from the extruded rectangle.  These
     cut outs should be parallel to each other and slightly offset from the rectangle's
     centerline.
-  parsed_shape_description: a rectangular plate with two small, symmetric holes. First,
-    create a sketch of the rectangle and extrude it. Then, cut out two small symmetric
-    circles from the extruded rectangle.  These cut outs should be parallel to each
+  parsed_shape_description: a rectangular plate with two small, symmetric holes. first,
+    create a sketch of the rectangle and extrude it. then, cut out two small symmetric
+    circles from the extruded rectangle.  these cut outs should be parallel to each
     other and slightly offset from the rectangle's centerline.
 '00033624':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00033624
@@ -652,7 +654,7 @@
   natural_language_prompt: Write Python code using CADQuery to create a long rectangle
     and extrude it. Next, create two holes, positioning them at the close to end of
     the rectangle.
-  parsed_shape_description: a long rectangle and extrude it. Next, create two holes,
+  parsed_shape_description: a long rectangle and extrude it. next, create two holes,
     positioning them at the close to end of the rectangle.
 '00034100':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00034100
@@ -673,11 +675,11 @@
     a thin slit going through the rectangular block from the top of the circular hole
     to the shorter edge of the rectangle. This slit should look like it has been cut
     with a wire-cutter.
-  parsed_shape_description: a rectangle and extrude it. Next, create a circle positioned
+  parsed_shape_description: a rectangle and extrude it. next, create a circle positioned
     above the midpoint of the rectangle and negatively extrude it to create a hole
-    in the rectangular block. Then, create a thin slit going through the rectangular
+    in the rectangular block. then, create a thin slit going through the rectangular
     block from the top of the circular hole to the shorter edge of the rectangle.
-    This slit should look like it has been cut with a wire-cutter.
+    this slit should look like it has been cut with a wire-cutter.
 00034239:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00034239
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00034239\Ground_Truth.obj
@@ -693,7 +695,7 @@
     square. Then, create two small circles, one on the left and the other on the right
     of the large circle.
   parsed_shape_description: a rectangle and extrude it, with an empty large circle
-    and position it in the center of the square. Then, create two small circles, one
+    and position it in the center of the square. then, create two small circles, one
     on the left and the other on the right of the large circle.
 '00034243':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00034243
@@ -710,7 +712,7 @@
     in the 3D space.
   natural_language_prompt: Write Python code using CADQuery to create a circle, extrude
     it. Then create four small holes, position them in a square dimension.
-  parsed_shape_description: a circle, extrude it. Then create four small holes, position
+  parsed_shape_description: a circle, extrude it. then create four small holes, position
     them in a square dimension.
 '00034256':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00034256
@@ -728,10 +730,10 @@
     then fill in the empty space of  the U-shape. Then, close the open part of the
     U-shape with a rectangle wider than the U's width. Extrude this sketch to form
     a 3D object that looks like a U-shaped clamping bracket.
-  parsed_shape_description: a 3D object resembling a U-shaped clamping bracket. Begin
-    by creating a U-shaped sketch and then fill in the empty space of  the U-shape.
-    Then, close the open part of the U-shape with a rectangle wider than the U's width.
-    Extrude this sketch to form a 3D object that looks like a U-shaped clamping bracket.
+  parsed_shape_description: a 3d object resembling a u-shaped clamping bracket. begin
+    by creating a u-shaped sketch and then fill in the empty space of  the u-shape.
+    then, close the open part of the u-shape with a rectangle wider than the u's width.
+    extrude this sketch to form a 3d object that looks like a u-shaped clamping bracket.
 00036518:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00036518
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00036518\Ground_Truth.obj
@@ -747,8 +749,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a 3D object
     that is a sliced cylinder. First create a cylinder whose height is twice its diameter.
     Now slice this cylinder in half at an angle and remove 1/3rd the material.
-  parsed_shape_description: a 3D object that is a sliced cylinder. First create a
-    cylinder whose height is twice its diameter. Now slice this cylinder in half at
+  parsed_shape_description: a 3d object that is a sliced cylinder. first create a
+    cylinder whose height is twice its diameter. now slice this cylinder in half at
     an angle and remove 1/3rd the material.
 '00037135':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00037135
@@ -767,8 +769,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a bench. Begin
     by sketching a shape resembling the letter 'h' on the X-Y axis. Then, extrude
     this sketch along the Z-axis to form an object that resembles a bench.
-  parsed_shape_description: a bench. Begin by sketching a shape resembling the letter
-    'h' on the X-Y axis. Then, extrude this sketch along the Z-axis to form an object
+  parsed_shape_description: a bench. begin by sketching a shape resembling the letter
+    'h' on the x-y axis. then, extrude this sketch along the z-axis to form an object
     that resembles a bench.
 '00037161':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00037161
@@ -779,7 +781,7 @@
     0.12 units in length and 0.24 units in width, and the same height as the square.
   natural_language_prompt: Write Python code using CADQuery to create a square. Then,
     create a tiny empty rectangle in the center of the square.
-  parsed_shape_description: a square. Then, create a tiny empty rectangle in the center
+  parsed_shape_description: a square. then, create a tiny empty rectangle in the center
     of the square.
 '00037276':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00037276
@@ -800,9 +802,9 @@
     to both circles. Extrude the resulting closed shape sketch to obtain the desired
     object.
   parsed_shape_description: an object that follows the profile of a taut bike chain.
-    Create the sketch by drawing two circles, one large and one small, separated by
-    a distance approximately equal to the diameter of the larger circle. Then join
-    these two circles using two lines that are tangent to both circles. Extrude the
+    create the sketch by drawing two circles, one large and one small, separated by
+    a distance approximately equal to the diameter of the larger circle. then join
+    these two circles using two lines that are tangent to both circles. extrude the
     resulting closed shape sketch to obtain the desired object.
 00037494:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00037494
@@ -819,10 +821,10 @@
     the Y-axis. Next, create a sketch of a slightly smaller square in the X-Z plane,
     centered at the same point as the original square. Extrude this smaller square
     negatively along the Y-axis to create a hole in the original extrusion.
-  parsed_shape_description: a rectangular pipe. Begin by creating a sketch of a square
-    in the X-Z plane and extrude it along the Y-axis. Next, create a sketch of a slightly
-    smaller square in the X-Z plane, centered at the same point as the original square.
-    Extrude this smaller square negatively along the Y-axis to create a hole in the
+  parsed_shape_description: a rectangular pipe. begin by creating a sketch of a square
+    in the x-z plane and extrude it along the y-axis. next, create a sketch of a slightly
+    smaller square in the x-z plane, centered at the same point as the original square.
+    extrude this smaller square negatively along the y-axis to create a hole in the
     original extrusion.
 00038438:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00038438
@@ -855,9 +857,9 @@
     a thin flange at one end. The pipe should be hollow, constructed using two extrusions  a
     positive extrusion for the inner circle and a negative extrusion for the outer
     circle. The outer circle should be a very thin flange.
-  parsed_shape_description: a pipe with a thin flange at one end. The pipe should
+  parsed_shape_description: a pipe with a thin flange at one end. the pipe should
     be hollow, constructed using two extrusions  a positive extrusion for the inner
-    circle and a negative extrusion for the outer circle. The outer circle should
+    circle and a negative extrusion for the outer circle. the outer circle should
     be a very thin flange.
 00039227:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00039227
@@ -867,7 +869,7 @@
     of the cylinder with a length of 0.787604 units and a width of 0.506095 units.
   natural_language_prompt: Write Python code using CADQuery to create a cylinder.
     Next, create a empty rectangle in the center of the cylinder.
-  parsed_shape_description: a cylinder. Next, create a empty rectangle in the center
+  parsed_shape_description: a cylinder. next, create a empty rectangle in the center
     of the cylinder.
 00039365:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00039365
@@ -884,8 +886,8 @@
     object. Begin by sketching a parallelogram and extruding it. Then, draw a square
     inside this extruded parallelogram. Following that, negatively extrude the square
     (remove material) to create a square-shaped hole going through the extruded parallelogram.
-  parsed_shape_description: a complex 3D object. Begin by sketching a parallelogram
-    and extruding it. Then, draw a square inside this extruded parallelogram. Following
+  parsed_shape_description: a complex 3d object. begin by sketching a parallelogram
+    and extruding it. then, draw a square inside this extruded parallelogram. following
     that, negatively extrude the square (remove material) to create a square-shaped
     hole going through the extruded parallelogram.
 00039681:
@@ -905,10 +907,10 @@
     Begin by sketching a cross-section representing the pipe with the smaller hole
     diameter and extrude it. Then, at the end of this pipe, sketch the cross-section
     for the second half of the pipe with the larger hole diameter and extrude it.
-  parsed_shape_description: a short pipe featuring two distinct hole diameters. The
+  parsed_shape_description: a short pipe featuring two distinct hole diameters. the
     diameter of the hole on one half of the pipe should be approximately 2/3 the diameter
-    of the hole on the other half. Begin by sketching a cross-section representing
-    the pipe with the smaller hole diameter and extrude it. Then, at the end of this
+    of the hole on the other half. begin by sketching a cross-section representing
+    the pipe with the smaller hole diameter and extrude it. then, at the end of this
     pipe, sketch the cross-section for the second half of the pipe with the larger
     hole diameter and extrude it.
 00039777:
@@ -926,7 +928,7 @@
   natural_language_prompt: Write Python code using CADQuery to create a pentagon-like
     object and extrude it. Each of the top-two edges of the pentagon should be broken
     down into two edges at an obtuse angle very close to 180 degrees.
-  parsed_shape_description: a pentagon-like object and extrude it. Each of the top-two
+  parsed_shape_description: a pentagon-like object and extrude it. each of the top-two
     edges of the pentagon should be broken down into two edges at an obtuse angle
     very close to 180 degrees.
 '00300037':
@@ -950,13 +952,13 @@
     corner, and the square on the right slightly overlaps with the U's bottom right
     corner. Extrude both squares along the Z-axis to the same extent as the original
     U-shaped object.
-  parsed_shape_description: a complex 3D object. Begin by drawing a U-shaped sketch,
-    rectangular in form, on the X-Y plane. Extrude this sketch along the Z-axis. Subsequently,
+  parsed_shape_description: a complex 3d object. begin by drawing a u-shaped sketch,
+    rectangular in form, on the x-y plane. extrude this sketch along the z-axis. subsequently,
     create two square sketches positioned at the bottom left and bottom right corners
-    of the U-shaped object. Ensure that the square on the left slightly overlaps with
-    the U's bottom left corner, and the square on the right slightly overlaps with
-    the U's bottom right corner. Extrude both squares along the Z-axis to the same
-    extent as the original U-shaped object.
+    of the u-shaped object. ensure that the square on the left slightly overlaps with
+    the u's bottom left corner, and the square on the right slightly overlaps with
+    the u's bottom right corner. extrude both squares along the z-axis to the same
+    extent as the original u-shaped object.
 '00520130':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520130
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520130\Ground_Truth.obj
@@ -975,11 +977,11 @@
     1/5th of the width of the square but should be the same length. Extrude both these
     rectangles to the same extent as the square, but in the opposite direction as
     the square such that they extrude out of the square.
-  parsed_shape_description: an object that resembles a grooved rectangle. Start by
-    creating a large square in the X-Y plane and extruding it along the Z-axis. Next,
+  parsed_shape_description: an object that resembles a grooved rectangle. start by
+    creating a large square in the x-y plane and extruding it along the z-axis. next,
     create two sketches of smaller rectangles attached to the left and right of the
-    square. These rectangles should have around 1/5th of the width of the square but
-    should be the same length. Extrude both these rectangles to the same extent as
+    square. these rectangles should have around 1/5th of the width of the square but
+    should be the same length. extrude both these rectangles to the same extent as
     the square, but in the opposite direction as the square such that they extrude
     out of the square.
 '00520150':
@@ -990,7 +992,7 @@
     of 0.1875 units, and then extrude it.
   natural_language_prompt: Write Python code using CADQuery to create a "L" shape
     and extrude it.
-  parsed_shape_description: a "L" shape and extrude it.
+  parsed_shape_description: a "l" shape and extrude it.
 '00520321':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520321
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520321\Ground_Truth.obj
@@ -1009,9 +1011,9 @@
     twice its width. Then creat two short symmetric cylinders, they should be a 1/4th
     the size of the rectangular prism. These two cylinders should be parallel to each
     other, and at the bottom of the first shape, connect at its center.
-  parsed_shape_description: an object that resembles a lego block. Start by creating
-    a rectangular prism that has a length twice its width. Then creat two short symmetric
-    cylinders, they should be a 1/4th the size of the rectangular prism. These two
+  parsed_shape_description: an object that resembles a lego block. start by creating
+    a rectangular prism that has a length twice its width. then creat two short symmetric
+    cylinders, they should be a 1/4th the size of the rectangular prism. these two
     cylinders should be parallel to each other, and at the bottom of the first shape,
     connect at its center.
 '00520402':
@@ -1026,7 +1028,7 @@
   natural_language_prompt: Write Python code using CADQuery to create a long, hollow
     cylinder, and then extrude it. Afterward, cut off a semi-circular shape in the
     middle of the cylinder.
-  parsed_shape_description: a long, hollow cylinder, and then extrude it. Afterward,
+  parsed_shape_description: a long, hollow cylinder, and then extrude it. afterward,
     cut off a semi-circular shape in the middle of the cylinder.
 '00520453':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520453
@@ -1073,7 +1075,7 @@
     it as required.'
   natural_language_prompt: Write Python code using CADQuery to create a "R" shape
     and extrude it.
-  parsed_shape_description: a "R" shape and extrude it.
+  parsed_shape_description: a "r" shape and extrude it.
 '00520671':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520671
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520671\Ground_Truth.obj
@@ -1088,8 +1090,8 @@
     slightly extrude it. Next, create a second cylinder in the middle of the first
     one, and then extrude it. Then, cut off a small rectangle in the first cylinder,
     positioning it on the right side of the second cylinder.
-  parsed_shape_description: a cylinder and slightly extrude it. Next, create a second
-    cylinder in the middle of the first one, and then extrude it. Then, cut off a
+  parsed_shape_description: a cylinder and slightly extrude it. next, create a second
+    cylinder in the middle of the first one, and then extrude it. then, cut off a
     small rectangle in the first cylinder, positioning it on the right side of the
     second cylinder.
 '00520675':
@@ -1102,7 +1104,7 @@
   natural_language_prompt: Write Python code using CADQuery to create a sketch of
     a large annulus shape and extrude it. Then, create a circle at the bottom of the
     cylinder to close it.
-  parsed_shape_description: a sketch of a large annulus shape and extrude it. Then,
+  parsed_shape_description: a sketch of a large annulus shape and extrude it. then,
     create a circle at the bottom of the cylinder to close it.
 00520699:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520699
@@ -1118,8 +1120,8 @@
     resembling a thermometer. To create the object, begin by sketching a small circle
     and slightly extrude it. Then, add a very long rectangle at the top edge of the
     circle, it should be extruded slightly less than the circle.
-  parsed_shape_description: a 3D object resembling a thermometer. To create the object,
-    begin by sketching a small circle and slightly extrude it. Then, add a very long
+  parsed_shape_description: a 3d object resembling a thermometer. to create the object,
+    begin by sketching a small circle and slightly extrude it. then, add a very long
     rectangle at the top edge of the circle, it should be extruded slightly less than
     the circle.
 '00520726':
@@ -1141,9 +1143,9 @@
     the length of the square's side. Then, keeping the top of the extruded square,
     hollow out the remaining portion. Finally, on top of the cube, extrude a circle
     that is about 1/7th the height of the square's extrusion.
-  parsed_shape_description: a 1x1 elongated Lego brick. Start by extruding a square
-    where the extrusion length is almost twice the length of the square's side. Then,
-    keeping the top of the extruded square, hollow out the remaining portion. Finally,
+  parsed_shape_description: a 1x1 elongated lego brick. start by extruding a square
+    where the extrusion length is almost twice the length of the square's side. then,
+    keeping the top of the extruded square, hollow out the remaining portion. finally,
     on top of the cube, extrude a circle that is about 1/7th the height of the square's
     extrusion.
 '00520776':
@@ -1160,8 +1162,8 @@
     includes a very small hole. First, draw the outer circle and perform a positive
     extrusion. Then, draw a very small circle within the outer circle and negatively
     extrude it, creating a hole in the outer cylinder.
-  parsed_shape_description: a cylinder that includes a very small hole. First, draw
-    the outer circle and perform a positive extrusion. Then, draw a very small circle
+  parsed_shape_description: a cylinder that includes a very small hole. first, draw
+    the outer circle and perform a positive extrusion. then, draw a very small circle
     within the outer circle and negatively extrude it, creating a hole in the outer
     cylinder.
 00520974:
@@ -1171,7 +1173,7 @@
     with each side measuring 0.25 units and extrude it to a length of 0.5 units.
   natural_language_prompt: Write Python code using CADQuery to create a square and
     extrude it. The extrusion length should be twice the length of the square's side.
-  parsed_shape_description: a square and extrude it. The extrusion length should be
+  parsed_shape_description: a square and extrude it. the extrusion length should be
     twice the length of the square's side.
 00520976:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00520976
@@ -1190,10 +1192,10 @@
     1/5th its size, ensuring that their top-right corners touch. Negatively extrude
     this smaller square, creating an effect where it appears as if a chunk is missing
     from the original extruded object.
-  parsed_shape_description: a 3D object. Begin by sketching a square in the X-Y plane
-    and extrude it along the Z-axis. Next, sketch another square at the top-right
+  parsed_shape_description: a 3d object. begin by sketching a square in the x-y plane
+    and extrude it along the z-axis. next, sketch another square at the top-right
     corner of the original square, approximately 1/5th its size, ensuring that their
-    top-right corners touch. Negatively extrude this smaller square, creating an effect
+    top-right corners touch. negatively extrude this smaller square, creating an effect
     where it appears as if a chunk is missing from the original extruded object.
 '00521000':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00521000
@@ -1211,8 +1213,8 @@
     width of the ring should be small. Next, create three small circular holes, positioning
     them in a triangular formation. These small holes should have a diameter that
     is smaller than the width of the ring.
-  parsed_shape_description: a ring. The width of the ring should be small. Next, create
-    three small circular holes, positioning them in a triangular formation. These
+  parsed_shape_description: a ring. the width of the ring should be small. next, create
+    three small circular holes, positioning them in a triangular formation. these
     small holes should have a diameter that is smaller than the width of the ring.
 '00521025':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00521025
@@ -1229,8 +1231,8 @@
     and then slightly extrude it. Next, create rectangular hole that is 1/8th the
     size of the original rectangle. This hole should be centered close to the bottom
     of the first rectangle and positioned horizontally.
-  parsed_shape_description: a rectangle and then slightly extrude it. Next, create
-    rectangular hole that is 1/8th the size of the original rectangle. This hole should
+  parsed_shape_description: a rectangle and then slightly extrude it. next, create
+    rectangular hole that is 1/8th the size of the original rectangle. this hole should
     be centered close to the bottom of the first rectangle and positioned horizontally.
 '00521217':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00521217
@@ -1245,8 +1247,8 @@
     Then, extrude it. Next, create a smaller, longer cylinder on the bottom of the
     first cylinder. This cylinder should be half the diameter and five times the length
     of the first cylinder.
-  parsed_shape_description: a large cylinder. Then, extrude it. Next, create a smaller,
-    longer cylinder on the bottom of the first cylinder. This cylinder should be half
+  parsed_shape_description: a large cylinder. then, extrude it. next, create a smaller,
+    longer cylinder on the bottom of the first cylinder. this cylinder should be half
     the diameter and five times the length of the first cylinder.
 '00521230':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00521230
@@ -1264,10 +1266,10 @@
     than that of the cylinder. Positioning one of the holes near the top of the cylinder
     and the other two near the bottom of the cylinder. The hole near the bottom should
     be slightly closer to the cylinders center.
-  parsed_shape_description: a long and thin cylinder. Next, create three circular
-    holes, with a diameter slightly smaller than that of the cylinder. Positioning
+  parsed_shape_description: a long and thin cylinder. next, create three circular
+    holes, with a diameter slightly smaller than that of the cylinder. positioning
     one of the holes near the top of the cylinder and the other two near the bottom
-    of the cylinder. The hole near the bottom should be slightly closer to the cylinders
+    of the cylinder. the hole near the bottom should be slightly closer to the cylinders
     center.
 '00521437':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00521437
@@ -1293,12 +1295,12 @@
     less than half the size of the original rectangle. Position them so that they
     don't touch each other or any edge of the original rectangle.
   parsed_shape_description: an extruded rectangle with two precisely shaped rectangular
-    holes. To create the object, start with a sketch of a thin rectangle whose width
-    is approximately 10-15 times its height. Slightly extrude this rectangle. Then,
+    holes. to create the object, start with a sketch of a thin rectangle whose width
+    is approximately 10-15 times its height. slightly extrude this rectangle. then,
     on top of this extruded shape, sketch two symmetric rectangles and extrude them
-    negatively to create two rectangular holes in the original extruded shape. These
+    negatively to create two rectangular holes in the original extruded shape. these
     rectangular holes should be slightly less than half the size of the original rectangle.
-    Position them so that they don't touch each other or any edge of the original
+    position them so that they don't touch each other or any edge of the original
     rectangle.
 00521895:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00521895
@@ -1310,7 +1312,7 @@
     center of the rectangle.
   natural_language_prompt: Write Python code using CADQuery to create a rectangle,
     and then extrude it. Next, create a hollow cylinder in the middle of the rectangle.
-  parsed_shape_description: a rectangle, and then extrude it. Next, create a hollow
+  parsed_shape_description: a rectangle, and then extrude it. next, create a hollow
     cylinder in the middle of the rectangle.
 00521969:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00521969
@@ -1333,8 +1335,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a large hollow
     cylinder and extrude it. Then, create a circle at the bottom of the cylinder to
     close it. Next, create a tiny hollow circle in the middle of the circle.
-  parsed_shape_description: a large hollow cylinder and extrude it. Then, create a
-    circle at the bottom of the cylinder to close it. Next, create a tiny hollow circle
+  parsed_shape_description: a large hollow cylinder and extrude it. then, create a
+    circle at the bottom of the cylinder to close it. next, create a tiny hollow circle
     in the middle of the circle.
 '00522404':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00522404
@@ -1353,11 +1355,11 @@
     a small rectangle centered at the same location as the square with the same length
     of the square but around half its width. Extrude this smaller rectangle by a very
     large amount along the Y-axis to resemble a pillar.
-  parsed_shape_description: an object that resembles a pillar. Start by creating a
-    square at the bottom on the X-Z plane. Extrude this square by a small amount along
-    the Y axis. Next draw a sketch of a small rectangle centered at the same location
-    as the square with the same length of the square but around half its width. Extrude
-    this smaller rectangle by a very large amount along the Y-axis to resemble a pillar.
+  parsed_shape_description: an object that resembles a pillar. start by creating a
+    square at the bottom on the x-z plane. extrude this square by a small amount along
+    the y axis. next draw a sketch of a small rectangle centered at the same location
+    as the square with the same length of the square but around half its width. extrude
+    this smaller rectangle by a very large amount along the y-axis to resemble a pillar.
 00522865:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00522865
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00522865\Ground_Truth.obj
@@ -1392,12 +1394,12 @@
     create two very tiny rectangles and extrude them. Positioning them on either side
     of the second shapes first line of symmetry and slightly below its second line
     of symmetry.
-  parsed_shape_description: a rectangle and slightly extrude it. Then, in the center
+  parsed_shape_description: a rectangle and slightly extrude it. then, in the center
     of that rectangle, create a rectangular shaped hollow that is half the size of
-    the original shape. Next, on top of the first shape and at its center, create
-    a minimally extruded rectangle. This shape should be 3/4th the size and 1/4th
-    the extrusion of the original shape. Finally, create two very tiny rectangles
-    and extrude them. Positioning them on either side of the second shapes first line
+    the original shape. next, on top of the first shape and at its center, create
+    a minimally extruded rectangle. this shape should be 3/4th the size and 1/4th
+    the extrusion of the original shape. finally, create two very tiny rectangles
+    and extrude them. positioning them on either side of the second shapes first line
     of symmetry and slightly below its second line of symmetry.
 00523882:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00523882
@@ -1415,9 +1417,9 @@
     object. Sketch a right trapezoid and extrude it. Then, create another right trapezoid
     and attach it to one side of the first shape. The second shape should be slightly
     larger and substantially less extruded than the first shape.
-  parsed_shape_description: a trapezoid object. Sketch a right trapezoid and extrude
-    it. Then, create another right trapezoid and attach it to one side of the first
-    shape. The second shape should be slightly larger and substantially less extruded
+  parsed_shape_description: a trapezoid object. sketch a right trapezoid and extrude
+    it. then, create another right trapezoid and attach it to one side of the first
+    shape. the second shape should be slightly larger and substantially less extruded
     than the first shape.
 00524912:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00524912
@@ -1442,10 +1444,10 @@
     Y-Z plane. The smaller rectangle should be centered at the same point as the larger
     one but should have approximately half the length and width.
   parsed_shape_description: two rectangles that are perpendicular to each other, resembling
-    a door and its hinge, connected at one edge. Each rectangle should be extruded
+    a door and its hinge, connected at one edge. each rectangle should be extruded
     by different amounts, with the smaller rectangle being extruded almost twice as
-    much as the first rectangle. Position the larger rectangle in the X-Y plane and
-    the smaller rectangle in the Y-Z plane. The smaller rectangle should be centered
+    much as the first rectangle. position the larger rectangle in the x-y plane and
+    the smaller rectangle in the y-z plane. the smaller rectangle should be centered
     at the same point as the larger one but should have approximately half the length
     and width.
 '00670105':
@@ -1460,7 +1462,7 @@
     where the lower part of the pentagon is rectangular. Next, extrude this pentagon
     to create a pentagonal prism.
   parsed_shape_description: a pentagon, where the lower part of the pentagon is rectangular.
-    Next, extrude this pentagon to create a pentagonal prism.
+    next, extrude this pentagon to create a pentagonal prism.
 '00670106':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670106
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670106\Ground_Truth.obj
@@ -1481,7 +1483,7 @@
   natural_language_prompt: Write Python code using CADQuery to create rectangle, and
     then extrude it. Next, add a circular hole in the middle of the rectangle such
     that the hole is slightly closer to the left side than the right
-  parsed_shape_description: rectangle, and then extrude it. Next, add a circular hole
+  parsed_shape_description: rectangle, and then extrude it. next, add a circular hole
     in the middle of the rectangle such that the hole is slightly closer to the left
     side than the right
 '00670256':
@@ -1519,8 +1521,8 @@
     that resembles a tag. To create the 3D object, sketch a rectangle with the top
     edges rounded, then extrude it. Slightly below the top edges, but centered, make
     a small circular cutout.
-  parsed_shape_description: a 3D object that resembles a tag. To create the 3D object,
-    sketch a rectangle with the top edges rounded, then extrude it. Slightly below
+  parsed_shape_description: a 3d object that resembles a tag. to create the 3d object,
+    sketch a rectangle with the top edges rounded, then extrude it. slightly below
     the top edges, but centered, make a small circular cutout.
 00670268:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670268
@@ -1545,11 +1547,11 @@
     of the first. Finally, create a smaller concentric cylinder protruding outwards
     from the second cylinder. This third cylinder should be twice the height and 1/2
     the diameter of the second cylinder.
-  parsed_shape_description: a cylindrical 3D object. First, create a large and long
-    cylinder. Next, create a smaller cylinder, protruding from one of the circular
-    bases of the cylinder and slightly below the center. This second cylinder should
-    be 1/8th the height and 1/4th the diameter of the first. Finally, create a smaller
-    concentric cylinder protruding outwards from the second cylinder. This third cylinder
+  parsed_shape_description: a cylindrical 3d object. first, create a large and long
+    cylinder. next, create a smaller cylinder, protruding from one of the circular
+    bases of the cylinder and slightly below the center. this second cylinder should
+    be 1/8th the height and 1/4th the diameter of the first. finally, create a smaller
+    concentric cylinder protruding outwards from the second cylinder. this third cylinder
     should be twice the height and 1/2 the diameter of the second cylinder.
 '00670274':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670274
@@ -1565,8 +1567,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a rectangular
     object. First, create a sketch of a rectangle. Next, create four small square
     cutouts from the rectangle at each corner.
-  parsed_shape_description: a rectangular object. First, create a sketch of a rectangle.
-    Next, create four small square cutouts from the rectangle at each corner.
+  parsed_shape_description: a rectangular object. first, create a sketch of a rectangle.
+    next, create four small square cutouts from the rectangle at each corner.
 00670279:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670279
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670279\Ground_Truth.obj
@@ -1588,8 +1590,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a rectangular
     object. First, create a sketch of a rectangle, then extrude it. Next, add a circular
     hole at the center of the rectangle.
-  parsed_shape_description: a rectangular object. First, create a sketch of a rectangle,
-    then extrude it. Next, add a circular hole at the center of the rectangle.
+  parsed_shape_description: a rectangular object. first, create a sketch of a rectangle,
+    then extrude it. next, add a circular hole at the center of the rectangle.
 '00670441':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670441
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670441\Ground_Truth.obj
@@ -1617,7 +1619,10 @@
     Next, add two small holes on the left side of the rectangle at the top and bottom
     of the object. The final object should look like a page with two holes from a
     hole-puncher.
-  parsed_shape_description: null
+  parsed_shape_description: a rectangular object. first, create a sketch of a rectangle
+    and extrude it by a small amount. next, add two small holes on the left side of
+    the rectangle at the top and bottom of the object. the final object should look
+    like a page with two holes from a hole-puncher.
 '00670457':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670457
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670457\Ground_Truth.obj
@@ -1635,11 +1640,11 @@
     shorter edge of the rectangle. connect this trapezium to the rectangle such that
     the base of the trapezium is attached to the shorter edge of the rectangle. Finally,
     extrude this object.
-  parsed_shape_description: a long rectangular object. First, create a sketch of a
-    long rectangle. Next, draw a sketch of an isosceles trapezium, where the base
+  parsed_shape_description: a long rectangular object. first, create a sketch of a
+    long rectangle. next, draw a sketch of an isosceles trapezium, where the base
     of the trapezium is the same length as the shorter edge of the rectangle. connect
     this trapezium to the rectangle such that the base of the trapezium is attached
-    to the shorter edge of the rectangle. Finally, extrude this object.
+    to the shorter edge of the rectangle. finally, extrude this object.
 '00670466':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670466
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670466\Ground_Truth.obj
@@ -1652,7 +1657,9 @@
   natural_language_prompt: Write python code using CADquery to create a triangular
     object. First, draw a sketch of an isosceles triangle, where the two angles with
     the base of the triangle are close to 90 degrees. Next, extrude this triangle.
-  parsed_shape_description: null
+  parsed_shape_description: a triangular object. first, draw a sketch of an isosceles
+    triangle, where the two angles with the base of the triangle are close to 90 degrees.
+    next, extrude this triangle.
 00670817:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670817
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670817\Ground_Truth.obj
@@ -1666,8 +1673,8 @@
     First, draw a sketch of a circle and extrude it by a small amount. Next, create
     a circular hole at the center of this object, with a radius of half of the original
     circle.
-  parsed_shape_description: a circular object. First, draw a sketch of a circle and
-    extrude it by a small amount. Next, create a circular hole at the center of this
+  parsed_shape_description: a circular object. first, draw a sketch of a circle and
+    extrude it by a small amount. next, create a circular hole at the center of this
     object, with a radius of half of the original circle.
 00670960:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00670960
@@ -1692,15 +1699,15 @@
     rectangle. The trapezium should be placed on the edge of the rectangle such that
     the center of the trapezium is marginally to the right of the center of the shorter
     edge of the rectangle. Finally, extrude this entire sketch by a small amount.
-  parsed_shape_description: a thin rectangular plate. First, draw a sketch of a rectangle
-    where the length and width of the rectangle are close to each other. Next, draw
+  parsed_shape_description: a thin rectangular plate. first, draw a sketch of a rectangle
+    where the length and width of the rectangle are close to each other. next, draw
     a sketch of a slim, isosceles trapezium, where the length of the base is about
-    2/3rd of the length of the shorter side of the rectangle. The length of the angular
+    2/3rd of the length of the shorter side of the rectangle. the length of the angular
     sides are about 1/10th of the length of the base, with a base angle of approximately
-    45 degrees. Connect the trapezium to the rectangle, by attaching the base of the
-    trapezium to the shorter edge of the rectangle. The trapezium should be placed
+    45 degrees. connect the trapezium to the rectangle, by attaching the base of the
+    trapezium to the shorter edge of the rectangle. the trapezium should be placed
     on the edge of the rectangle such that the center of the trapezium is marginally
-    to the right of the center of the shorter edge of the rectangle. Finally, extrude
+    to the right of the center of the shorter edge of the rectangle. finally, extrude
     this entire sketch by a small amount.
 00671873:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00671873
@@ -1721,12 +1728,12 @@
     this draw a smaller rectangle that represents the second step. Make sure the two
     rectangles are connected. Extrude this profile to get a 3D model of the two step
     pedestal.
-  parsed_shape_description: a CAD model for a 3D object that resembles a two step
-    pedestal. First, you can create a side profile of the pedestal. You can do it
-    by creating two rectangles joined to each other. First draw a big rectangle that
-    will represent the base level. On top of this draw a smaller rectangle that represents
-    the second step. Make sure the two rectangles are connected. Extrude this profile
-    to get a 3D model of the two step pedestal.
+  parsed_shape_description: a cad model for a 3d object that resembles a two step
+    pedestal. first, you can create a side profile of the pedestal. you can do it
+    by creating two rectangles joined to each other. first draw a big rectangle that
+    will represent the base level. on top of this draw a smaller rectangle that represents
+    the second step. make sure the two rectangles are connected. extrude this profile
+    to get a 3d model of the two step pedestal.
 00671898:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00671898
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00671898\Ground_Truth.obj
@@ -1749,12 +1756,12 @@
     other. The base of all three triangles is connected to each other.  The center
     triangle is an equilateral triangle and the rectangles on the sides are acute-angled
     scalene triangles. Once you have the profile, extrude it to get the 3D object.
-  parsed_shape_description: a CAD model for a complex 3D object that from the front
-    resembles the profile of three mountains connected to each other. To create the
-    profile draw three triangles next to each other. The base of all three triangles
-    is connected to each other.  The center triangle is an equilateral triangle and
-    the rectangles on the sides are acute-angled scalene triangles. Once you have
-    the profile, extrude it to get the 3D object.
+  parsed_shape_description: a cad model for a complex 3d object that from the front
+    resembles the profile of three mountains connected to each other. to create the
+    profile draw three triangles next to each other. the base of all three triangles
+    is connected to each other.  the center triangle is an equilateral triangle and
+    the rectangles on the sides are acute-angled scalene triangles. once you have
+    the profile, extrude it to get the 3d object.
 00671938:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00671938
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00671938\Ground_Truth.obj
@@ -1766,7 +1773,7 @@
     (0.082574, 0.01872, height/2).
   natural_language_prompt: Write Python code using CADQuery to create a cylindrical
     object. Create a sketch of two circles which overlap, and extrude this sketch.
-  parsed_shape_description: a cylindrical object. Create a sketch of two circles which
+  parsed_shape_description: a cylindrical object. create a sketch of two circles which
     overlap, and extrude this sketch.
 00672098:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00672098
@@ -1779,7 +1786,7 @@
     amount to create the 3D object.
   natural_language_prompt: Write Python code using CADQuery to create a U-shaped object.
     Draw a sketch of a rectangular "U" and extrude this sketch by a small amount.
-  parsed_shape_description: a U-shaped object. Draw a sketch of a rectangular "U"
+  parsed_shape_description: a u-shaped object. draw a sketch of a rectangular "u"
     and extrude this sketch by a small amount.
 '00672272':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00672272
@@ -1797,9 +1804,9 @@
     sketch two small squares with the same width, 1/16 length, and 1/3 the extrusion
     as the rectangle. Connect these squares to the center of the rectangles shorter
     edge.
-  parsed_shape_description: a long, rectangular object. First, sketch a long rectangle
-    and extrude it by a small amount. Next, sketch two small squares with the same
-    width, 1/16 length, and 1/3 the extrusion as the rectangle. Connect these squares
+  parsed_shape_description: a long, rectangular object. first, sketch a long rectangle
+    and extrude it by a small amount. next, sketch two small squares with the same
+    width, 1/16 length, and 1/3 the extrusion as the rectangle. connect these squares
     to the center of the rectangles shorter edge.
 00672291:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00672291
@@ -1812,7 +1819,7 @@
     an L shape and then extrude this sketch to form the 3D object.
   natural_language_prompt: Write Python code using CADQuery to create a long L-shaped
     bracket. First, draw a sketch of an L and then extrude this sketch.
-  parsed_shape_description: a long L-shaped bracket. First, draw a sketch of an L
+  parsed_shape_description: a long l-shaped bracket. first, draw a sketch of an l
     and then extrude this sketch.
 00672309:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00672309
@@ -1835,9 +1842,9 @@
     edge of the cylinder, and negatively extrude it, by the same amount, to create
     a channel along the height of the cylinder.
   parsed_shape_description: a short, cylindrical object with a circular hole through
-    the center. First, create a circle and then extrude it to form a cylinder. Next,
+    the center. first, create a circle and then extrude it to form a cylinder. next,
     draw a smaller circle centered at the same point, with a radius of about half
-    of that of the first circle, and then negatively extrude it to form a hole. Finally.
+    of that of the first circle, and then negatively extrude it to form a hole. finally.
     create a small square connected to the outer edge of the cylinder, and negatively
     extrude it, by the same amount, to create a channel along the height of the cylinder.
 '00672352':
@@ -1852,8 +1859,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a rectangular
     object. Draw a sketch of a rectangle and then marginally extrude it. Next, create
     a small circular hole in the top right corner of the object.
-  parsed_shape_description: a rectangular object. Draw a sketch of a rectangle and
-    then marginally extrude it. Next, create a small circular hole in the top right
+  parsed_shape_description: a rectangular object. draw a sketch of a rectangle and
+    then marginally extrude it. next, create a small circular hole in the top right
     corner of the object.
 '00672355':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00672355
@@ -1874,12 +1881,12 @@
     4/5th the diameter of the circle. The height of rectangle is small, about 1/10th
     the width of rectangle. Now, extrude this rectangle to about half the height of
     the cylinder to get the final 3D object.
-  parsed_shape_description: a CAD model of a cylindrical 3D object. To make the object
-    first draw a circle and extrude it to get a cylinder. On the top surface of the
-    cylinder draw a thin rectangle that is centered on the center of the circle. The
-    width of rectangle is about 4/5th the diameter of the circle. The height of rectangle
-    is small, about 1/10th the width of rectangle. Now, extrude this rectangle to
-    about half the height of the cylinder to get the final 3D object.
+  parsed_shape_description: a cad model of a cylindrical 3d object. to make the object
+    first draw a circle and extrude it to get a cylinder. on the top surface of the
+    cylinder draw a thin rectangle that is centered on the center of the circle. the
+    width of rectangle is about 4/5th the diameter of the circle. the height of rectangle
+    is small, about 1/10th the width of rectangle. now, extrude this rectangle to
+    about half the height of the cylinder to get the final 3d object.
 00672359:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00672359
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00672359\Ground_Truth.obj
@@ -1896,11 +1903,11 @@
     that one of the shorter right-angle edges is connected to the square. The right-angle
     edges of the triangle should be the same size as the length of the square. Finally,
     extrude this entire sketch by a small amount.
-  parsed_shape_description: a 3D object shaped like an irregular rhombus. First, create
-    a sketch of a square. Next, create a sketch of a right-angle triangle and connect
+  parsed_shape_description: a 3d object shaped like an irregular rhombus. first, create
+    a sketch of a square. next, create a sketch of a right-angle triangle and connect
     it to the top of the square, such that one of the shorter right-angle edges is
-    connected to the square. The right-angle edges of the triangle should be the same
-    size as the length of the square. Finally, extrude this entire sketch by a small
+    connected to the square. the right-angle edges of the triangle should be the same
+    size as the length of the square. finally, extrude this entire sketch by a small
     amount.
 00672804:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00672804
@@ -1912,8 +1919,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a square-shaped
     object. First, draw a sketch of a square and slightly extrude it. Next, create
     a very small hole in the center of the square.
-  parsed_shape_description: a square-shaped object. First, draw a sketch of a square
-    and slightly extrude it. Next, create a very small hole in the center of the square.
+  parsed_shape_description: a square-shaped object. first, draw a sketch of a square
+    and slightly extrude it. next, create a very small hole in the center of the square.
 '00673733':
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00673733
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00673733\Ground_Truth.obj
@@ -1926,7 +1933,7 @@
   natural_language_prompt: Write Python code using CADQuery to create a 3D crescent-shaped
     object. First, draw a sketch resembling a crescent moon and then extrude this
     sketch.
-  parsed_shape_description: a 3D crescent-shaped object. First, draw a sketch resembling
+  parsed_shape_description: a 3d crescent-shaped object. first, draw a sketch resembling
     a crescent moon and then extrude this sketch.
 00673788:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00673788
@@ -1942,8 +1949,8 @@
     and sligthly extrude it. Next, cutout a large right triangle from the bottom-right
     corner of the rectangle. The corner of the triangles right angle should align
     with the sqaures corner.
-  parsed_shape_description: large sqaure and sligthly extrude it. Next, cutout a large
-    right triangle from the bottom-right corner of the rectangle. The corner of the
+  parsed_shape_description: large sqaure and sligthly extrude it. next, cutout a large
+    right triangle from the bottom-right corner of the rectangle. the corner of the
     triangles right angle should align with the sqaures corner.
 00675092:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00675092
@@ -1955,7 +1962,7 @@
     to center it along the Y-axis.
   natural_language_prompt: Write Python code using CADQuery to create a triangular
     object. Draw a sketch of a right triangle and marginally extrude it.
-  parsed_shape_description: a triangular object. Draw a sketch of a right triangle
+  parsed_shape_description: a triangular object. draw a sketch of a right triangle
     and marginally extrude it.
 00675498:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00675498
@@ -1972,10 +1979,10 @@
     half the size of the larger side. Next, create a right trapezoid, and connect
     the longer base to one end of the rectangle. Finally, extrude this entire sketch
     to create a tiered, rectangular object.
-  parsed_shape_description: a tiered 3D object. First, create a sketch of a rectangle,
-    where the smaller sides are approximately half the size of the larger side. Next,
+  parsed_shape_description: a tiered 3d object. first, create a sketch of a rectangle,
+    where the smaller sides are approximately half the size of the larger side. next,
     create a right trapezoid, and connect the longer base to one end of the rectangle.
-    Finally, extrude this entire sketch to create a tiered, rectangular object.
+    finally, extrude this entire sketch to create a tiered, rectangular object.
 00675952:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00675952
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00675952\Ground_Truth.obj
@@ -1987,7 +1994,7 @@
     to form the prism.
   natural_language_prompt: Write Python code using CADQuery to create a trapezoidal
     prism. Draw a sketch of a trapezoid and then extrude it.
-  parsed_shape_description: a trapezoidal prism. Draw a sketch of a trapezoid and
+  parsed_shape_description: a trapezoidal prism. draw a sketch of a trapezoid and
     then extrude it.
 00676218:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00676218
@@ -2006,10 +2013,10 @@
     the original square, and extrude it by the same amount. The final object should
     look like two squares placed on top of each other such that the square on top
     is slightly smaller.
-  parsed_shape_description: a square-shaped 3D object. First, create a sketch of a
-    square and marginally extrude it. Next, create a sketch of a slightly smaller
+  parsed_shape_description: a square-shaped 3d object. first, create a sketch of a
+    square and marginally extrude it. next, create a sketch of a slightly smaller
     square, centered at the same position as the original square, and extrude it by
-    the same amount. The final object should look like two squares placed on top of
+    the same amount. the final object should look like two squares placed on top of
     each other such that the square on top is slightly smaller.
 00680715:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00680715
@@ -2037,8 +2044,8 @@
     that resembles an open book. First, draw two rectangles that connect to form an
     obtuse angle. Now extrude this sketch, so that there is only one edge where the
     rectangles connect.
-  parsed_shape_description: a 3D object that resembles an open book. First, draw two
-    rectangles that connect to form an obtuse angle. Now extrude this sketch, so that
+  parsed_shape_description: a 3d object that resembles an open book. first, draw two
+    rectangles that connect to form an obtuse angle. now extrude this sketch, so that
     there is only one edge where the rectangles connect.
 00681399:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00681399
@@ -2063,13 +2070,13 @@
     the diameter of the inner circle is same as the hole in the square. The outer
     circle of the annulus should be slightly bigger than the inner circle. Now, extrude
     the annulus to almost the same amount as the square.
-  parsed_shape_description: a 3D object that resembles a hollow pipe sticking out
-    of a square block. First create a sketch of a square and extrude it to get the
-    square block. Now sketch a circle on the center of the squares surface and do
-    a negative extrusion to get a circular hole in the square block. Then, sketch
+  parsed_shape_description: a 3d object that resembles a hollow pipe sticking out
+    of a square block. first create a sketch of a square and extrude it to get the
+    square block. now sketch a circle on the center of the squares surface and do
+    a negative extrusion to get a circular hole in the square block. then, sketch
     an annulus on the squares surface, such that the diameter of the inner circle
-    is same as the hole in the square. The outer circle of the annulus should be slightly
-    bigger than the inner circle. Now, extrude the annulus to almost the same amount
+    is same as the hole in the square. the outer circle of the annulus should be slightly
+    bigger than the inner circle. now, extrude the annulus to almost the same amount
     as the square.
 00681463:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00681463
@@ -2080,7 +2087,7 @@
     along the length should be filleted with a radius of approximately 0.077855 units.
   natural_language_prompt: Write Python code using CADQuery to create a rectangular
     object. Draw a sketch of a rectangle with round, filleted edges.
-  parsed_shape_description: a rectangular object. Draw a sketch of a rectangle with
+  parsed_shape_description: a rectangular object. draw a sketch of a rectangle with
     round, filleted edges.
 00681547:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00681547
@@ -2097,8 +2104,8 @@
     hexagonal tile. First. draw a sketch of a rectangle with the top two corners cut
     off to make an irregular hexagon. Next, extrude this hexagonal sketch by a small
     amount.
-  parsed_shape_description: a irregular hexagonal tile. First. draw a sketch of a
-    rectangle with the top two corners cut off to make an irregular hexagon. Next,
+  parsed_shape_description: a irregular hexagonal tile. first. draw a sketch of a
+    rectangle with the top two corners cut off to make an irregular hexagon. next,
     extrude this hexagonal sketch by a small amount.
 00681589:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00681589
@@ -2115,8 +2122,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a star-shaped
     3D object. First, create a sketch of a 5-sided star and then extrude this sketch.
     Each vertice should create a slightly different angle.
-  parsed_shape_description: a star-shaped 3D object. First, create a sketch of a 5-sided
-    star and then extrude this sketch. Each vertice should create a slightly different
+  parsed_shape_description: a star-shaped 3d object. first, create a sketch of a 5-sided
+    star and then extrude this sketch. each vertice should create a slightly different
     angle.
 00681754:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00681754
@@ -2135,10 +2142,10 @@
     at the center of the rectangle. The diameter of the circle should be approximately
     1/4th of the length of the rectangle. Finally, extrude this circle upwards to
     create the image of a cylinder placed on top of a rectangle.
-  parsed_shape_description: a 3D object that looks like a rectangular block with a
-    cylinder placed at the top. First, draw a sketch of a rectangle, and then extrude
-    it. Next, draw a sketch of a circle at the center of the rectangle. The diameter
-    of the circle should be approximately 1/4th of the length of the rectangle. Finally,
+  parsed_shape_description: a 3d object that looks like a rectangular block with a
+    cylinder placed at the top. first, draw a sketch of a rectangle, and then extrude
+    it. next, draw a sketch of a circle at the center of the rectangle. the diameter
+    of the circle should be approximately 1/4th of the length of the rectangle. finally,
     extrude this circle upwards to create the image of a cylinder placed on top of
     a rectangle.
 00681760:
@@ -2162,12 +2169,12 @@
     the rectangle. Connect this to the rectangular sketch by attaching the smaller,
     parallel edge of the trapezium to one of the larger edges of the rectangle. Finally,
     extrude this entire sketch by a large amount.
-  parsed_shape_description: a tiered 3D object, that resembles an inverted, trapezoidal
-    prism placed on a rectangular block. First, draw a sketch of a rectangle. Next,
+  parsed_shape_description: a tiered 3d object, that resembles an inverted, trapezoidal
+    prism placed on a rectangular block. first, draw a sketch of a rectangle. next,
     draw a sketch of an isosceles trapezium, such that the longer side has the same
-    length as the larger side of the rectangle. Connect this to the rectangular sketch
+    length as the larger side of the rectangle. connect this to the rectangular sketch
     by attaching the smaller, parallel edge of the trapezium to one of the larger
-    edges of the rectangle. Finally, extrude this entire sketch by a large amount.
+    edges of the rectangle. finally, extrude this entire sketch by a large amount.
 00681831:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00681831
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00681831\Ground_Truth.obj
@@ -2185,9 +2192,9 @@
     3D object. First, draw a sketch of a circle. Next, cutout a small isosceles trapezium
     from the top of the circle. The sketch should look like a small trapezoidal sector
     of the circle has been cutout. Finally, extrude this entire sketch.
-  parsed_shape_description: a cylindrical 3D object. First, draw a sketch of a circle.
-    Next, cutout a small isosceles trapezium from the top of the circle. The sketch
-    should look like a small trapezoidal sector of the circle has been cutout. Finally,
+  parsed_shape_description: a cylindrical 3d object. first, draw a sketch of a circle.
+    next, cutout a small isosceles trapezium from the top of the circle. the sketch
+    should look like a small trapezoidal sector of the circle has been cutout. finally,
     extrude this entire sketch.
 00681999:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00681999
@@ -2207,12 +2214,12 @@
     center of the top edge of the first rectangle. This square cutout extends downward
     to about the center of the rectangle. Now extrude the remaining shape to get the
     final 3D object.
-  parsed_shape_description: a CAD model for a 3D object. Sketch a large rectangle
-    whose height is about 2/3rd its width. Now create a square cutout from the rectangle,
-    it should be about 1/3rd the rectangles size. This sqaure cutout is placed such
+  parsed_shape_description: a cad model for a 3d object. sketch a large rectangle
+    whose height is about 2/3rd its width. now create a square cutout from the rectangle,
+    it should be about 1/3rd the rectangles size. this sqaure cutout is placed such
     that its top edge is coincident with the center of the top edge of the first rectangle.
-    This square cutout extends downward to about the center of the rectangle. Now
-    extrude the remaining shape to get the final 3D object.
+    this square cutout extends downward to about the center of the rectangle. now
+    extrude the remaining shape to get the final 3d object.
 00682073:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00682073
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00682073\Ground_Truth.obj
@@ -2229,11 +2236,11 @@
     size of the larger side in the original rectangle. Place this rectangle in the
     middle of the rectangle, connected to the top edge. Negatively extrude this smaller
     rectangle to create a cutout in the original rectangular block.
-  parsed_shape_description: a "U"-shaped object. First, create a rectangular sketch
-    and then extrude it. Next, create another sketch of a rectangle such that the
+  parsed_shape_description: a "u"-shaped object. first, create a rectangular sketch
+    and then extrude it. next, create another sketch of a rectangle such that the
     larger side is approximately 2/3rd of the size of the larger side in the original
-    rectangle. Place this rectangle in the middle of the rectangle, connected to the
-    top edge. Negatively extrude this smaller rectangle to create a cutout in the
+    rectangle. place this rectangle in the middle of the rectangle, connected to the
+    top edge. negatively extrude this smaller rectangle to create a cutout in the
     original rectangular block.
 00682075:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00682075
@@ -2257,13 +2264,13 @@
     rectangle draw a third, even smaller rectangle, that represents the third step.
     Make sure the three rectangles are connected and form a closed shape. Extrude
     this profile to get a 3D model of the three step pedestal.
-  parsed_shape_description: a 3D object that resembles a three step pedestal. First,
-    you can create a side profile of the pedestal. You can do it by creating three
-    rectangles joined to each other. First draw a big rectangle that will represent
-    the base level. On top of this draw a smaller rectangle that represents the second
-    step. On top of this second rectangle draw a third, even smaller rectangle, that
-    represents the third step. Make sure the three rectangles are connected and form
-    a closed shape. Extrude this profile to get a 3D model of the three step pedestal.
+  parsed_shape_description: a 3d object that resembles a three step pedestal. first,
+    you can create a side profile of the pedestal. you can do it by creating three
+    rectangles joined to each other. first draw a big rectangle that will represent
+    the base level. on top of this draw a smaller rectangle that represents the second
+    step. on top of this second rectangle draw a third, even smaller rectangle, that
+    represents the third step. make sure the three rectangles are connected and form
+    a closed shape. extrude this profile to get a 3d model of the three step pedestal.
 00684686:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00684686
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00684686\Ground_Truth.obj
@@ -2288,11 +2295,11 @@
     Finally, negatively extrude this rectangle to create a rectangular hole in the
     original object.
   parsed_shape_description: a rectangular plate with a rectangular hole within it.
-    First, create a sketch of a rectangle and slightly extrude it. Next, create a
+    first, create a sketch of a rectangle and slightly extrude it. next, create a
     smaller sketch of a rectangle inside the original rectangle, it should be around
-    1/4th the size of the first rectangle. Place it at the bottom of the original
+    1/4th the size of the first rectangle. place it at the bottom of the original
     object, such that there is a small space between the bottom of the new rectangle
-    and the bottom of the original rectangle. Finally, negatively extrude this rectangle
+    and the bottom of the original rectangle. finally, negatively extrude this rectangle
     to create a rectangular hole in the original object.
 00684841:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00684841
@@ -2313,10 +2320,10 @@
     a marginally smaller radius and place it on the original object. Negatively extrude
     this sketch to cutout the inside of the original object to leave a small sector
     from a hollow-cylinder.
-  parsed_shape_description: a curved, 3D object. First, create a sketch of a minor
-    sector of a circle and then extrude it. Next, create a sketch of another sector,
+  parsed_shape_description: a curved, 3d object. first, create a sketch of a minor
+    sector of a circle and then extrude it. next, create a sketch of another sector,
     centered at the same point, but with a marginally smaller radius and place it
-    on the original object. Negatively extrude this sketch to cutout the inside of
+    on the original object. negatively extrude this sketch to cutout the inside of
     the original object to leave a small sector from a hollow-cylinder.
 00685823:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00685823
@@ -2333,10 +2340,10 @@
     a sketch of a square. Next, create a circular cutout from the top-right corner
     of the square. The sketch should look like one quadrant of a circle was taken
     out of the top-right corner of the square. Finally, extrude this sketch.
-  parsed_shape_description: a 3D object that looks like a square block with a circular
-    cutout in one corner. First, draw a sketch of a square. Next, create a circular
-    cutout from the top-right corner of the square. The sketch should look like one
-    quadrant of a circle was taken out of the top-right corner of the square. Finally,
+  parsed_shape_description: a 3d object that looks like a square block with a circular
+    cutout in one corner. first, draw a sketch of a square. next, create a circular
+    cutout from the top-right corner of the square. the sketch should look like one
+    quadrant of a circle was taken out of the top-right corner of the square. finally,
     extrude this sketch.
 00689273:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00689273
@@ -2356,9 +2363,9 @@
     of the cylinders curved surface, add a rectangular block extruding outwards from
     the top, center. This rectangular block should be narrow, very short, and longer
     than the diameter of the cylinder.
-  parsed_shape_description: an object that resembles a whistle. First, draw a short,
-    wide cylinder. Next, from one sector of the cylinders curved surface, add a rectangular
-    block extruding outwards from the top, center. This rectangular block should be
+  parsed_shape_description: an object that resembles a whistle. first, draw a short,
+    wide cylinder. next, from one sector of the cylinders curved surface, add a rectangular
+    block extruding outwards from the top, center. this rectangular block should be
     narrow, very short, and longer than the diameter of the cylinder.
 00689964:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00689964
@@ -2373,8 +2380,8 @@
     that resembles a screw with a hexagonal head. First, draw a sketch of a regular
     hexagon and extrude it. Next, draw a smaller circle inside the hexagon, centered
     at the same point as the hexagon, and then extrude it outward to resemble a screw-bolt.
-  parsed_shape_description: a 3D object that resembles a screw with a hexagonal head.
-    First, draw a sketch of a regular hexagon and extrude it. Next, draw a smaller
+  parsed_shape_description: a 3d object that resembles a screw with a hexagonal head.
+    first, draw a sketch of a regular hexagon and extrude it. next, draw a smaller
     circle inside the hexagon, centered at the same point as the hexagon, and then
     extrude it outward to resemble a screw-bolt.
 00851553:
@@ -2412,16 +2419,16 @@
     be approximately 3 times its width. After adding the legs, you need to add a rod
     connecting the bottom of the left and right leg. The diameter of this cylindrical
     rod should be marginally less than the width of each leg.
-  parsed_shape_description: a 3D model that looks like a workbench. Start by creating
+  parsed_shape_description: a 3d model that looks like a workbench. start by creating
     an extruded rectangle such that the length of the rectangle is approximately three
-    times the width of the rectangle. Extrude the rectangle such that the depth of
-    the surface is equal to the width. Finally make the inside of the rectangle hollow
-    to complete the upper part of the workbench. Now add legs to the left and right
-    side of this object. Each leg is a marginally extruded rectangle connected to
-    the bottom of the original surface. The two legs are centered and perpendicular
-    to the upper surface. The length of each leg should be approximately 3 times its
-    width. After adding the legs, you need to add a rod connecting the bottom of the
-    left and right leg. The diameter of this cylindrical rod should be marginally
+    times the width of the rectangle. extrude the rectangle such that the depth of
+    the surface is equal to the width. finally make the inside of the rectangle hollow
+    to complete the upper part of the workbench. now add legs to the left and right
+    side of this object. each leg is a marginally extruded rectangle connected to
+    the bottom of the original surface. the two legs are centered and perpendicular
+    to the upper surface. the length of each leg should be approximately 3 times its
+    width. after adding the legs, you need to add a rod connecting the bottom of the
+    left and right leg. the diameter of this cylindrical rod should be marginally
     less than the width of each leg.
 00852000:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00852000
@@ -2444,11 +2451,11 @@
     that are slightly smaller than the first circle, they should be symmetric and
     slightly less extruded than the sqaure. Position these circles on top of the sqaure,
     with each circle positioned near a corner of the square.
-  parsed_shape_description: a square and slightly extrude it. Then, without removing
-    the top of the square, hollow out the inside of the shape. Centered at the bottom
+  parsed_shape_description: a square and slightly extrude it. then, without removing
+    the top of the square, hollow out the inside of the shape. centered at the bottom
     of the square, create a small circle that is extruded slightly less than the sqaure.
-    Next, create four circles that are slightly smaller than the first circle, they
-    should be symmetric and slightly less extruded than the sqaure. Position these
+    next, create four circles that are slightly smaller than the first circle, they
+    should be symmetric and slightly less extruded than the sqaure. position these
     circles on top of the sqaure, with each circle positioned near a corner of the
     square.
 00853706:
@@ -2470,10 +2477,10 @@
     Finally, create a triangle on the top of the third hexagon. Each shape should
     be slightly less extrude than that of the one before it and no shapes vertices
     should align with another shapes.
-  parsed_shape_description: a hexagon and slightly extrude it. Then, create a second
-    smaller hexagon on the top of the first hexagon. Next, create third smaller hexagon
-    on the top of the second hexagon. Finally, create a triangle on the top of the
-    third hexagon. Each shape should be slightly less extrude than that of the one
+  parsed_shape_description: a hexagon and slightly extrude it. then, create a second
+    smaller hexagon on the top of the first hexagon. next, create third smaller hexagon
+    on the top of the second hexagon. finally, create a triangle on the top of the
+    third hexagon. each shape should be slightly less extrude than that of the one
     before it and no shapes vertices should align with another shapes.
 00857821:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00857821
@@ -2502,9 +2509,9 @@
     a right angled traingle. The height of the triangle is almost more than twice
     the base. You can make the shape by first creating a sketch of hollow right angled
     triangle and then extruding it.
-  parsed_shape_description: a 3D shape that resembles the triangular rack used in
-    pool game. However, the triangle will be a right angled traingle. The height of
-    the triangle is almost more than twice the base. You can make the shape by first
+  parsed_shape_description: a 3d shape that resembles the triangular rack used in
+    pool game. however, the triangle will be a right angled traingle. the height of
+    the triangle is almost more than twice the base. you can make the shape by first
     creating a sketch of hollow right angled triangle and then extruding it.
 00980651:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00980651
@@ -2518,7 +2525,7 @@
     it, and then create a cylinder slightly smaller than the hexagon. Place it on
     top of the hexagon and extrude it to half the height of the hexagon.
   parsed_shape_description: a hexagon, extrude it, and then create a cylinder slightly
-    smaller than the hexagon. Place it on top of the hexagon and extrude it to half
+    smaller than the hexagon. place it on top of the hexagon and extrude it to half
     the height of the hexagon.
 00982481:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00982481
@@ -2532,7 +2539,7 @@
     extrude it, and then create a circle larger than the cylinder's size. Place it
     near the top of the cylinder and extrude it.
   parsed_shape_description: a cylinder, extrude it, and then create a circle larger
-    than the cylinder's size. Place it near the top of the cylinder and extrude it.
+    than the cylinder's size. place it near the top of the cylinder and extrude it.
 00983173:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00983173
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00983173\Ground_Truth.obj
@@ -2549,10 +2556,10 @@
     near a corner. Then, create a hollow cylinder and extrude it, positioning it so
     that it intersects the square in the middle. The hollow cylinder should extend
     through the square.
-  parsed_shape_description: a square and slightly extrude it. Then, create four tiny
-    circular holes, positioning each one near a corner. Then, create a hollow cylinder
+  parsed_shape_description: a square and slightly extrude it. then, create four tiny
+    circular holes, positioning each one near a corner. then, create a hollow cylinder
     and extrude it, positioning it so that it intersects the square in the middle.
-    The hollow cylinder should extend through the square.
+    the hollow cylinder should extend through the square.
 00984033:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00984033
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00984033\Ground_Truth.obj
@@ -2573,9 +2580,9 @@
     much smaller than the rectangle. Align the circular cutouts near the top left
     corner of the rectangle, with one subsequent to the other along the rectangles
     length.
-  parsed_shape_description: a rectangular plate with holes in it. First, create a
-    sketch of a long and wide rectangle. Next, cutout three circles from the rectangle.
-    These circles should be symmetric and much smaller than the rectangle. Align the
+  parsed_shape_description: a rectangular plate with holes in it. first, create a
+    sketch of a long and wide rectangle. next, cutout three circles from the rectangle.
+    these circles should be symmetric and much smaller than the rectangle. align the
     circular cutouts near the top left corner of the rectangle, with one subsequent
     to the other along the rectangles length.
 00984234:
@@ -2593,9 +2600,9 @@
     First, create a sketch of a rectangle. Next, cutout two small rectangles from
     the bottom left and and bottom right corners of the sketch. Finally, extrude this
     entire sketch by a small amount.
-  parsed_shape_description: a 3D object. First, create a sketch of a rectangle. Next,
+  parsed_shape_description: a 3d object. first, create a sketch of a rectangle. next,
     cutout two small rectangles from the bottom left and and bottom right corners
-    of the sketch. Finally, extrude this entire sketch by a small amount.
+    of the sketch. finally, extrude this entire sketch by a small amount.
 00984488:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00984488
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00984488\Ground_Truth.obj
@@ -2609,9 +2616,9 @@
     First. draw a sketch of a square. Next, modify the sketch to attach a semi-circle
     to the top of the square, such that the flat side of the semi-circle is attached
     to the top of the square. Finally, extrude this entire sketch.
-  parsed_shape_description: a 3D object. First. draw a sketch of a square. Next, modify
+  parsed_shape_description: a 3d object. first. draw a sketch of a square. next, modify
     the sketch to attach a semi-circle to the top of the square, such that the flat
-    side of the semi-circle is attached to the top of the square. Finally, extrude
+    side of the semi-circle is attached to the top of the square. finally, extrude
     this entire sketch.
 00984833:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00984833
@@ -2632,11 +2639,11 @@
     rectangle, and extruded it by the same amount as the first rectangle. The final
     object should look like two rectangles placed on top of each other such that the
     rectangle on top is slightly smaller.
-  parsed_shape_description: a tiered rectangular 3D object. First, create a sketch
-    of a rectangle and extrude it. Next, create a sketch of a slightly smaller rectangle
-    with the same length, but slightly smaller width. The second rectangle should
+  parsed_shape_description: a tiered rectangular 3d object. first, create a sketch
+    of a rectangle and extrude it. next, create a sketch of a slightly smaller rectangle
+    with the same length, but slightly smaller width. the second rectangle should
     be centered at the same position as the original rectangle, and extruded it by
-    the same amount as the first rectangle. The final object should look like two
+    the same amount as the first rectangle. the final object should look like two
     rectangles placed on top of each other such that the rectangle on top is slightly
     smaller.
 00985066:
@@ -2654,9 +2661,9 @@
     resembling an upside-down table. First, draw a sketch of a block "U"-shaped object,
     wherein the upright columns have a slightly larger width than the horizontal section.
     Next, extrude this sketch to create an object to resemble an inverted table.
-  parsed_shape_description: a 3D object resembling an upside-down table. First, draw
-    a sketch of a block "U"-shaped object, wherein the upright columns have a slightly
-    larger width than the horizontal section. Next, extrude this sketch to create
+  parsed_shape_description: a 3d object resembling an upside-down table. first, draw
+    a sketch of a block "u"-shaped object, wherein the upright columns have a slightly
+    larger width than the horizontal section. next, extrude this sketch to create
     an object to resemble an inverted table.
 00985482:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00985482
@@ -2676,9 +2683,9 @@
     a trapezoid shape, and then extrude this sketch. Next, create a trapezoidal hole
     in the first trapezoid, such that the size of the hole should be a little smaller
     than the size of the original trapezoid.
-  parsed_shape_description: a 3D object resembling a trapezoid with a trapezoidal
-    hole in it. First, create a sketch of a trapezoid shape, and then extrude this
-    sketch. Next, create a trapezoidal hole in the first trapezoid, such that the
+  parsed_shape_description: a 3d object resembling a trapezoid with a trapezoidal
+    hole in it. first, create a sketch of a trapezoid shape, and then extrude this
+    sketch. next, create a trapezoidal hole in the first trapezoid, such that the
     size of the hole should be a little smaller than the size of the original trapezoid.
 00985494:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00985494
@@ -2690,7 +2697,7 @@
     form the prism.
   natural_language_prompt: Write Python code using CADQuery to create a regular trapezoid
     prism. First, draw a sketch of a regular trapezium, and then extrude it.
-  parsed_shape_description: a regular trapezoid prism. First, draw a sketch of a regular
+  parsed_shape_description: a regular trapezoid prism. first, draw a sketch of a regular
     trapezium, and then extrude it.
 00986712:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00986712
@@ -2710,10 +2717,10 @@
     edge on the rectangle, and then extrude this sketch. Finally, create two small,
     evenly-spaced circular holes on the same side as the rounded corners. Each of
     these holes should be close to one of the rounded corners.
-  parsed_shape_description: a 3D object. First, create a sketch of a rectangle. Next,
+  parsed_shape_description: a 3d object. first, create a sketch of a rectangle. next,
     round two corners of the same long edge on the rectangle, and then extrude this
-    sketch. Finally, create two small, evenly-spaced circular holes on the same side
-    as the rounded corners. Each of these holes should be close to one of the rounded
+    sketch. finally, create two small, evenly-spaced circular holes on the same side
+    as the rounded corners. each of these holes should be close to one of the rounded
     corners.
 00986814:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00986814
@@ -2732,10 +2739,10 @@
     draw two small circles, next to each other, placed on one end of the rectangle.
     Extrude these two circles by the same amount upwards, to depict two small cylinders
     placed on the rectangle.
-  parsed_shape_description: a 3D object that looks like a rectangle with two small
-    cylinders placed on one side. First, create a sketch of a long rectangle, and
-    then extrude it by a small amount. Next, draw two small circles, next to each
-    other, placed on one end of the rectangle. Extrude these two circles by the same
+  parsed_shape_description: a 3d object that looks like a rectangle with two small
+    cylinders placed on one side. first, create a sketch of a long rectangle, and
+    then extrude it by a small amount. next, draw two small circles, next to each
+    other, placed on one end of the rectangle. extrude these two circles by the same
     amount upwards, to depict two small cylinders placed on the rectangle.
 00995686:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00995686
@@ -2753,8 +2760,8 @@
     that resembles an open pipe. First, sketch a hollow cylinder. Next, cut out a
     sector of that hollow cylinder. You should be left with an imagine resembling
     a pipe missing a portion.
-  parsed_shape_description: a 3D object that resembles an open pipe. First, sketch
-    a hollow cylinder. Next, cut out a sector of that hollow cylinder. You should
+  parsed_shape_description: a 3d object that resembles an open pipe. first, sketch
+    a hollow cylinder. next, cut out a sector of that hollow cylinder. you should
     be left with an imagine resembling a pipe missing a portion.
 00995733:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00995733
@@ -2772,10 +2779,10 @@
     3D object. Draw a sketch that resembles an L. In this sketch, the horizontal section
     part of the "L" should be significantly smaller than the vertical section, and
     the vertical section should also be slightly curved. Finally, extrude this sketch.
-  parsed_shape_description: an L-shaped 3D object. Draw a sketch that resembles an
-    L. In this sketch, the horizontal section part of the "L" should be significantly
+  parsed_shape_description: an l-shaped 3d object. draw a sketch that resembles an
+    l. in this sketch, the horizontal section part of the "l" should be significantly
     smaller than the vertical section, and the vertical section should also be slightly
-    curved. Finally, extrude this sketch.
+    curved. finally, extrude this sketch.
 00995759:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00995759
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00995759\Ground_Truth.obj
@@ -2793,10 +2800,10 @@
     the flat edge of the semi-circle is on the longer side of the rectangle. Finally,
     negatively extrude this semi-circle to create a cutout in the original rectangular
     object.
-  parsed_shape_description: a rectangular 3D object with a semi-circular cutout. First,
-    draw a sketch of a rectangle, and then extrude it. Next, draw a sketch of a semi-circle
+  parsed_shape_description: a rectangular 3d object with a semi-circular cutout. first,
+    draw a sketch of a rectangle, and then extrude it. next, draw a sketch of a semi-circle
     on the rectangle, such that the flat edge of the semi-circle is on the longer
-    side of the rectangle. Finally, negatively extrude this semi-circle to create
+    side of the rectangle. finally, negatively extrude this semi-circle to create
     a cutout in the original rectangular object.
 00995843:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00995843
@@ -2814,10 +2821,10 @@
     circle, on the cylinder centered at the same point. Extrude this smaller circle
     outwards, by an amount smaller than the original cylinder, to resemble a smaller
     cylinder sitting on top of a larger cylinder.
-  parsed_shape_description: a tiered cylindrical 3D object. Start by creating a sketch
-    of a circle and then extrude it to resemble a cylinder. Next, draw another smaller
+  parsed_shape_description: a tiered cylindrical 3d object. start by creating a sketch
+    of a circle and then extrude it to resemble a cylinder. next, draw another smaller
     circle, with half the radius as the original circle, on the cylinder centered
-    at the same point. Extrude this smaller circle outwards, by an amount smaller
+    at the same point. extrude this smaller circle outwards, by an amount smaller
     than the original cylinder, to resemble a smaller cylinder sitting on top of a
     larger cylinder.
 00996001:
@@ -2836,10 +2843,10 @@
     a twice the width of the horizontal section. Next, extrude this sketch to create
     an object to resemble an inverted table. Finally, create a small circular hole
     at the center of the horizontal surface of the table.
-  parsed_shape_description: a 3D object resembling an upside-down table with a circular
-    hole through the horizontal surface. First, draw a sketch of a "U"-shaped object,
+  parsed_shape_description: a 3d object resembling an upside-down table with a circular
+    hole through the horizontal surface. first, draw a sketch of a "u"-shaped object,
     wherein the upright columns have a twice the width of the horizontal section.
-    Next, extrude this sketch to create an object to resemble an inverted table. Finally,
+    next, extrude this sketch to create an object to resemble an inverted table. finally,
     create a small circular hole at the center of the horizontal surface of the table.
 00996329:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00996329
@@ -2851,7 +2858,7 @@
     to form the 3D bracket.
   natural_language_prompt: Write Python code using CADQuery to create a small L-shaped
     bracket. Create a sketch of an "L" and then extrude this object.
-  parsed_shape_description: a small L-shaped bracket. Create a sketch of an "L" and
+  parsed_shape_description: a small l-shaped bracket. create a sketch of an "l" and
     then extrude this object.
 00996368:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00996368
@@ -2869,11 +2876,11 @@
     the rectangle. The length of the semi-hexagon should be 2/3rd of the length of
     the rectangle, wherein the semi-hexagon starts at one end of the rectangle. Finally,
     extrude this sketch.
-  parsed_shape_description: a complex 3D object. First, create a sketch of a rectangle.
-    Next, attach a semi-hexagonal section to the rectangle such that the larger edge
-    is connected to the longer edge of the rectangle. The length of the semi-hexagon
+  parsed_shape_description: a complex 3d object. first, create a sketch of a rectangle.
+    next, attach a semi-hexagonal section to the rectangle such that the larger edge
+    is connected to the longer edge of the rectangle. the length of the semi-hexagon
     should be 2/3rd of the length of the rectangle, wherein the semi-hexagon starts
-    at one end of the rectangle. Finally, extrude this sketch.
+    at one end of the rectangle. finally, extrude this sketch.
 00996457:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00996457
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00996457\Ground_Truth.obj
@@ -2889,8 +2896,8 @@
     object. First, create a sketch of two overlapping circles with the same radius.
     Next, cutout two smaller overlapping circles, centered at the same point as the
     original sketch, as to create a hole in the original shape.
-  parsed_shape_description: a complex 3D object. First, create a sketch of two overlapping
-    circles with the same radius. Next, cutout two smaller overlapping circles, centered
+  parsed_shape_description: a complex 3d object. first, create a sketch of two overlapping
+    circles with the same radius. next, cutout two smaller overlapping circles, centered
     at the same point as the original sketch, as to create a hole in the original
     shape.
 00996473:
@@ -2912,8 +2919,8 @@
     3D object. First, create a sketch of a long rectangle and extrude it by a small
     amount. Next, create three small holes in a triangular formation in the rectangular
     object.
-  parsed_shape_description: a rectangular 3D object. First, create a sketch of a long
-    rectangle and extrude it by a small amount. Next, create three small holes in
+  parsed_shape_description: a rectangular 3d object. first, create a sketch of a long
+    rectangle and extrude it by a small amount. next, create three small holes in
     a triangular formation in the rectangular object.
 00996962:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00996962
@@ -2936,11 +2943,11 @@
     of the rectangular plate, sketch a small rectangle running from the bottom to
     the top. Now subtractively extrude this small rectangle to create a slotted groove
     through the centerline of the rectangle to get the final object.
-  parsed_shape_description: a CAD model for a 3D object that resembles a rectangular
-    plate with a slotted groove. To generate the object first sketch a rectangle whose
-    width is about 2/3rd its height. Extrude the rectangle to get a rectangular plate.
-    Now on the center of the front profile of the rectangular plate, sketch a small
-    rectangle running from the bottom to the top. Now subtractively extrude this small
+  parsed_shape_description: a cad model for a 3d object that resembles a rectangular
+    plate with a slotted groove. to generate the object first sketch a rectangle whose
+    width is about 2/3rd its height. extrude the rectangle to get a rectangular plate.
+    now on the center of the front profile of the rectangular plate, sketch a small
+    rectangle running from the bottom to the top. now subtractively extrude this small
     rectangle to create a slotted groove through the centerline of the rectangle to
     get the final object.
 00997040:
@@ -2972,17 +2979,17 @@
     top right corner of the first square. Make sure that the sketch forms a closed
     shape that can be extruded. Extrude this front profile to a depth that is about
     20 times the width of the rectangle in the sketch to get the final object.
-  parsed_shape_description: a CAD model for a 3D object. To create the object first
-    create its side profile and then extrude it. To sketch the side profile, first
-    sketch a thin rectangle. The height of the rectangle is minimal (about 1/20th
-    the width). On top of this thin rectangle sketch a square whose side is about
-    half the width of the rectangle. The square is placed such that its bottom right
-    corner is coincident with the top right corner of the rectangle. The bottom left
+  parsed_shape_description: a cad model for a 3d object. to create the object first
+    create its side profile and then extrude it. to sketch the side profile, first
+    sketch a thin rectangle. the height of the rectangle is minimal (about 1/20th
+    the width). on top of this thin rectangle sketch a square whose side is about
+    half the width of the rectangle. the square is placed such that its bottom right
+    corner is coincident with the top right corner of the rectangle. the bottom left
     corner of the square is coincident with the vertical line going through the center
-    of the rectangle. On top of this square draw another square that is just smaller
-    than the first square. Place this square also in a way that the bottom right corener
+    of the rectangle. on top of this square draw another square that is just smaller
+    than the first square. place this square also in a way that the bottom right corener
     of the second square is coincident with the top right corner of the first square.
-    Make sure that the sketch forms a closed shape that can be extruded. Extrude this
+    make sure that the sketch forms a closed shape that can be extruded. extrude this
     front profile to a depth that is about 20 times the width of the rectangle in
     the sketch to get the final object.
 00997065:
@@ -3003,12 +3010,12 @@
     centerline going from left to right of the square. The height of the rectangles
     is twice their width. Make sure the sketch is closed and can be extrude. Now extrude
     the sketch to a small depth to get the final object.
-  parsed_shape_description: a CAD model for a 3D object. To create the object first
-    create its top profile and then extrude it. To sketch the top profile, sketch
-    a square shape. On the left and right edges of the square sketch two small rectangles
+  parsed_shape_description: a cad model for a 3d object. to create the object first
+    create its top profile and then extrude it. to sketch the top profile, sketch
+    a square shape. on the left and right edges of the square sketch two small rectangles
     whose center is along the horizontal centerline going from left to right of the
-    square. The height of the rectangles is twice their width. Make sure the sketch
-    is closed and can be extrude. Now extrude the sketch to a small depth to get the
+    square. the height of the rectangles is twice their width. make sure the sketch
+    is closed and can be extrude. now extrude the sketch to a small depth to get the
     final object.
 00997068:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997068
@@ -3026,10 +3033,10 @@
     Next, create a small rectangular cutout in the original object towards the bottom
     right side of the original rectangular object. This cutout should be about 1/4th
     the length of the original shape.
-  parsed_shape_description: a rectangular object. First, create a sketch of a very
-    long rectangle and slightly extrude it. Next, create a small rectangular cutout
+  parsed_shape_description: a rectangular object. first, create a sketch of a very
+    long rectangle and slightly extrude it. next, create a small rectangular cutout
     in the original object towards the bottom right side of the original rectangular
-    object. This cutout should be about 1/4th the length of the original shape.
+    object. this cutout should be about 1/4th the length of the original shape.
 00997071:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997071
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997071\Ground_Truth.obj
@@ -3048,9 +3055,9 @@
     extrude this whole shape. Finally, create a large circular hole at the center
     of the object.
   parsed_shape_description: a rectangular object that looks like a puzzle piece with
-    a circular hole in it. First, create a sketch of a rectangle. Next, sketch two
-    smaller rectangles. Each should be on either side of the first shape, connected
-    to the center of its longer edge. Now extrude this whole shape. Finally, create
+    a circular hole in it. first, create a sketch of a rectangle. next, sketch two
+    smaller rectangles. each should be on either side of the first shape, connected
+    to the center of its longer edge. now extrude this whole shape. finally, create
     a large circular hole at the center of the object.
 00997229:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997229
@@ -3071,11 +3078,11 @@
     diameter than the width of the rectangle. There should be one circle on each end,
     and one slightly larger than the other. Now extrude this sketch. Finally, create
     two circular holes within the two circular ends of this object.
-  parsed_shape_description: a 3D object that resembles a box end wrench. First, create
-    a sketch of a long rectangle. Next, replace the ends of the rectangle with two
-    circles, they should have a larger diameter than the width of the rectangle. There
-    should be one circle on each end, and one slightly larger than the other. Now
-    extrude this sketch. Finally, create two circular holes within the two circular
+  parsed_shape_description: a 3d object that resembles a box end wrench. first, create
+    a sketch of a long rectangle. next, replace the ends of the rectangle with two
+    circles, they should have a larger diameter than the width of the rectangle. there
+    should be one circle on each end, and one slightly larger than the other. now
+    extrude this sketch. finally, create two circular holes within the two circular
     ends of this object.
 00997300:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997300
@@ -3092,10 +3099,10 @@
     create a hole with 1/8th diameter as that of the cylinder, it should be at the
     center of the cylinder going all the way through. Finally, create three even smaller
     holes, in a triangular formation, around the first hole in the cylinder.
-  parsed_shape_description: a 3D cylindrical object with multiple holes in it. First,
-    create a large, short cylinder. Next, create a hole with 1/8th diameter as that
+  parsed_shape_description: a 3d cylindrical object with multiple holes in it. first,
+    create a large, short cylinder. next, create a hole with 1/8th diameter as that
     of the cylinder, it should be at the center of the cylinder going all the way
-    through. Finally, create three even smaller holes, in a triangular formation,
+    through. finally, create three even smaller holes, in a triangular formation,
     around the first hole in the cylinder.
 00997373:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997373
@@ -3112,8 +3119,8 @@
     object with three holes in it. First, draw a sketch of a rectangle and extrude
     it by a small amount. Next, create three small holes, aligned with the smaller
     side of the rectangle, towards one side of the object.
-  parsed_shape_description: a 3D rectangular object with three holes in it. First,
-    draw a sketch of a rectangle and extrude it by a small amount. Next, create three
+  parsed_shape_description: a 3d rectangular object with three holes in it. first,
+    draw a sketch of a rectangle and extrude it by a small amount. next, create three
     small holes, aligned with the smaller side of the rectangle, towards one side
     of the object.
 00997428:
@@ -3141,13 +3148,13 @@
     through each side of the cylinder. The length of the rod should be slightly larger
     than the diameter of the cylinder.
   parsed_shape_description: a hollow cylindrical object that looks like a bucket.
-    First, create a sketch of a circle and extrude it to create a cylinder. Next,
+    first, create a sketch of a circle and extrude it to create a cylinder. next,
     create sketch of a smaller circle and negatively extrude it such that there is
-    a hole in the cylinder. Make sure you extrude it by an amount smaller than the
+    a hole in the cylinder. make sure you extrude it by an amount smaller than the
     original extrusion so that the hole in the cylinder doesn't go all the way through
-    the cylinder. Finally, create a horizontal cylindrical rod. Place the cylindrical
+    the cylinder. finally, create a horizontal cylindrical rod. place the cylindrical
     rod towards the top of the cylinder such that it passes through each side of the
-    cylinder. The length of the rod should be slightly larger than the diameter of
+    cylinder. the length of the rod should be slightly larger than the diameter of
     the cylinder.
 00997536:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997536
@@ -3166,7 +3173,7 @@
     on the cylinder and negatively extrude it to create an octagonal hole within the
     cylinder.
   parsed_shape_description: a cylindrical object with a octagonal hole within it.
-    First, create a sketch of a circle and extrude it to create a cylinder. Next,
+    first, create a sketch of a circle and extrude it to create a cylinder. next,
     create a sketch of a smaller, regular octagon on the cylinder and negatively extrude
     it to create an octagonal hole within the cylinder.
 00997580:
@@ -3187,12 +3194,12 @@
     around half the size of the original sketch, at the center of the original sketch,
     and negatively extrude it. Negatively extrude it by an amount smaller than that
     of the original extrusion, to create a slot within the first rectangular 3D object.
-  parsed_shape_description: a 3D rectangular object, with a smaller rectangular slot
-    within it. First, create a sketch of a rectangle and slightly extrude it. Next,
+  parsed_shape_description: a 3d rectangular object, with a smaller rectangular slot
+    within it. first, create a sketch of a rectangle and slightly extrude it. next,
     create a sketch of a smaller rectangle, around half the size of the original sketch,
-    at the center of the original sketch, and negatively extrude it. Negatively extrude
+    at the center of the original sketch, and negatively extrude it. negatively extrude
     it by an amount smaller than that of the original extrusion, to create a slot
-    within the first rectangular 3D object.
+    within the first rectangular 3d object.
 00997616:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997616
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997616\Ground_Truth.obj
@@ -3215,13 +3222,13 @@
     two corners of the sketch such that the sketch looks like small triangles were
     cutout from the bottom-left and bottom-right corners respectively. Finally,  extrude
     the entire sketch by a small amount.
-  parsed_shape_description: a 3D plate shaped like a pentagon. First, draw a sketch
-    of a rectangle. Augment, the sketch of the rectangle by connecting an isosceles
+  parsed_shape_description: a 3d plate shaped like a pentagon. first, draw a sketch
+    of a rectangle. augment, the sketch of the rectangle by connecting an isosceles
     triangle to the top of the rectangle, such that the larger flat side is connected
     to the longer edge of the rectangle and has the same length as the longer edge
-    of the rectangle. Next, cutout the bottom two corners of the sketch such that
+    of the rectangle. next, cutout the bottom two corners of the sketch such that
     the sketch looks like small triangles were cutout from the bottom-left and bottom-right
-    corners respectively. Finally,  extrude the entire sketch by a small amount.
+    corners respectively. finally,  extrude the entire sketch by a small amount.
 00997677:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997677
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997677\Ground_Truth.obj
@@ -3240,9 +3247,9 @@
     and then extrude this sketch by a small amount. Next, draw two sketches of two
     smaller rectangles, symetrically placed, at each end of the rectangle, and extrude
     these sketches to create rectangular columns protruding from the rectangular surface.
-  parsed_shape_description: a 3D object that resembles an inverted table. First, start
+  parsed_shape_description: a 3d object that resembles an inverted table. first, start
     by drawing a sketch of a rectangle, and then extrude this sketch by a small amount.
-    Next, draw two sketches of two smaller rectangles, symetrically placed, at each
+    next, draw two sketches of two smaller rectangles, symetrically placed, at each
     end of the rectangle, and extrude these sketches to create rectangular columns
     protruding from the rectangular surface.
 00997681:
@@ -3259,9 +3266,9 @@
     object with two filleted corners. First, draw a sketch of a long rectangle. Next,
     replace two corners of one of the longer edges of the rectangle with rounded corners.
     Finally, extrude this object.
-  parsed_shape_description: a 3D rectangular object with two filleted corners. First,
-    draw a sketch of a long rectangle. Next, replace two corners of one of the longer
-    edges of the rectangle with rounded corners. Finally, extrude this object.
+  parsed_shape_description: a 3d rectangular object with two filleted corners. first,
+    draw a sketch of a long rectangle. next, replace two corners of one of the longer
+    edges of the rectangle with rounded corners. finally, extrude this object.
 00997753:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997753
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997753\Ground_Truth.obj
@@ -3282,11 +3289,11 @@
     smaller square with rounded edges, centered at the same point of the original
     square, on the surface of the first object. Negatively extrude this object by
     the same amount as the first extrusion to create a hole in the original object.
-  parsed_shape_description: a 3D object that resembles a square baking mold. First,
+  parsed_shape_description: a 3d object that resembles a square baking mold. first,
     draw a sketch of a square with rounded corners, and then extrude this sketch.
-    Next, draw another sketch of a slightly smaller square with rounded edges, centered
+    next, draw another sketch of a slightly smaller square with rounded edges, centered
     at the same point of the original square, on the surface of the first object.
-    Negatively extrude this object by the same amount as the first extrusion to create
+    negatively extrude this object by the same amount as the first extrusion to create
     a hole in the original object.
 00997785:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997785
@@ -3304,10 +3311,10 @@
     as the hexagon. Rotate this square such that none of the edges of the square are
     parallel to the edges of the hexagon. Finally, extrude this square upwards such
     that it gives the appearance of a square placed on top of a hexagon.
-  parsed_shape_description: complex, tiered 3D object. First, draw a sketch of a regular
-    hexagon and extrude it. Next, draw a sketch of a smaller square, on top of the
-    hexagon, centered at the same point as the hexagon. Rotate this square such that
-    none of the edges of the square are parallel to the edges of the hexagon. Finally,
+  parsed_shape_description: complex, tiered 3d object. first, draw a sketch of a regular
+    hexagon and extrude it. next, draw a sketch of a smaller square, on top of the
+    hexagon, centered at the same point as the hexagon. rotate this square such that
+    none of the edges of the square are parallel to the edges of the hexagon. finally,
     extrude this square upwards such that it gives the appearance of a square placed
     on top of a hexagon.
 00997852:
@@ -3325,9 +3332,9 @@
     sketch of a slightly smaller rectangle on top of the original rectangle, centered
     at the same point. Extrude this  second sketch upwards to give the appearance
     of a smaller rectangle placed on a larger rectangle.
-  parsed_shape_description: tiered rectangular object. First, draw a sketch of a rectangle
-    and then extrude it. Next, draw a sketch of a slightly smaller rectangle on top
-    of the original rectangle, centered at the same point. Extrude this  second sketch
+  parsed_shape_description: tiered rectangular object. first, draw a sketch of a rectangle
+    and then extrude it. next, draw a sketch of a slightly smaller rectangle on top
+    of the original rectangle, centered at the same point. extrude this  second sketch
     upwards to give the appearance of a smaller rectangle placed on a larger rectangle.
 00997878:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00997878
@@ -3349,13 +3356,13 @@
     rectangle. The height of each hole is about 7/10th the height of the first rectangle.
     Extrude the sketch to a depth that is 1/4th the height of the first rectangle
     to get the 3D object.
-  parsed_shape_description: an object resembling a cinder block. First, sketch a rectangle,
-    whose width is twice its height. Next, create two symmetrical rectangular holes
-    in the first rectangle, their corners should be rounded. The holes are symmetrical
-    about the verical centerline of the first rectangle. The width of each hole is
-    about 5/12th the width of the first rectangle. The height of each hole is about
-    7/10th the height of the first rectangle. Extrude the sketch to a depth that is
-    1/4th the height of the first rectangle to get the 3D object.
+  parsed_shape_description: an object resembling a cinder block. first, sketch a rectangle,
+    whose width is twice its height. next, create two symmetrical rectangular holes
+    in the first rectangle, their corners should be rounded. the holes are symmetrical
+    about the verical centerline of the first rectangle. the width of each hole is
+    about 5/12th the width of the first rectangle. the height of each hole is about
+    7/10th the height of the first rectangle. extrude the sketch to a depth that is
+    1/4th the height of the first rectangle to get the 3d object.
 00998012:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998012
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998012\Ground_Truth.obj
@@ -3374,10 +3381,10 @@
     a "L"-shaped sketch, on top the rectangle aligned with one of the corners of the
     rectangle. Extrude this sketch upwards to give the appearance of an L-shaped block
     on top of a rectangular block.
-  parsed_shape_description: a complex, rectangular 3D object. First, draw a sketch
-    of a rectangle, and then extrude it. Next, create a "L"-shaped sketch, on top
-    the rectangle aligned with one of the corners of the rectangle. Extrude this sketch
-    upwards to give the appearance of an L-shaped block on top of a rectangular block.
+  parsed_shape_description: a complex, rectangular 3d object. first, draw a sketch
+    of a rectangle, and then extrude it. next, create a "l"-shaped sketch, on top
+    the rectangle aligned with one of the corners of the rectangle. extrude this sketch
+    upwards to give the appearance of an l-shaped block on top of a rectangular block.
 00998074:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998074
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998074\Ground_Truth.obj
@@ -3398,12 +3405,12 @@
     the circle, but isn't fully merged. Near the top edge of the rectangle create
     a small cicrular hole. Make sure the sketch forms a closed area that can be extruded.
     Extrude the sketch to a small depth to get the 3d object.
-  parsed_shape_description: a CAD model for a 3D object that resembles a thermometer.
-    To create the object first sketch a circle. At the edge of the circle, sketch
-    a long thin rectangle whose height is about 7 times its width. Make sure that
-    the bottom of the rectangle touches the circle, but isn't fully merged. Near the
-    top edge of the rectangle create a small cicrular hole. Make sure the sketch forms
-    a closed area that can be extruded. Extrude the sketch to a small depth to get
+  parsed_shape_description: a cad model for a 3d object that resembles a thermometer.
+    to create the object first sketch a circle. at the edge of the circle, sketch
+    a long thin rectangle whose height is about 7 times its width. make sure that
+    the bottom of the rectangle touches the circle, but isn't fully merged. near the
+    top edge of the rectangle create a small cicrular hole. make sure the sketch forms
+    a closed area that can be extruded. extrude the sketch to a small depth to get
     the 3d object.
 00998088:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998088
@@ -3424,10 +3431,10 @@
     at two corners corresponding to the longer edge of the rectangle. Negatively extrude
     these square sketches, so as to create two square-shaped cutouts, with rounded
     edges, at two corners of the rectangular plate.
-  parsed_shape_description: rectangular 3D object. First, create a sketch of a long
-    rectangle, and then extrude it by a small amount. Next, draw two sketches of two
+  parsed_shape_description: rectangular 3d object. first, create a sketch of a long
+    rectangle, and then extrude it by a small amount. next, draw two sketches of two
     small squares with rounded edges at two corners corresponding to the longer edge
-    of the rectangle. Negatively extrude these square sketches, so as to create two
+    of the rectangle. negatively extrude these square sketches, so as to create two
     square-shaped cutouts, with rounded edges, at two corners of the rectangular plate.
 00998283:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998283
@@ -3440,8 +3447,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a long 3D trapezoidal
     prism. First, create a sketch of a isosceles trapezium. Next, extrude the trapezium
     by a large amount.
-  parsed_shape_description: a long 3D trapezoidal prism. First, create a sketch of
-    a isosceles trapezium. Next, extrude the trapezium by a large amount.
+  parsed_shape_description: a long 3d trapezoidal prism. first, create a sketch of
+    a isosceles trapezium. next, extrude the trapezium by a large amount.
 00998300:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998300
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998300\Ground_Truth.obj
@@ -3461,12 +3468,12 @@
     closer to the top of the object. The length of the rectangle should be around
     1/4 of the original long rectangle. Finally, extrude the horizontal rectangle
     by the same amount as the vertical rectangle.
-  parsed_shape_description: a skewed, T-shaped 3D object. First, draw a sketch of
-    a long vertical rectangle, and then extrude it by a small amount. Next, create
+  parsed_shape_description: a skewed, t-shaped 3d object. first, draw a sketch of
+    a long vertical rectangle, and then extrude it by a small amount. next, create
     a sketch of a smaller horizontal rectangle, with the same width as the original
     rectangle, and connect it to the first rectangle closer to the top of the object.
-    The length of the rectangle should be around 1/4 of the original long rectangle.
-    Finally, extrude the horizontal rectangle by the same amount as the vertical rectangle.
+    the length of the rectangle should be around 1/4 of the original long rectangle.
+    finally, extrude the horizontal rectangle by the same amount as the vertical rectangle.
 00998356:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998356
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998356\Ground_Truth.obj
@@ -3489,11 +3496,11 @@
     straight line to get a straight edge near the top of the triangle. Near to each
     corner sketch a very small circular hole. Now extrude this sketch to get the 3D
     object.
-  parsed_shape_description: a triangular 3D object with holes. To generate the object
+  parsed_shape_description: a triangular 3d object with holes. to generate the object
     first sketch an isoceles triangle and rounded the edges of the two bottom corners.
-    Cut off the top corner with a straight line to get a straight edge near the top
-    of the triangle. Near to each corner sketch a very small circular hole. Now extrude
-    this sketch to get the 3D object.
+    cut off the top corner with a straight line to get a straight edge near the top
+    of the triangle. near to each corner sketch a very small circular hole. now extrude
+    this sketch to get the 3d object.
 00998398:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998398
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998398\Ground_Truth.obj
@@ -3514,8 +3521,8 @@
     3D, pentagonal prism. First, draw a sketch of an irregular pentagon, where the
     bottom, flat, edge is the shortest edge. Next, extrude this sketch by an amount
     almost two times the height of the pentagon.
-  parsed_shape_description: an irregular, 3D, pentagonal prism. First, draw a sketch
-    of an irregular pentagon, where the bottom, flat, edge is the shortest edge. Next,
+  parsed_shape_description: an irregular, 3d, pentagonal prism. first, draw a sketch
+    of an irregular pentagon, where the bottom, flat, edge is the shortest edge. next,
     extrude this sketch by an amount almost two times the height of the pentagon.
 00998698:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998698
@@ -3538,12 +3545,12 @@
     hexagons should be the same size and should align perfectly with each end of the
     surface. Finally, extrude these hexagons outwards to give the appearance of two
     hexagonal columns protruding from a horizontal surface.
-  parsed_shape_description: an inverted desk, with hexagonal legs. First, draw a rectangular
+  parsed_shape_description: an inverted desk, with hexagonal legs. first, draw a rectangular
     sketch, and cutout four small, right-angle triangles from each corner of the rectangle
-    to create an octagonal surface. Next, extrude this sketch by a small amount. Draw
+    to create an octagonal surface. next, extrude this sketch by a small amount. draw
     two large, regular hexagons, placed symmetrically on opposite ends of the octagonal
-    surface. The hexagons should be the same size and should align perfectly with
-    each end of the surface. Finally, extrude these hexagons outwards to give the
+    surface. the hexagons should be the same size and should align perfectly with
+    each end of the surface. finally, extrude these hexagons outwards to give the
     appearance of two hexagonal columns protruding from a horizontal surface.
 00998714:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998714
@@ -3560,11 +3567,11 @@
     Next, cutout a semicircle from the bottom corner of the triangle. The diameter
     of this semicircular cutout should be approximately 2/3rd of the length of each
     side of the triangle. Finally, extrude this sketch to create a 3D object.
-  parsed_shape_description: a triangular 3D object. First, draw a sketch of an equilateral
-    triangle, pointing downwards. Next, cutout a semicircle from the bottom corner
-    of the triangle. The diameter of this semicircular cutout should be approximately
-    2/3rd of the length of each side of the triangle. Finally, extrude this sketch
-    to create a 3D object.
+  parsed_shape_description: a triangular 3d object. first, draw a sketch of an equilateral
+    triangle, pointing downwards. next, cutout a semicircle from the bottom corner
+    of the triangle. the diameter of this semicircular cutout should be approximately
+    2/3rd of the length of each side of the triangle. finally, extrude this sketch
+    to create a 3d object.
 00998749:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998749
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998749\Ground_Truth.obj
@@ -3586,12 +3593,12 @@
     base, sketch the four walls of the box. You can use two concentric rectangles
     to represent the walls. Add a small chamfer/rounded edge for the inside corners
     of the wall. Now extrude this sketch upwards to get the final 3D object.
-  parsed_shape_description: an open box. First generate the base of the box. In order
+  parsed_shape_description: an open box. first generate the base of the box. in order
     to do that, sketch a rectangle whose width is twice its height and extrude it
-    to a small depth. On top surface of the base, sketch the four walls of the box.
-    You can use two concentric rectangles to represent the walls. Add a small chamfer/rounded
-    edge for the inside corners of the wall. Now extrude this sketch upwards to get
-    the final 3D object.
+    to a small depth. on top surface of the base, sketch the four walls of the box.
+    you can use two concentric rectangles to represent the walls. add a small chamfer/rounded
+    edge for the inside corners of the wall. now extrude this sketch upwards to get
+    the final 3d object.
 00998843:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998843
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00998843\Ground_Truth.obj
@@ -3616,11 +3623,11 @@
     a staircase. Finally, create a circular hole, which passes through both rectangles,
     at the center of the upper rectangular block.
   parsed_shape_description: a tiered rectangular object with a circular hole through
-    the center of the object. First, create a sketch of a rectangle and then extrude
-    it. Next, create a sketch of another rectangle with a smaller width but the same
-    length and place it at one end of the rectangle. Extrude this rectangle outwards,
+    the center of the object. first, create a sketch of a rectangle and then extrude
+    it. next, create a sketch of another rectangle with a smaller width but the same
+    length and place it at one end of the rectangle. extrude this rectangle outwards,
     by the same amount, to give the appearance of a smaller rectangular block placed
-    on top of a larger rectangular block, resembling a staircase. Finally, create
+    on top of a larger rectangular block, resembling a staircase. finally, create
     a circular hole, which passes through both rectangles, at the center of the upper
     rectangular block.
 00999126:
@@ -3642,11 +3649,11 @@
     width is three times its height. On the left and right edges of the rectangle,
     make two rectangular cutouts. The left cutout is three times longer than right
     cutout. Now, extrude this sketch to a small depth to get final 3D object.
-  parsed_shape_description: a rectangular 3D object with cutouts. To generate the
-    object, first sketch a rectangle whose width is three times its height. On the
-    left and right edges of the rectangle, make two rectangular cutouts. The left
-    cutout is three times longer than right cutout. Now, extrude this sketch to a
-    small depth to get final 3D object.
+  parsed_shape_description: a rectangular 3d object with cutouts. to generate the
+    object, first sketch a rectangle whose width is three times its height. on the
+    left and right edges of the rectangle, make two rectangular cutouts. the left
+    cutout is three times longer than right cutout. now, extrude this sketch to a
+    small depth to get final 3d object.
 00999141:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00999141
   ground_truth_obj: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00999141\Ground_Truth.obj
@@ -3661,8 +3668,8 @@
   natural_language_prompt: Write Python code using CADQuery to create a trapezoid
     plate. First draw a sketch of an isosceles trapezium, with a base angle of around
     70 degrees. Next, extrude this sketch by a small amount.
-  parsed_shape_description: a trapezoid plate. First draw a sketch of an isosceles
-    trapezium, with a base angle of around 70 degrees. Next, extrude this sketch by
+  parsed_shape_description: a trapezoid plate. first draw a sketch of an isosceles
+    trapezium, with a base angle of around 70 degrees. next, extrude this sketch by
     a small amount.
 00999374:
   folder_path: C:\ZSY\imperial\courses\ISO\CAD_Code_Generation\CADPrompt\00999374
@@ -3681,7 +3688,7 @@
     object that looks like a shovel excavator. First create a sketch of an irregular
     rhombus and extrude it. Next, create a sketch of a rectangular prism, and attach
     the rectangular prism to the center of one of the extruded edges on the rhombus.
-  parsed_shape_description: a complex 3D object that looks like a shovel excavator.
-    First create a sketch of an irregular rhombus and extrude it. Next, create a sketch
+  parsed_shape_description: a complex 3d object that looks like a shovel excavator.
+    first create a sketch of an irregular rhombus and extrude it. next, create a sketch
     of a rectangular prism, and attach the rectangular prism to the center of one
     of the extruded edges on the rhombus.

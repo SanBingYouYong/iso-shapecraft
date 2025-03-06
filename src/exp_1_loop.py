@@ -623,6 +623,27 @@ def for_n_shapes(data_yml: str, n: int=3, sample=False):
         result = one_shape_mp_one_issue(shape_description, exp_folder_abs)
     print("Operation completed successfully.")
 
+def cadprompt_test(data_yml: str, n: int=1, sample=False):
+    '''
+    data_yml: str (absolute path)
+    n: int
+    '''
+    with open(data_yml, "r") as f:
+        data = yaml.safe_load(f)
+    if sample:
+        data = random.sample(data, min(n, len(data)))
+    else:
+        if len(data) < n:
+            n = len(data)
+        keys = list(data.keys())
+        data = [data[k] for k in keys[:n]]
+    exp_root = f"cadprompt_test_{n}x_{os.path.basename(data_yml).split('.')[0]}"
+    for i in tqdm(range(len(data)), desc="Processing shapes"):
+        shape_description = data[i]['parsed_shape_description']
+        exp_folder_abs = os.path.abspath(os.path.join("exp", exp_root, f"shape_{i:04d}"))
+        result = one_shape_mp_one_issue(shape_description, exp_folder_abs)
+    print("Operation completed successfully.")
+# NOTE: make sure to update config.yaml accordingly with programming language
 if __name__ == "__main__":
     # shape = "A chair with four legs, a backrest, no armrests, and a cushioned seat."
     # timestamp = time.strftime("%m%d-%H%M%S")
@@ -655,8 +676,11 @@ if __name__ == "__main__":
     
     # data_yml = "dataset/shapes_daily_multistruct_4omini.yaml"
     # data_yml = "dataset/shapes_simple_4omini.yaml"
-    data_yml = "dataset/shapes_daily_4omini.yaml"
+    # data_yml = "dataset/shapes_daily_4omini.yaml"
     # data_yml = "dataset/shapes_primitive_multi_4omini.yaml"
 
-    for_n_shapes(data_yml, 10)
+    data_yml = "dataset/cadprompt_parsed.yml"
+
+    # for_n_shapes(data_yml, 10)
+    cadprompt_test(data_yml, 10)
 
