@@ -112,7 +112,8 @@ def calcstat_clip_forall(root_folder):
         text_description = PREFIX + text_description
 
         # Tokenize and encode the text description.
-        text_tokens = clip.tokenize([text_description]).to(device)
+        text_tokens = clip.tokenize([text_description], truncate=True).to(device)
+        text_tokens = text_tokens[:, :77]  # Clamp out-of-context length to 77
         with torch.no_grad():
             text_features = model.encode_text(text_tokens)
             text_features /= text_features.norm(dim=-1, keepdim=True)
@@ -360,4 +361,4 @@ if __name__ == "__main__":
     # for path in paths:
     #     print(collect_ymls(path))
 
-    # calcstat_clip_forall("C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_scad_full_10x_shapes_daily_4omini")
+    calcstat_clip_forall("C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\cadprompt_test_10x_cadprompt_parsed")

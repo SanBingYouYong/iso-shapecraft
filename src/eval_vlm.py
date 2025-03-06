@@ -150,6 +150,7 @@ if __name__ == "__main__":
         "exp/eval_scad_single_3x_shapes_daily_multistruct_4omini",
         "exp/eval_scad_single_3x_shapes_primitive_multi_4omini",
         "exp/eval_scad_single_10x_shapes_daily_4omini",        
+        # "exp/cadprompt_test_10x_cadprompt_parsed"
     ]
     paths = [os.path.abspath(p) for p in paths]
     root_folder = "C:\ZSY\imperial\courses\ISO\iso-shapecraft\exp\eval_python_full_10x_shapes_daily_4omini"
