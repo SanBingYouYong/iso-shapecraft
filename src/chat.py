@@ -10,6 +10,19 @@ client = OpenAI(api_key=os.getenv('GPT'))
 
 MODEL = "gpt-4o-mini"
 
+def deepseek(prompt: str):
+    client = OpenAI(api_key=os.getenv('deepseek'), base_url="https://api.deepseek.com")
+
+    response = client.chat.completions.create(
+        model="deepseek-reasoner",  # r1, kinda slow, or deepseek-chat for v3
+        messages=[
+            {"role": "user", "content": prompt},
+        ],
+        stream=False
+    )
+
+    print(response.choices[0].message.content)
+
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
@@ -110,5 +123,6 @@ your code here
 """
     prompt += """A cylindrical coffee mug with a handle on the side."""
     print(prompt)
-    response, history = llm_with_history(prompt, [])
+    # response, history = llm_with_history(prompt, [])
+    response = deepseek(prompt)
     print(response)
