@@ -2,6 +2,8 @@
 ShapeCraft: an LLM Multi-agent Pipeline for Synthesizing 3D Shape Programs
 ![gallery](./renders/gallery.png)
 
+Subsequent development will be in shapecode repository. 
+
 ## Getting started
 
 Install dependencies in a python (recommanded 3.10.16) environment: 
